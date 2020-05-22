@@ -1,0 +1,216 @@
+<nav class="navMain">
+      <div onclick="toggleNav()"  class="resize">
+      <div class="menu" onclick="menuFunction(this)">
+          <div class="bar1"></div>
+          <div class="bar2"></div>
+          <div class="bar3"></div>
+      </div>
+    </div>
+
+    </nav>
+    <div class="logo">
+      <!--<img src="img/logo.png" alt="logo" class="logo">-->
+      <a href="{{ url_for('home') }}"></a>
+    </div>
+
+    {% if current_user.is_authenticated %}
+
+      {% if current_user.id >= 10000000000 %}
+      {% else %}
+        {% if title == "Cart" %}
+          <div class="logoPosition">
+            <a  href="{{ url_for('home') }}" class="shopLogo">
+            </a>
+          </div>
+        {% else %}
+          <div class="logoPosition">
+            <a  href="{{ url_for('cart') }}" class="shopCartLogo">
+            </a>
+          </div>
+        {% endif %}
+      {% endif %}
+
+    {% endif %}
+
+
+
+
+    <nav class="sideNav">
+      <ul>
+        <!-- The different page links -->
+        {% if current_user.is_authenticated %}
+          {% if current_user.id >= 10000000000 %}
+          {% else %}
+            {% if title == 'Home' %}
+              <li>
+                <a href="{{url_for('home')}}" id="first" class='onNavPage'>Home</a>
+              </li>
+            {% else %}
+              <li>
+                <a href="{{url_for('home')}}" id="first" >Home</a>
+              </li>
+            {% endif %}
+          {% endif %}
+
+        {% else %}
+          {% if title == 'Home' %}
+            <li>
+              <a href="{{url_for('home')}}" id="first" class='onNavPage'>Home</a>
+            </li>
+          {% else %}
+            <li>
+              <a href="{{url_for('home')}}" id="first" >Home</a>
+            </li>
+          {% endif %}
+        {% endif %} <!-- End of auth home -->
+
+        {% if current_user.is_authenticated %}
+
+          {% if current_user.id >= 10000000000 %}
+            {% if title == 'Account'%}
+              <li>
+                <a href="{{ url_for('account') }}" class='onNavPage' id='first'>Account</a>
+              </li>
+            {% else %}
+              <li>
+                <a href="{{ url_for('account') }}" id='first'>Account</a>
+              </li>
+            {% endif %}
+          {% else %}
+            {% if title == 'Account'%}
+              <li>
+                <a href="{{ url_for('account') }}" class='onNavPage'>Account</a>
+              </li>
+            {% else %}
+              <li>
+                <a href="{{ url_for('account') }}">Account</a>
+              </li>
+            {% endif %}
+          {% endif %}
+
+          {% if current_user.id >= 10000000000 %}
+            {% if title == 'manageUser'%}
+              <li>
+                <a href="{{url_for('manageUser')}}" class='onNavPage'>Users</a>
+              </li>
+            {% else %}
+              <li>
+                <a href="{{url_for('manageUser')}}">Users</a>
+              </li>
+            {% endif %}
+
+            {% if title == 'inventory'%}
+              <li>
+                <a href="{{url_for('inventory')}}" class='onNavPageI'>Inventory</a>
+              </li>
+            {% else %}
+              <li>
+                <a href="{{url_for('inventory')}}">Inventory</a>
+              </li>
+            {% endif %}
+
+
+            <!-- {% if title == 'dashboard'%}
+              <li>
+                <a href="#" class='onNavPage'>Dashboard</a>
+              </li>
+            {% else %}
+              <li>
+                <a href="#">Dashboard</a>
+              </li>
+            {% endif %} -->
+          {% else %}
+            <!-- JT -->
+            {% if title == 'comment'%}
+              <li>
+                <a href="{{ url_for('comments') }}" class='onNavPage'>Forum</a>
+              </li>
+              {% else %}
+              <li>
+                <a href="{{ url_for('comments') }}">Forum</a>
+              </li>
+            {% endif %}
+            <!-- JT -->
+            {% if title == 'about'%}
+              <li>
+                <a href="{{url_for('aboutUs')}}" class='onNavPage'>About Us</a>
+              </li>
+            {% else %}
+              <li>
+                <a href="{{url_for('aboutUs')}}">About Us</a>
+              </li>
+            {% endif %}
+          {% endif %}
+          <li>
+            <a href="{{ url_for('logout')}}">Logout</a>
+          </li>
+
+          {% if current_user.id >= 10000000000 %}
+          {% else %}
+            <div class="sideCart">
+              <li>
+                {% if title == 'Cart' %}
+                  <a  href="{{ url_for('home') }}" class="shopLogo">
+                  </a>
+                {% else %}
+                <a  href="{{ url_for('cart') }}" class="shopCartLogo">
+                </a>
+                {% endif %}
+              </li>
+            </div>
+            <div class="sideCart">
+              <li></li>
+            </div>
+          {% endif %}
+
+
+
+        {% else %}
+          {% if title == 'Register' %}
+            <li>
+              <a href="{{url_for('register')}}" class='onNavPage'>Register</a>
+            </li>
+          {% else %}
+            <li>
+              <a href="{{url_for('register')}}">Register</a>
+            </li>
+          {% endif %}
+
+          {% if title== 'Login' %}
+            <li>
+              <a href="{{url_for('login')}}" class='onNavPage'>Login</a>
+            </li>
+          {% else %}
+            <li>
+              <a href="{{url_for('login')}}">Login</a>
+            </li>
+          {% endif %}
+
+          <!-- JT -->
+          {% if title == 'comment'%}
+            <li>
+              <a href="{{ url_for('comments') }}" class='onNavPage'>Forum</a>
+            </li>
+            {% else %}
+            <li>
+              <a href="{{ url_for('comments') }}">Forum</a>
+            </li>
+          {% endif %}
+          <!-- JT -->
+
+          {% if title == 'about'%}
+            <li>
+              <a href="{{url_for('aboutUs')}}" class='onNavPage'>About Us</a>
+            </li>
+          {% else %}
+            <li>
+              <a href="{{url_for('aboutUs')}}">About Us</a>
+            </li>
+          {% endif %}
+
+
+        {% endif %}
+
+
+      </ul>
+    </nav>

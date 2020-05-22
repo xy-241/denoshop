@@ -1,0 +1,67 @@
+{{! {% block cssJs %} }}
+{{!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}"> --}}
+{{! {% endblock cssJs %} }}
+{{! {% block header%} }}
+<div class="banner">
+	<img src="img/hacking2.jpg" alt="" />
+	<div class="background"></div>
+	<h2>
+		Deno Shop
+	</h2>
+</div>
+{{! {% endblock header%} }}
+{{! 
+{% block content %} }}
+{{!-- <script src="{{ url_for('static', filename='js/home.js') }}"></script> {{! Testing}} --}}
+<script src="js/useInterface/home.js"></script>
+<!--Tabs-->
+<section class="sellingItems">
+	<div class="tabs">
+		<button type="button" class="tabButton" value="sellingOutfits">
+			Hacker's Outfits
+		</button>
+		<button type="button" class="tabButton" value="sellingTools">
+			Hacker's Tools
+		</button>
+	</div>
+</section>
+<!--Tabs-->
+<!-- itemsAvailable -->
+<section class="itemsAvailable" id="afterModal">
+	<div class="sellingOutfits subPage">
+		<h3>
+			Hacker's Outfits
+		</h3>
+		<div class="shopItems"></div>
+	</div>
+	<!-- End of sellingOutfits page -->
+	<div class="sellingTools subPage">
+		<h3>
+			Hacker's Tool
+		</h3>
+		<div class="shopItems"></div>
+		<!-- End of shopItems page -->
+	</div>
+	<!-- Endo of sellingTools page -->
+</section>
+<!-- Modal -->
+<section class="addToCartModal">
+	<div class="modalContent">
+		<div class="modalHeader">
+			<p class="closeBtn">
+				×
+			</p>
+		</div>
+		<div class="modalBody">
+			<p class="modalBodyHeader">
+				Item Added!
+			</p>
+			<p class="modalBodyMessage">
+				Please Go To Your Cart To Checkout
+			</p>
+		</div>
+	</div>
+</section>
+<!-- Modal -->
+{{! 
+{% endblock content %} }}

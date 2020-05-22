@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block cssJs %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}">
+  <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+{% endblock cssJs %}
+
+{% block header%}
+<div class="banner">
+  <img src="{{ url_for('static', filename='img/hacking2.jpg') }}" alt="">
+  <div class="background"></div>
+  <h2>Hacker's Shop</h2>
+</div>
+{% endblock header%}
+
+{% block content %}
+<!-- shoppingCart -->
+<!-- Message Flash (Kenneth) -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <section class="p-3 mt-3 preventFloat alert alert-{{ category }}">
+        {{ message }}
+      </section>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+<section class="shoppingCart">
+  <h3>Cart</h3>
+
+    <div class="cartItems">
+      {% for cartItem in cartItems %}
+      <div class="cartItem">
+        <div class="cartItemDes">
+          <div class="cartItemPic">
+            <img src="{{url_for('static', filename='shop/'+cartItem.image_file)}}">
+          </div>
+
+          <div class="cartItemInfo">
+            <p class="cartItemName">{{ cartItem.title }}</p>
+            <div class="cartItemBuyingInfo">
+              <p class="cartItemPrice">S${{ cartItem.price }}</p>
+
+
+                <input type="number" class="cartItemNum" value="{{ cartItem.itemNum }}">
+
+            </div>
+          </div> <!--End of cart Info-->
+        </div> <!--End of cart Des-->
+
+        <button type="button" class="removeButton">Remove</button>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="cartTotal">
+      <p>Total Amount</p>
+      <p class="amountToPay">$0</p>
+    </div>
+
+    <div class="cartEmpty">
+      <p>Your Cart Is Empty, Buy Some And Be A Hacker!</p>
+    </div>
+
+</section>
+<!-- shoppingCart -->
+
+
+  <!-- <button type="button" class="checkout">Checkout</button> -->
+  <button type="button" class="checkout" onclick="window.location.href = '{{ url_for('redirectCheckout') }}';">Checkout</button>
+  <button type="button" class="checkout" onclick="window.location.href = '{{ url_for('history') }}';">Purchases</button>
+{% endblock content %}
