@@ -50,12 +50,14 @@
 		{{!-- {% block cssJs %}{% endblock %} --}}
 	</head>
 	<body>
-		{{!-- {{> _navbar}} --}}
+		{{> _navbar}}
+		
 		<article class="workContent">
 			{{!-- {% block header %} {% endblock %} {% block content %} {% endblock %} --}}
 			{{{body}}}
 		</article>
 
+		
 		{{> _footer}}
 
 		<!-- Optional JavaScript -->

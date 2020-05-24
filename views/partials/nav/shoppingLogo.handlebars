@@ -1,0 +1,13 @@
+{{#if current_user.is_authenticated}}
+	{{#if current_user.id}}
+
+	{{else if (equal title "Cart")}}
+		<div class="logoPosition">
+			<a href="#home" class="shopLogo"></a>
+		</div>
+	{{else}}
+		<div class="logoPosition">
+			<a href="#cart" class="shopCartLogo"></a>
+		</div>
+	{{/if}}
+{{/if}}

@@ -60,10 +60,13 @@ const app = express();
  * 3. 'defaultLayout' specifies the main.handlebars file under views/layouts as the main template
  *
  * */
+
+const { equal } = require("./helpers/hbs");
 app.engine(
 	"handlebars",
 	exphbs({
 		helpers: {
+			equal,
 			// formatDate,
 			// radioCheck,
 			// checkboxFormatter,
