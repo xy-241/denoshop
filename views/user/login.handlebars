@@ -1,0 +1,70 @@
+<div class="content-section">
+	{{!-- {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <section class="p-3 mt-3 preventFloat alert alert-{{ category }}">
+            {{ message }}
+          </section>
+        {% endfor %}
+      {% endif %}
+    {% endwith %} --}}
+	<form action="" method="POST">
+		<fieldset class="form-group">
+			<legend class="border-bottom mb-4 shopFontTitle">
+				Log In
+			</legend>
+			<div class="form-group">
+				<label for="" class="form-control-label">
+					Email
+				</label>
+				{{!-- {% if form.email.errors %}
+            {{ form.email(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.email.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+          {% else %} --}}
+				<input type="email" class="form-control form-control-lg" />
+				{{! {% endif %} }}
+			</div>
+			<div class="form-group">
+				<label for="" class="form-control-label">
+					Password
+				</label>
+				{{!-- {% if form.password.errors %}
+            {{ form.password(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.password.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+          {% else %} --}}
+				<input type="password" class="form-control form-control-lg" />
+				{{! {% endif %} }}
+			</div>
+			<div class="form-check">
+				<input type="checkbox" class="form-check-input" />
+				<label for="">
+					Remember me
+				</label>
+			</div>
+		</fieldset>
+		<div class="form-group">
+			<input type="submit" class="btn btn-outline-info" />
+		</div>
+		<small class="text-muted">
+			<a class="text-primary" href="#reset_request">
+				Forgot Password?
+			</a>
+		</small>
+	</form>
+</div>
+<div class="m-3">
+	<small class="text-muted m-5">
+		Need An Account?
+		<a class="ml-2 text-primary" href="#register">
+			Sign Up Now
+		</a>
+	</small>
+</div>

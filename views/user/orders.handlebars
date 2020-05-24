@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block cssJs %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/checkoutdelivery.css')}}">
+{% endblock cssJs %}
+
+{% block content %}
+<div class="content-section">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <section class="p-3 mt-3 preventFloat alert alert-{{ category }}">
+          {{ message }}
+        </section>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+    <h1 class="display-4 shopFontTitle">Purchase Checklist</h1>
+    <div>
+      <table class="table table-striped">
+          <thead>
+              <tr>
+                  <th>Item(s)</th>
+                  <th>Number</th>
+                  <th>Date</th>
+                  <th>Rating</th>
+                  <th>Review</th>
+                  <th>Status</th>
+                  <th></th>
+              </tr>
+          </thead>
+          <tbody>
+          {% if check == 0 %}
+          <tr>
+            <td>Checklist is empty. Buy some hacker products!</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          {% endif %}
+          {% for p in purchases %}
+              <tr>
+                  <td>{{ p.title }}</td>
+                  <td>{{ p.itemNum }}</td>
+                  <td>{{ p.date_added.strftime('%d-%m-%Y %H:%m') }}</td>
+                  <td>{{ p.rating }}</td>
+                  <td>{{ p.review }}</td>
+                  <td>
+                    <form action="{{ url_for('deleteOrder', id=p.id) }}" method="POST">
+                      <input type="submit" value="Delivered" class="btn btn-success" onclick="return confirm('Item delivered? Press OK to strike it off the list');">
+                    </form>
+                  </td>
+                  <td></td>
+              </tr>
+          {% endfor %}
+          </tbody>
+      </table>
+      <h4 class="font">Delivery address: {{ address }} <a class="text-primary" href="{{ url_for('updateAddress')}}">Change Address</a></h4>
+    </div>
+</div>
+{% endblock %}

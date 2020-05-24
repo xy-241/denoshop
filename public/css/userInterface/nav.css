@@ -1,0 +1,358 @@
+/*Common Settings*/
+
+/*Nav part*/
+.sideCart {
+	display: none;
+}
+.sideNav {
+	display: block;
+	font-family: shopFont2;
+}
+.navMain {
+	background-color: #262729;
+	height: 50px;
+	width: 100%;
+
+	position: fixed;
+	opacity: 0.98;
+	transition: all 0.1s ease-in-out;
+}
+
+/*Menu */
+.menu {
+	position: fixed;
+	display: inline-block;
+	cursor: pointer;
+
+	top: 10px;
+	left: 15px;
+}
+.bar1,
+.bar2,
+.bar3 {
+	width: 18px;
+	height: 1px;
+	background-color: white;
+	margin: 6px 0px;
+	transition: 0.4s;
+}
+.change .bar1 {
+	transform: rotate(-45deg) translate(-5px, 5px);
+}
+.change .bar2 {
+	opacity: 0;
+}
+.change .bar3 {
+	transform: rotate(45deg) translate(-5px, -5px);
+}
+/*Menu */
+.logo {
+	display: block;
+	position: fixed;
+	top: 0%;
+	left: calc(50% - 23px);
+	cursor: pointer;
+	background: url("../img/logo.png") no-repeat;
+
+	height: 38px;
+	width: 46px;
+}
+.logo:hover {
+	background: url("../img/logo2.png") no-repeat;
+	transition: all 0.5s ease-in-out;
+}
+.logo a {
+	display: block;
+	height: 38px;
+}
+
+/*Nav shopLogo*/
+.logoPosition {
+	position: fixed;
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
+}
+
+.shopCartLogo {
+	display: block;
+
+	position: fixed;
+	top: 0.6%;
+
+	cursor: pointer;
+	background: url("../img/shop/shoppingCart.svg") no-repeat;
+
+	height: 38px;
+	width: 46px;
+	filter: invert(1);
+	transform: scale(0.7, 0.7);
+	transition: all 0.4s ease-in-out;
+}
+.shopCartLogo:hover {
+	filter: invert(0.5);
+}
+
+.shopLogo {
+	display: block;
+	position: fixed;
+	top: 0.6%;
+
+	cursor: pointer;
+	background: url("../img/shop/shopLogo.svg") no-repeat;
+
+	height: 38px;
+	width: 46px;
+	filter: invert(1);
+	transform: scale(0.7, 0.7);
+	transition: all 0.4s ease-in-out;
+}
+.shopLogo:hover {
+	filter: invert(0.5);
+}
+/*Nav shopLogo*/
+
+.sideNav {
+	display: none; /*Does not leave white space*/
+}
+.sideNav ul {
+	display: flex;
+	flex-direction: column;
+
+	padding-left: 0px;
+
+	visibility: hidden; /*#####*/
+	transition: all 0s ease-in-out;
+}
+.sideNav ul li {
+	list-style: none;
+	border-bottom: 1.49px grey solid;
+
+	margin-left: 40px;
+	margin-right: 40px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+
+	transition: all 0.5s ease-in-out; /*#####*/
+
+	font-family: shopFont2;
+	/* font-weight: 400; */
+	font-size: 1.3em;
+}
+.sideNav ul li a {
+	display: block;
+
+	font-size: 1.2em;
+
+	transition: all 0.5s ease-in-out; /*#####*/
+}
+
+.sideNav a:hover {
+	color: grey;
+}
+.sideNav #first {
+	margin-top: 60px;
+}
+.onNavPage {
+	color: grey;
+	pointer-events: none;
+}
+.onNavPageI {
+	color: grey !important;
+}
+/*Nav part*/
+
+.homeFooter {
+	color: white;
+	background-color: #262729;
+
+	padding-top: 20px;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	text-align: center;
+}
+
+.onPage {
+	color: grey;
+
+	pointer-events: none;
+}
+
+.homeFooter a:hover {
+	color: grey;
+	transition: all 0.5s ease-in-out;
+}
+.backToTop {
+	margin-bottom: 20px;
+	font-family: shopFont2 !important;
+}
+
+.footerMainInfo h3 {
+	font-family: shopFont2;
+}
+.footerMainInfo p {
+	font-family: text;
+}
+
+.twoPlatform {
+	padding-bottom: 80px;
+	display: flex;
+	justify-content: center;
+}
+.twoPlatform a {
+	margin-right: 18px;
+	margin-left: 18px;
+	display: block;
+	height: 24px;
+}
+
+.insta:hover,
+.github:hover,
+.myWeb:hover,
+.myLinkedin:hover {
+	transform: rotate(5deg) translate(0px, -15px) scale(1.1, 1.1);
+	transition: all 0.3s ease-in-out;
+}
+
+.footerIcon,
+.myWeb,
+.myLinkedin,
+.github,
+.insta {
+	font-size: 1.3em;
+}
+
+.copyright {
+	padding-top: 50px;
+	font-size: 0.8em;
+}
+/*Content*/
+
+.copyright {
+	font-family: shopFont2;
+}
+
+/*Responsive*/
+@media only screen and (min-width: 1000px) {
+	.logoPosition {
+		display: none;
+	}
+	/*Nav*/
+	.sideCart {
+		display: block;
+	}
+	/*Click menu*/
+	.logo {
+		/*left:49%;*/
+		left: 2%;
+		top: 0.5%;
+		z-index: 1000;
+	}
+	.resize {
+		visibility: hidden;
+	}
+	/*Click menu*/
+	.bar1,
+	.bar2,
+	.bar3 {
+		transition: 0s;
+	}
+	.sideNav {
+		display: block !important;
+		position: fixed;
+		z-index: 999;
+		width: 100%;
+	}
+	.sideNav ul {
+		visibility: visible !important;
+		padding: 0px;
+
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+	}
+
+	.sideNav ul li {
+		list-style: none;
+		border-bottom: 0;
+
+		margin: 0;
+		padding: 0;
+
+		padding-top: 8px;
+		padding-right: 30px;
+	}
+	.sideNav ul li a {
+		display: inline;
+
+		text-decoration: none;
+
+		color: white;
+		font-size: 1.2em;
+	}
+	.onNavPage {
+		color: grey !important;
+	}
+
+	.sideNav #first {
+		margin-top: 0px;
+	}
+	/*Nav*/
+
+	body {
+		background-color: white !important;
+	}
+
+	.homeFooter {
+		padding-top: 95px !important;
+	}
+
+	.footerSelection {
+		visibility: hidden;
+		display: none;
+		flex-direction: row;
+		justify-content: center;
+	}
+	.backToTop {
+		margin-bottom: 20px;
+	}
+
+	.footerMainInfo {
+		display: flex;
+		justify-content: center;
+		height: 100%;
+	}
+	.footerMainInfo p {
+		font-size: 0.8em;
+	}
+
+	.footerSelection p {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+	.copyright {
+		padding-top: 70px;
+		margin-bottom: 10px;
+	}
+	.onPage {
+		color: white;
+	}
+	.footerBlock {
+		margin-left: 60px;
+		margin-right: 60px;
+		width: 33.3333%;
+	}
+	.footerMainInfo p {
+		font-size: 1.2em;
+	}
+	.footerIcon,
+	.myWeb,
+	.myLinkedin,
+	.github,
+	.insta {
+		font-size: 1.5em;
+	}
+}

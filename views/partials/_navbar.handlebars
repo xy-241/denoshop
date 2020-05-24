@@ -1,0 +1,117 @@
+<nav class="navMain">
+      <div onclick="toggleNav()"  class="resize">
+      <div class="menu" onclick="menuFunction(this)">
+          <div class="bar1"></div>
+          <div class="bar2"></div>
+          <div class="bar3"></div>
+      </div>
+    </div>
+
+    </nav>
+    <div class="logo">
+      <!--<img src="img/logo.png" alt="logo" class="logo">-->
+      <a href="#home"></a>
+    </div>
+
+    {{> nav/shoppingLogo}}
+
+
+
+
+    <nav class="sideNav">
+      <ul>
+        <!-- The different page links -->
+        {{#if current_user.is_authenticated}}
+          {{#if current_user.id}}
+          {{else}}
+            {{> nav/home}}
+            
+          {{/if}}
+
+        {{else}}
+          {{> nav/home}}
+        {{/if}} <!-- End of auth home -->
+
+        {{#if current_user.is_authenticated}}
+
+          {{#if current_user.id}}
+            {{> nav/account}}
+          {{else}}
+            {{> nav/account}}
+            
+          {{/if}}
+
+          {{#if current_user.id}}
+            {{#if (title  'manageUser')}}
+              <li>
+                <a href="#manageUser" class='onNavPage'>Users</a>
+              </li>
+            {{else}}
+              <li>
+                <a href="#manageUser">Users</a>
+              </li>
+            {{/if}}
+
+            {{> nav/inventory}}
+
+
+          
+            {{> nav/dashboard}}
+          {{else}}
+          
+            {{> nav/about}}
+          {{/if}}
+          <li>
+            <a href="logout">Logout</a>
+          </li>
+
+          {{#if current_user.id}}
+          {{else}}
+            <div class="sideCart">
+              <li>
+                {{#if (title  'Cart')}}
+                  <a  href="home" class="shopLogo">
+                  </a>
+                {{else}}
+                <a  href="cart" class="shopCartLogo">
+                </a>
+                {{/if}}
+              </li>
+            </div>
+            <div class="sideCart">
+              <li></li>
+            </div>
+          {{/if}}
+
+
+
+        {{else}}
+          {{#if (equal title  'Register' )}}
+            <li>
+              <a href="register" class='onNavPage'>Register</a>
+            </li>
+          {{else}}
+            <li>
+              <a href="register">Register</a>
+            </li>
+          {{/if}}
+
+          {{#if (equal title 'Login')}}
+            <li>
+              <a href="login" class='onNavPage'>Login</a>
+            </li>
+          {{else}}
+            <li>
+              <a href="login">Login</a>
+            </li>
+          {{/if}}
+
+          {{> nav/about}}
+          
+
+
+        {{/if}}
+
+
+      </ul>
+    </nav>
