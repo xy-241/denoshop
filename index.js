@@ -154,7 +154,7 @@ app.use("/user", userRoute);
  * Creates a unknown port 5000 for express server since we don't want our app to clash with well known
  * ports such as 80 or 8080.
  * */
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 80;
 // Starts the server and listen to port 5000
 app.listen(port, () => {
 	console.log(`Server started on port ${port}`);
