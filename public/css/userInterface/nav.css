@@ -52,13 +52,13 @@
 	top: 0%;
 	left: calc(50% - 23px);
 	cursor: pointer;
-	background: url("../img/logo.png") no-repeat;
+	background: url("../../img/logo.png") no-repeat;
 
 	height: 38px;
 	width: 46px;
 }
 .logo:hover {
-	background: url("../img/logo2.png") no-repeat;
+	background: url("../../img/logo2.png") no-repeat;
 	transition: all 0.5s ease-in-out;
 }
 .logo a {
