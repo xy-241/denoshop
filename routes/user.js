@@ -3,6 +3,10 @@ const router = express.Router();
 
 const alertMessage = require("../helpers/messenger");
 
+// DB Table
+const User = require("../models/User");
+// DB Table
+const bcrypt = require("bcryptjs"); // Salting
 router.post("/register", (req, res) => {
 	let errors = [];
 
@@ -29,12 +33,39 @@ router.post("/register", (req, res) => {
 			title: "Register",
 		});
 	} else {
-		let successMsg = `${email} registered successfully`;
-
-		res.render("user/login", {
-			successMsg,
-			style: { text: "user/management/login.css" },
-			title: "Login",
+		User.findOne({ where: { email } }).then((user) => {
+			if (user) {
+				res.render("user/register", {
+					error: user.email + " already registered!",
+					username,
+					email,
+					password,
+					confirm_password,
+					style: { text: "user/management/register.css" },
+					title: "Register",
+				});
+			} else {
+				// Salting
+				let salt = bcrypt.genSaltSync(12);
+				password = bcrypt.hashSync(password, salt);
+				// Salting
+				User.create({
+					username,
+					email,
+					password,
+				})
+					.then((user) => {
+						alertMessage(
+							res,
+							"success",
+							username + " added. Please login",
+							"fas fa-sign-in-alt",
+							true
+						);
+						res.redirect("/login");
+					})
+					.catch((err) => console.log(err));
+			}
 		});
 	}
 });

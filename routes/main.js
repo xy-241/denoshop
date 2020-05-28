@@ -12,13 +12,6 @@ router.get("/", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-	alertMessage(
-		res,
-		"success",
-		"This is an important message",
-		"fas fa-sign-in-alt",
-		true
-	);
 	res.render("user/login", {
 		style: { text: "user/management/login.css" },
 		title: "Login",

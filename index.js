@@ -17,11 +17,10 @@ const passport = require("passport"); // User authentication with passport
 
 // mySQL
 const denoShopDB = require("./config/DBConnection");
-denoShopDB.setUpDB(true);
+denoShopDB.setUpDB(false);
 
-// Passport config
-// const authenticate = require("./config/passport");
-// authenticate.localStrategy(passport);
+const authenticate = require("./config/passport"); // Passport Config
+authenticate.localStrategy(passport); // Local Strategy
 
 // mySQL session
 const MySQLStore = require("express-mysql-session");
@@ -119,21 +118,21 @@ let sessionIns = session({
 app.use(sessionIns);
 
 // Initialize passport middleware
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // // Flash Messages
 app.use(flash());
 app.use(FlashMessenger.middleware); // Initialize flash-messenger
 
 // // Add local variables with a middle ware
-// app.use((req, res, next) => {
-// 	(res.locals.success_msg = req), flash("success_msg");
-// 	res.locals.error_msg = req.flash("error_msg");
-// 	res.locals.error = req.flash("error");
-// 	res.locals.user = req.user || null;
-// 	next();
-// });
+app.use((req, res, next) => {
+	res.locals.success_msg = req.flash("success_msg");
+	res.locals.error_msg = req.flash("error_msg");
+	res.locals.error = req.flash("error");
+	res.locals.user = req.user || null;
+	next();
+});
 
 // Place to define global variables - not used in practical 1
 app.use(function (req, res, next) {
@@ -154,7 +153,7 @@ app.use("/user", userRoute);
  * Creates a unknown port 5000 for express server since we don't want our app to clash with well known
  * ports such as 80 or 8080.
  * */
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 5000;
 // Starts the server and listen to port 5000
 app.listen(port, () => {
 	console.log(`Server started on port ${port}`);
