@@ -7,6 +7,7 @@ const alertMessage = require("../helpers/messenger");
 const User = require("../models/User");
 // DB Table
 const bcrypt = require("bcryptjs"); // Salting
+const passport = require("passport"); // For authentication
 router.post("/register", (req, res) => {
 	let errors = [];
 
@@ -70,4 +71,13 @@ router.post("/register", (req, res) => {
 	}
 });
 
+// Login from POST => /user/login
+router.post("/login", (req, res, next) => {
+	passport.authenticate("local", {
+		// Calling the function defined in /config/passport.js
+		successRedirect: "/",
+		failureRedirect: "/login",
+		failureFlash: true,
+	})(req, res, next);
+});
 module.exports = router;

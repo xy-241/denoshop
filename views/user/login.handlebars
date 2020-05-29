@@ -1,16 +1,8 @@
 <div class="content-section">
-	{{!-- {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-          <section class="p-3 mt-3 preventFloat alert alert-{{ category }}">
-            {{ message }}
-          </section>
-        {% endfor %}
-      {% endif %}
-    {% endwith %} --}}
+
 	{{>  flashMsg/simpleFlashMsg}}
   {{> flashMsg/flashmsg}}
-	<form action="" method="POST">
+	<form action="/user/login" method="POST">
     
 		<fieldset class="form-group">
 			<legend class="border-bottom mb-4 shopFontTitle">
@@ -74,7 +66,7 @@
 <div class="m-3">
 	<small class="text-muted m-5">
 		Need An Account?
-		<a class="ml-2 text-primary" href="register">
+		<a class="ml-2 text-primary" href="/register">
 			Sign Up Now
 		</a>
 	</small>
