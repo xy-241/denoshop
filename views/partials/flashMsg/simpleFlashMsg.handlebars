@@ -1,0 +1,17 @@
+{{! ERROR Flash MSG}}
+{{#if error}}
+	<div class="alert alert-danger">
+		{{error}}
+	</div>
+{{/if}}
+{{#each errors}}
+	<div class="alert alert-danger">
+		{{text}}
+	</div>
+{{/each}}
+{{! ERROR Flash MSG}}
+{{#if successMsg}}
+	<div class="alert alert-success">
+		{{successMsg}}
+	</div>
+{{/if}}

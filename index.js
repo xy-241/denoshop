@@ -16,16 +16,15 @@ const FlashMessenger = require("flash-messenger");
 const passport = require("passport"); // User authentication with passport
 
 // mySQL
-// const vidjotDB = require("./config/DBConnection");
-// vidjotDB.setUpDB(false);
+const denoShopDB = require("./config/DBConnection");
+denoShopDB.setUpDB(true);
 
-// Passport config
-// const authenticate = require("./config/passport");
-// authenticate.localStrategy(passport);
+const authenticate = require("./config/passport"); // Passport Config
+authenticate.localStrategy(passport); // Using Local Strategy with infp passport.js in config
 
 // mySQL session
 const MySQLStore = require("express-mysql-session");
-// const db = require("./config/db");
+const db = require("./config/db");
 
 // env file
 require("dotenv").config();
@@ -97,42 +96,43 @@ app.use(cookieParser());
 
 // To store session information. By default it is stored as a cookie on browser
 // mySQL Session
-// let sessionStore = new MySQLStore({
-// 	host: db.host,
-// 	port: 3306,
-// 	user: db.username,
-// 	password: db.password,
-// 	database: db.database,
-// 	clearExpired: true,
-// 	checkExpirationalInterval: 900000, // How frequently expired sessions will be cleared, ms
-// 	expiration: 900000, // The maximum age of a valid session, ms
-// });
-// let sessionIns = session({
-// 	key: "vidjot_session",
-// 	secret: "tojiv",
-// 	store: sessionStore,
-// 	resave: false,
-// 	saveUninitialized: false,
-// });
+let sessionStore = new MySQLStore({
+	host: db.host,
+	port: 3306,
+	user: db.username,
+	password: db.password,
+	database: db.database,
+	clearExpired: true,
+	checkExpirationalInterval: 900000, // How frequently expired sessions will be cleared, ms
+	expiration: 900000, // The maximum age of a valid session, ms
+}); // session DB setting
+let sessionIns = session({
+	key: "denoshop_session",
+	secret:
+		"8y89y3249t3grf34rg~@@#fhf3fg23?>>kIL:$%^YUl$^LYU:,2,2;4k5t$#^563@^K12K5t34ty'",
+	store: sessionStore,
+	resave: false,
+	saveUninitialized: false,
+}); // middle for session + DB
 
-// app.use(sessionIns);
+app.use(sessionIns);
 
 // Initialize passport middleware
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // // Flash Messages
-// app.use(flash());
-// app.use(FlashMessenger.middleware); // Initialize flash-messenger
+app.use(flash());
+app.use(FlashMessenger.middleware); // Initialize flash-messenger
 
 // // Add local variables with a middle ware
-// app.use((req, res, next) => {
-// 	(res.locals.success_msg = req), flash("success_msg");
-// 	res.locals.error_msg = req.flash("error_msg");
-// 	res.locals.error = req.flash("error");
-// 	res.locals.user = req.user || null;
-// 	next();
-// });
+app.use((req, res, next) => {
+	res.locals.success_msg = req.flash("success_msg");
+	res.locals.error_msg = req.flash("error_msg");
+	res.locals.error = req.flash("error");
+	res.locals.user = req.user || null; // After authenticated, the user object is set into req.user, referring to /config/passport.js
+	next();
+});
 
 // Place to define global variables - not used in practical 1
 app.use(function (req, res, next) {
@@ -153,7 +153,7 @@ app.use("/user", userRoute);
  * Creates a unknown port 5000 for express server since we don't want our app to clash with well known
  * ports such as 80 or 8080.
  * */
-const port = process.env.PORT || 80
+const port = process.env.PORT || 5000;
 // Starts the server and listen to port 5000
 app.listen(port, () => {
 	console.log(`Server started on port ${port}`);

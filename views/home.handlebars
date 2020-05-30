@@ -32,14 +32,54 @@
 		<h3>
 			Hacker's Outfits
 		</h3>
-		<div class="shopItems"></div>
+		<div class="shopItems">
+			{{#each hackingProducts}}
+				{{#if (equal this.category "outfits")}}
+					<div class="shopItem item1">
+						<span class="itemName">
+							{{this.title}}
+						</span>
+						<img src="{{this.imageFile}}" alt="{{this.title}}" />
+						<div class="shopItemDetails">
+							<span class="itemPrice">
+								S$
+								{{this.price}}
+							</span>
+							<a class="addToCartN" href="/cart">
+								Add To Cart
+							</a>
+						</div>
+					</div>
+				{{/if}}
+			{{/each}}
+		</div>
 	</div>
 	<!-- End of sellingOutfits page -->
 	<div class="sellingTools subPage">
 		<h3>
 			Hacker's Tool
 		</h3>
-		<div class="shopItems"></div>
+		<div class="shopItems">
+			{{#each hackingProducts}}
+				{{#if (equal this.category "tools")}}
+					<div class="shopItem item1">
+						<span class="itemName">
+							{{this.title}}
+						</span>
+						<img src="{{this.imageFile}}" alt="{{this.title}}" />
+						<div class="shopItemDetails">
+							<span class="itemPrice">
+								S$
+								{{this.price}}
+							</span>
+							<a class="addToCartN" href="/cart">
+								Add To Cart
+							</a>
+						</div>
+					</div>
+				{{/if}}
+			{{/each}}
+		</div>
 		<!-- End of shopItems page -->
 	</div>
 	<!-- Endo of sellingTools page -->

@@ -1,5 +1,5 @@
 <div class="content-section">
-	{{!-- {% with messages = get_flashed_messages(with_categories=true) %}
+  {{!-- {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         {% for category, message in messages %}
           <section class="p-3 mt-3 preventFloat alert alert-{{ category }}">
@@ -8,80 +8,81 @@
         {% endfor %}
       {% endif %}
     {% endwith %} --}}
-	<form action="" method="POST">
-		<fieldset class="form-group">
-			<legend class="border-bottom mb-4 shopFontTitle">
-				Join Today
-			</legend>
-			<div class="form-group">
-				<label class="form-control-label" for="username">
-					Username
-				</label>
-				<input
-					class="form-control form-control-lg"
-					id="username"
-					name="username"
-					required
-					type="text"
-					value=""
-				/>
-			</div>
-			<div class="form-group">
-				<label class="form-control-label" for="email">
-					Email
-				</label>
-				<input
-					class="form-control form-control-lg"
-					id="email"
-					name="email"
-					required
-					type="text"
-					value=""
-				/>
-			</div>
-			<div class="form-group">
-				<label class="form-control-label" for="password">
-					Password
-				</label>
-				<input
-					class="form-control form-control-lg"
-					id="password"
-					name="password"
-					required
-					type="password"
-					value=""
-				/>
-			</div>
-			<div class="form-group">
-				<label class="form-control-label" for="confirm_password">
-					Confirm Password
-				</label>
-				<input
-					class="form-control form-control-lg"
-					id="confirm_password"
-					name="confirm_password"
-					required
-					type="password"
-					value=""
-				/>
-			</div>
-		</fieldset>
-		<div class="form-group">
-			<input
-				class="btn btn-outline-info"
-				id="submit"
-				name="submit"
-				type="submit"
-				value="Sign Up"
-			/>
-		</div>
-	</form>
+    {{>  flashMsg/simpleFlashMsg}}
+  <form action="/user/register" method="POST">
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4 shopFontTitle">
+        Join Today
+      </legend>
+      <div class="form-group">
+        <label class="form-control-label" for="username">
+          Username
+        </label>
+        <input
+          class="form-control form-control-lg"
+          id="username"
+          name="username"
+          required
+          type="text"
+          value="{{username}}"
+        />
+      </div>
+      <div class="form-group">
+        <label class="form-control-label" for="email">
+          Email
+        </label>
+        <input
+          class="form-control form-control-lg"
+          id="email"
+          name="email"
+          required
+          type="email"
+          value="{{email}}"
+        />
+      </div>
+      <div class="form-group">
+        <label class="form-control-label" for="password">
+          Password
+        </label>
+        <input
+          class="form-control form-control-lg"
+          id="password"
+          name="password"
+          required
+          type="password"
+          value="{{password}}"
+        />
+      </div>
+      <div class="form-group">
+        <label class="form-control-label" for="confirm_password">
+          Confirm Password
+        </label>
+        <input
+          class="form-control form-control-lg"
+          id="confirm_password"
+          name="confirm_password"
+          required
+          type="password"
+          value="{{confirm_password}}"
+        />
+      </div>
+    </fieldset>
+    <div class="form-group">
+      <input
+        class="btn btn-outline-info"
+        id="submit"
+        name="submit"
+        type="submit"
+        value="Sign Up"
+      />
+    </div>
+  </form>
 </div>
 <div class="m-3">
-	<small class="text-muted m-5">
-		Already Have An Account?
-		<a class="ml-2 text-primary" href="login">
-			Sign In
-		</a>
-	</small>
+  <small class="text-muted m-5">
+    Already Have An Account?
+    <a class="ml-2 text-primary" href="login">
+      Sign In
+    </a>
+  </small>
 </div>

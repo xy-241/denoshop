@@ -11,7 +11,7 @@
 		<!-- Bootstrap CSS -->
 		<link
 			rel="stylesheet"
-			href="css/bootstrap.css"
+			href="/css/bootstrap.css"
 		/>
 
 		{{#if title }}
@@ -28,13 +28,13 @@
 		/>
 		<link
 			rel="stylesheet"
-			href="css/userInterface/init.css"
+			href="/css/userInterface/init.css"
 		/>
 		<link
 			rel="stylesheet"
-			href="css/userInterface/nav.css"
+			href="/css/userInterface/nav.css"
 		/>
-				<script src="js/useInterface/nav.js"></script>
+				<script src="/js/useInterface/nav.js"></script>
 
 		<script src="https://kit.fontawesome.com/93016bd62d.js" crossorigin="anonymous"></script>
 
@@ -43,7 +43,7 @@
 			{{#each style}}
 				<link
 			rel="stylesheet"
-			href="css/{{this}}"
+			href="/css/{{this}}"
 		/>
 			{{/each}}
 		{{/if}}
@@ -53,6 +53,7 @@
 		{{> _navbar}}
 		
 		<article class="workContent">
+			
 			{{!-- {% block header %} {% endblock %} {% block content %} {% endblock %} --}}
 			{{{body}}}
 		</article>
