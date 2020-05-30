@@ -5,6 +5,9 @@ const HackingProduct = db.define("hackingProduct", {
 	price: {
 		type: Sequelize.FLOAT,
 	},
+	imageFile: {
+		type: Sequelize.STRING,
+	},
 	dateAdded: {
 		type: Sequelize.DATE,
 	},

@@ -8,7 +8,7 @@ const User = db.define("user", {
 	email: {
 		type: Sequelize.STRING,
 	},
-	image_file: {
+	imageFile: {
 		type: Sequelize.STRING,
 	},
 	password: {
