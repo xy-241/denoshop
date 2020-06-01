@@ -80,4 +80,15 @@ router.post("/login", (req, res, next) => {
 		failureFlash: true,
 	})(req, res, next);
 });
+
+// router.post("/update", (req, res) => {
+// 	User.findOne({ where: { email } })
+// 		.then((user) => {
+// 			if (!user) {
+// 				console.log("No User Found!");
+// 			} else {
+// 			}
+// 		})
+// 		.catch((err) => console.log(err));
+// });
 module.exports = router;

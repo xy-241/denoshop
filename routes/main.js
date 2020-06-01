@@ -55,4 +55,15 @@ router.get("/register", (req, res) => {
 	});
 });
 
+router.get("/logout", (req, res) => {
+	req.logout();
+	res.redirect("/");
+});
+
+router.get("/account", (req, res) => {
+	res.render("user/account", {
+		style: { text: "user/management/account.css" },
+		title: "My Account",
+	});
+});
 module.exports = router;
