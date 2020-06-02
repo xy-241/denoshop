@@ -4,7 +4,6 @@ const logicalOperation = {
 	},
 	noEqual: (arg1) => {
 		if (arg1 !== null) {
-			console.log("HIIII");
 			return true;
 		}
 	},

@@ -6,7 +6,7 @@ const express = require("express");
 const session = require("express-session");
 const path = require("path");
 const exphbs = require("express-handlebars");
-const methodOverride = require("method-override");
+const methodOverride = require("method-override"); // Override POST method to PUT
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 

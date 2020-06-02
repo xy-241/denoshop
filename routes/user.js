@@ -81,14 +81,43 @@ router.post("/login", (req, res, next) => {
 	})(req, res, next);
 });
 
-// router.post("/update", (req, res) => {
-// 	User.findOne({ where: { email } })
-// 		.then((user) => {
-// 			if (!user) {
-// 				console.log("No User Found!");
-// 			} else {
-// 			}
-// 		})
-// 		.catch((err) => console.log(err));
-// });
+router.put("/update/:id", (req, res) => {
+	let { username, email, deliveryInfo, imageFile } = req.body;
+
+	let originalUsername = req.user.username;
+	let originalEmail = req.user.email;
+	let originalImageFile = req.user.imageFile;
+	let originalDeliveryInfo = req.user.deliveryInfo;
+
+	// Checking for updated fields
+	let updateObject = {};
+	if (username !== originalUsername) {
+		updateObject.username = username;
+	}
+	if (email !== originalEmail) {
+		updateObject.email = email;
+	}
+	if (imageFile !== originalImageFile) {
+		updateObject.imageFile = imageFile;
+	}
+	if (deliveryInfo !== originalDeliveryInfo) {
+		updateObject.deliveryInfo = deliveryInfo;
+	}
+	let itemNum = 0;
+	for (let key in updateObject) {
+		itemNum += 1;
+	}
+	console.log(itemNum);
+	console.log(updateObject);
+
+	User.update(updateObject, { where: { id: req.params.id } })
+		.then(() => {
+			res.render("user/account", {
+				error: " already registered!",
+				style: { text: "user/management/account.css" },
+				title: "My Account",
+			});
+		})
+		.catch((err) => console.log(err));
+});
 module.exports = router;
