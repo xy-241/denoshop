@@ -5,6 +5,7 @@ const user = require("../models/User");
 const purchaseRecord = require("../models/PurchaseRecord");
 const cartItem = require("../models/CartItem");
 const hackingProduct = require("../models/HackingProduct");
+const deliveryInfo = require("../models/DeliveryInfo");
 // Import all the models
 
 const setUpDB = (drop) => {
@@ -16,6 +17,8 @@ const setUpDB = (drop) => {
 		.then(() => {
 			user.hasMany(purchaseRecord); // Define relationship
 			user.hasMany(cartItem);
+			user.hasMany(deliveryInfo);
+
 			mySQLDB
 				.sync({
 					// Creates table if none exists

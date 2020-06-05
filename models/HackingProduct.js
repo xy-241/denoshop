@@ -20,7 +20,7 @@ const HackingProduct = db.define("hackingProduct", {
 	category: {
 		type: Sequelize.STRING,
 	},
-	itemNum: {
+	quantity: {
 		type: Sequelize.INTEGER,
 	},
 });

@@ -85,8 +85,8 @@ router.put("/update/:id", (req, res) => {
 	let { username, email, deliveryInfo, imageFile } = req.body;
 
 	let originalUsername = req.user.username;
-	let originalEmail = req.user.email;
 	let originalImageFile = req.user.imageFile;
+	let originalEmail = req.user.email;
 	let originalDeliveryInfo = req.user.deliveryInfo;
 
 	// Checking for updated fields
@@ -97,7 +97,7 @@ router.put("/update/:id", (req, res) => {
 	if (email !== originalEmail) {
 		updateObject.email = email;
 	}
-	if (imageFile !== originalImageFile) {
+	if (imageFile !== "" && imageFile !== originalImageFile) {
 		updateObject.imageFile = imageFile;
 	}
 	if (deliveryInfo !== originalDeliveryInfo) {
@@ -110,14 +110,56 @@ router.put("/update/:id", (req, res) => {
 	console.log(itemNum);
 	console.log(updateObject);
 
-	User.update(updateObject, { where: { id: req.params.id } })
-		.then(() => {
-			res.render("user/account", {
-				error: " already registered!",
-				style: { text: "user/management/account.css" },
-				title: "My Account",
+	if (itemNum === 0) {
+		alertMessage(
+			res,
+			"danger",
+			"Please edit your info before updating it!",
+			"fas fa-sign-in-alt",
+			true
+		);
+		res.redirect("/account");
+	} else {
+		User.update(updateObject, { where: { id: req.params.id } })
+			.then(() => {
+				alertMessage(
+					res,
+					"success",
+					"Info updated successfully!",
+					"fas fa-sign-in-alt",
+					true
+				);
+				res.redirect("/account");
+			})
+			.catch((err) => console.log(err));
+	}
+});
+
+router.get("/delete/:id", (req, res) => {
+	User.findOne({ where: { id: req.params.id } }).then((user) => {
+		if (user.id !== req.user.id) {
+			alertMessage(
+				res,
+				"danger",
+				"Unauthorised access to this user",
+				"fas fa-exclamation-circle",
+				true
+			);
+			req.logout();
+			res.redirect("/");
+		} else {
+			User.destroy({ where: { id: req.params.id } }).then((user) => {
+				alertMessage(
+					res,
+					"info",
+					req.user.email + " deleted!",
+					"fas fa-trash-alt",
+					true
+				);
+				req.logout();
+				res.redirect("/register");
 			});
-		})
-		.catch((err) => console.log(err));
+		}
+	});
 });
 module.exports = router;

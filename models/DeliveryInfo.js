@@ -1,20 +1,22 @@
 const Sequelize = require("sequelize");
 const db = require("../config/DBConfig");
 
-const User = db.define("user", {
-	username: {
+const DeliveryInfo = db.define("deliveryInfo", {
+	country: {
 		type: Sequelize.STRING,
 	},
-	email: {
+	city: {
 		type: Sequelize.STRING,
 	},
-	imageFile: {
+	street: {
 		type: Sequelize.STRING,
-		defaultValue: "default.jpg",
 	},
-	password: {
+	houseNo: {
 		type: Sequelize.STRING,
+	},
+	postcode: {
+		type: Sequelize.INTEGER,
 	},
 });
 
-module.exports = User;
+module.exports = DeliveryInfo;
