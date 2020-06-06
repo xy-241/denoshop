@@ -17,7 +17,7 @@ const passport = require("passport"); // User authentication with passport
 
 // mySQL
 const denoShopDB = require("./config/DBConnection");
-denoShopDB.setUpDB(true);
+denoShopDB.setUpDB(false);
 
 const authenticate = require("./config/passport"); // Passport Config
 authenticate.localStrategy(passport); // Using Local Strategy with infp passport.js in config

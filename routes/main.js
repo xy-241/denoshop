@@ -3,7 +3,7 @@ const router = express.Router();
 
 const alertMessage = require("../helpers/messenger");
 
-router.get("/", (req, res) => {
+router.get(["/", "/home"], (req, res) => {
 	let hackingProducts = [
 		{
 			category: "tools",
@@ -64,6 +64,22 @@ router.get("/account", (req, res) => {
 	res.render("user/account", {
 		style: { text: "user/management/account.css" },
 		title: "My Account",
+	});
+});
+
+router.get("/cart", (req, res) => {
+	const cartItems = [
+		{
+			price: "10",
+			imageFile: "http://tinyurl.com/yb2z9wdb",
+			dateAdded: "2020-10-21",
+			itemNum: 1,
+		},
+	];
+	res.render("user/cart", {
+		style: { text: "user/shopping/cart.css" },
+		title: "Cart",
+		cartItems,
 	});
 });
 module.exports = router;

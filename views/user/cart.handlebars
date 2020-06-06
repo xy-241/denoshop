@@ -1,21 +1,14 @@
-{% extends "layout.html" %}
-
-{% block cssJs %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}">
-  <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
-{% endblock cssJs %}
-
-{% block header%}
 <div class="banner">
-  <img src="{{ url_for('static', filename='img/hacking2.jpg') }}" alt="">
-  <div class="background"></div>
-  <h2>Hacker's Shop</h2>
+	<img src="img/hacking2.jpg" alt="" />
+	<div class="background"></div>
+	<h2>
+		Deno Shop
+	</h2>
 </div>
-{% endblock header%}
 
-{% block content %}
+
 <!-- shoppingCart -->
-<!-- Message Flash (Kenneth) -->
+{{!-- <!-- Message Flash (Kenneth) -->
 {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
     {% for category, message in messages %}
@@ -24,25 +17,28 @@
       </section>
     {% endfor %}
   {% endif %}
-{% endwith %}
+{% endwith %} --}}
+{{>  flashMsg/simpleFlashMsg}}
+    {{> flashMsg/flashmsg}}
 <section class="shoppingCart">
   <h3>Cart</h3>
 
     <div class="cartItems">
-      {% for cartItem in cartItems %}
+  
+      {{#each cartItems }}
       <div class="cartItem">
         <div class="cartItemDes">
           <div class="cartItemPic">
-            <img src="{{url_for('static', filename='shop/'+cartItem.image_file)}}">
+            <img src="{{this.imageFile}}">
           </div>
 
           <div class="cartItemInfo">
-            <p class="cartItemName">{{ cartItem.title }}</p>
+            <p class="cartItemName">{{ this.title }}</p>
             <div class="cartItemBuyingInfo">
-              <p class="cartItemPrice">S${{ cartItem.price }}</p>
+              <p class="cartItemPrice">S${{ this.price }}</p>
 
 
-                <input type="number" class="cartItemNum" value="{{ cartItem.itemNum }}">
+                <input type="number" class="cartItemNum" value="{{ this.itemNum }}">
 
             </div>
           </div> <!--End of cart Info-->
@@ -50,7 +46,7 @@
 
         <button type="button" class="removeButton">Remove</button>
       </div>
-      {% endfor %}
+      {{/each}}
     </div>
 
     <div class="cartTotal">
@@ -67,6 +63,7 @@
 
 
   <!-- <button type="button" class="checkout">Checkout</button> -->
-  <button type="button" class="checkout" onclick="window.location.href = '{{ url_for('redirectCheckout') }}';">Checkout</button>
-  <button type="button" class="checkout" onclick="window.location.href = '{{ url_for('history') }}';">Purchases</button>
-{% endblock content %}
+  <button type="button" class="checkout" onclick="window.location.href = '#redirectCheckout;">Checkout</button>
+  <button type="button" class="checkout" onclick="window.location.href = '#history;">Purchases</button>
+  <script src="/js/useInterface/cart.js"></script>
+

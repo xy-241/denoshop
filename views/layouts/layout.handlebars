@@ -57,7 +57,13 @@
 		{{!-- {% block cssJs %}{% endblock %} --}}
 	</head>
 	<body>
-		{{> _navbar}}
+		{{!-- Checking - omitting nav and footer--}}
+		{{#if (equal title "Register" )}}
+		{{else if (equal title "Login")}}
+		{{else}}
+			{{> _navbar}}
+		{{/if}}
+		{{!-- Checking - omitting nav and footer--}}
 		
 		<article class="workContent">
 		
@@ -65,8 +71,14 @@
 			{{{body}}}
 		</article>
 
+		{{!-- Checking - omitting nav and footer--}}
+		{{#if (equal title "Register" )}}
+		{{else if (equal title "Login")}}
+		{{else}}
+			{{> _footer}}
+		{{/if}}
+		{{!-- Checking - omitting nav and footer--}}
 		
-		{{> _footer}}
 
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
