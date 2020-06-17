@@ -81,7 +81,7 @@
 	top: 0.6%;
 
 	cursor: pointer;
-	background: url("../img/shop/shoppingCart.svg") no-repeat;
+	background: url("../../img/shop/shoppingCart.svg") no-repeat;
 
 	height: 38px;
 	width: 46px;
@@ -99,7 +99,7 @@
 	top: 0.6%;
 
 	cursor: pointer;
-	background: url("../img/shop/shopLogo.svg") no-repeat;
+	background: url("../../img/shop/shopLogo.svg") no-repeat;
 
 	height: 38px;
 	width: 46px;

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const alertMessage = require("../helpers/messenger");
+const ensureAuthenticated = require("../helpers/auth");
 
 // DB Table
 const User = require("../models/User");
@@ -79,5 +80,103 @@ router.post("/login", (req, res, next) => {
 		failureRedirect: "/login",
 		failureFlash: true,
 	})(req, res, next);
+});
+
+router.put("/update/:id", ensureAuthenticated, (req, res) => {
+	let { username, email, deliveryInfo, imageFile } = req.body;
+
+	let originalUsername = req.user.username;
+	let originalImageFile = req.user.imageFile;
+	let originalEmail = req.user.email;
+	let originalDeliveryInfo = req.user.deliveryInfo;
+
+	// Checking for updated fields
+	let updateObject = {};
+	if (username !== originalUsername) {
+		updateObject.username = username;
+	}
+	if (email !== originalEmail) {
+		updateObject.email = email;
+	}
+	if (imageFile !== "" && imageFile !== originalImageFile) {
+		updateObject.imageFile = imageFile;
+	}
+	if (deliveryInfo !== originalDeliveryInfo) {
+		updateObject.deliveryInfo = deliveryInfo;
+	}
+	let itemNum = 0;
+	for (let key in updateObject) {
+		itemNum += 1;
+	}
+	console.log(itemNum);
+	console.log(updateObject);
+
+	if (itemNum === 0) {
+		alertMessage(
+			res,
+			"danger",
+			"Please edit your info before updating it!",
+			"fas fa-sign-in-alt",
+			true
+		);
+		res.redirect("/account");
+	} else {
+		//
+		User.findOne({ where: { id: req.params.id } }).then((user) => {
+			if (user.id !== req.user.id) {
+				alertMessage(
+					res,
+					"danger",
+					"Unauthorised access to this user",
+					"fas fa-exclamation-circle",
+					true
+				);
+				req.logout();
+				res.redirect("/login");
+			} else {
+				//
+				User.update(updateObject, { where: { id: req.params.id } })
+					.then(() => {
+						alertMessage(
+							res,
+							"success",
+							"Info updated successfully!",
+							"fas fa-sign-in-alt",
+							true
+						);
+						res.redirect("/account");
+					})
+					.catch((err) => console.log(err));
+			}
+		});
+	} // else
+});
+
+router.get("/delete/:id", ensureAuthenticated, (req, res) => {
+	User.findOne({ where: { id: req.params.id } }).then((user) => {
+		if (user.id !== req.user.id) {
+			alertMessage(
+				res,
+				"danger",
+				"Unauthorised access to this user",
+				"fas fa-exclamation-circle",
+				true
+			);
+			req.logout();
+			res.redirect("/login");
+		} else {
+			User.destroy({ where: { id: req.params.id } }).then((user) => {
+				alertMessage(
+					res,
+					"info",
+					req.user.email + " deleted!",
+					"fas fa-trash-alt",
+					true
+				);
+				req.logout();
+				res.redirect("/register");
+			});
+		}
+	});
 });
 module.exports = router;

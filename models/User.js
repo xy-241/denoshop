@@ -10,11 +10,15 @@ const User = db.define("user", {
 	},
 	imageFile: {
 		type: Sequelize.STRING,
+		defaultValue: "default.jpg",
 	},
 	password: {
 		type: Sequelize.STRING,
 	},
-	deliveryInfo: {
+	phoneNum: {
+		type: Sequelize.INTEGER,
+	},
+	stripId: {
 		type: Sequelize.STRING,
 	},
 });

@@ -25,6 +25,9 @@
 }
 body {
 	transition: all 0.5s ease-in-out;
+       /*overflow: hidden;
+       background: rgb(26, 27, 29);*/
+
 }
 ul {
 	list-style-type: none;

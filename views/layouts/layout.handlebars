@@ -36,7 +36,14 @@
 		/>
 				<script src="/js/useInterface/nav.js"></script>
 
-		<script src="https://kit.fontawesome.com/93016bd62d.js" crossorigin="anonymous"></script>
+		{{!-- <script src="https://kit.fontawesome.com/93016bd62d.js" crossorigin="anonymous"></script> --}}
+		{{!--Font Awesome icons --}}
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+		integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
+		integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+	{{!--Google fonts Icon--}}
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
 		{{#if style }}
@@ -50,16 +57,28 @@
 		{{!-- {% block cssJs %}{% endblock %} --}}
 	</head>
 	<body>
-		{{> _navbar}}
+		{{!-- Checking - omitting nav and footer--}}
+		{{#if (equal title "Register" )}}
+		{{else if (equal title "Login")}}
+		{{else}}
+			{{> _navbar}}
+		{{/if}}
+		{{!-- Checking - omitting nav and footer--}}
 		
 		<article class="workContent">
-			
+		
 			{{!-- {% block header %} {% endblock %} {% block content %} {% endblock %} --}}
 			{{{body}}}
 		</article>
 
+		{{!-- Checking - omitting nav and footer--}}
+		{{#if (equal title "Register" )}}
+		{{else if (equal title "Login")}}
+		{{else}}
+			{{> _footer}}
+		{{/if}}
+		{{!-- Checking - omitting nav and footer--}}
 		
-		{{> _footer}}
 
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -78,5 +97,8 @@
 			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 			crossorigin="anonymous"
 		></script>
+<!--		<script src="/animation/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.min.js"></script> -->
+
 	</body>
 </html>

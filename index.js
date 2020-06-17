@@ -6,7 +6,7 @@ const express = require("express");
 const session = require("express-session");
 const path = require("path");
 const exphbs = require("express-handlebars");
-const methodOverride = require("method-override");
+const methodOverride = require("method-override"); // Override POST method to PUT
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 
@@ -17,7 +17,7 @@ const passport = require("passport"); // User authentication with passport
 
 // mySQL
 const denoShopDB = require("./config/DBConnection");
-denoShopDB.setUpDB(true);
+denoShopDB.setUpDB(false);
 
 const authenticate = require("./config/passport"); // Passport Config
 authenticate.localStrategy(passport); // Using Local Strategy with infp passport.js in config
@@ -60,12 +60,13 @@ const app = express();
  *
  * */
 
-const { equal } = require("./helpers/hbs");
+const { equal, noEqual } = require("./helpers/hbs");
 app.engine(
 	"handlebars",
 	exphbs({
 		helpers: {
 			equal,
+			noEqual,
 			// formatDate,
 			// radioCheck,
 			// checkboxFormatter,
@@ -155,6 +156,6 @@ app.use("/user", userRoute);
  * */
 const port = process.env.PORT || 5000;
 // Starts the server and listen to port 5000
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
 	console.log(`Server started on port ${port}`);
 });

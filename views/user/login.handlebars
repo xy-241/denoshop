@@ -1,7 +1,7 @@
 <div class="content-section">
 
 	{{>  flashMsg/simpleFlashMsg}}
-  {{> flashMsg/flashmsg}}
+    {{> flashMsg/flashmsg}}
 	<form action="/user/login" method="POST">
     
 		<fieldset class="form-group">
@@ -32,6 +32,8 @@
 					required
 					type="password"
 					value=""
+					pattern=".{8,}"
+					title="8 characters minimum"
 				/>
 			</div>
 			<div class="form-check">
