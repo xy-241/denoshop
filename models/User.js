@@ -19,7 +19,7 @@ const User = db.define("user", {
 		type: Sequelize.INTEGER,
 	},
 	stripId: {
-		type: Sequelize.INTEGER,
+		type: Sequelize.STRING,
 	},
 });
 

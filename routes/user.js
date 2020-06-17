@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const alertMessage = require("../helpers/messenger");
+const ensureAuthenticated = require("../helpers/auth");
 
 // DB Table
 const User = require("../models/User");
@@ -81,7 +82,7 @@ router.post("/login", (req, res, next) => {
 	})(req, res, next);
 });
 
-router.put("/update/:id", (req, res) => {
+router.put("/update/:id", ensureAuthenticated, (req, res) => {
 	let { username, email, deliveryInfo, imageFile } = req.body;
 
 	let originalUsername = req.user.username;
@@ -120,22 +121,38 @@ router.put("/update/:id", (req, res) => {
 		);
 		res.redirect("/account");
 	} else {
-		User.update(updateObject, { where: { id: req.params.id } })
-			.then(() => {
+		//
+		User.findOne({ where: { id: req.params.id } }).then((user) => {
+			if (user.id !== req.user.id) {
 				alertMessage(
 					res,
-					"success",
-					"Info updated successfully!",
-					"fas fa-sign-in-alt",
+					"danger",
+					"Unauthorised access to this user",
+					"fas fa-exclamation-circle",
 					true
 				);
-				res.redirect("/account");
-			})
-			.catch((err) => console.log(err));
-	}
+				req.logout();
+				res.redirect("/login");
+			} else {
+				//
+				User.update(updateObject, { where: { id: req.params.id } })
+					.then(() => {
+						alertMessage(
+							res,
+							"success",
+							"Info updated successfully!",
+							"fas fa-sign-in-alt",
+							true
+						);
+						res.redirect("/account");
+					})
+					.catch((err) => console.log(err));
+			}
+		});
+	} // else
 });
 
-router.get("/delete/:id", (req, res) => {
+router.get("/delete/:id", ensureAuthenticated, (req, res) => {
 	User.findOne({ where: { id: req.params.id } }).then((user) => {
 		if (user.id !== req.user.id) {
 			alertMessage(
@@ -146,7 +163,7 @@ router.get("/delete/:id", (req, res) => {
 				true
 			);
 			req.logout();
-			res.redirect("/");
+			res.redirect("/login");
 		} else {
 			User.destroy({ where: { id: req.params.id } }).then((user) => {
 				alertMessage(

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const alertMessage = require("../helpers/messenger");
+const ensureAuthenticated = require("../helpers/auth");
 
 router.get(["/", "/home"], (req, res) => {
 	let hackingProducts = [
@@ -60,7 +61,7 @@ router.get("/logout", (req, res) => {
 	res.redirect("/");
 });
 
-router.get("/account", (req, res) => {
+router.get("/account", ensureAuthenticated, (req, res) => {
 	res.render("user/account", {
 		style: { text: "user/management/account.css" },
 		title: "My Account",

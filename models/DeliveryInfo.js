@@ -11,12 +11,27 @@ const DeliveryInfo = db.define("deliveryInfo", {
 	street: {
 		type: Sequelize.STRING,
 	},
-	houseNo: {
+	unitNo: {
 		type: Sequelize.STRING,
 	},
 	postcode: {
 		type: Sequelize.INTEGER,
 	},
+	state: {
+		type: Sequelize.STRING,
+	},
+	blockNo: {
+		type:Sequelize.STRING
+	},
+	phoneNo: {
+		type: Sequelize.INTEGER
+	},
+	receiverName: {
+		type: Sequelize.STRING
+	},
+	defaultAddr: {
+		type: Sequelize.INTEGER
+	}
 });
 
 module.exports = DeliveryInfo;
