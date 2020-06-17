@@ -107,3 +107,4 @@ dist
 node_modules/
 # Package.json
 package-lock.json
+config/db.js
