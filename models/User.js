@@ -21,6 +21,9 @@ const User = db.define("user", {
 	stripId: {
 		type: Sequelize.STRING,
 	},
+	stripeid: {
+		type: Sequelize.STRING,
+	}
 });
 
 module.exports = User;

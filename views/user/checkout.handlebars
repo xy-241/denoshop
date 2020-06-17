@@ -1,187 +1,171 @@
-{% extends "layout.html" %}
+<script src="https://checkout.stripe.com/checkout.js" defer=""></script>
+<script>
+	var stripePublicKey = '{{ stripePublicKey }}'
+</script>
+<script src="/js/useInterface/purchase.js" defer></script>
 
-{% block cssJs %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/checkoutdelivery.css')}}">
+<h3 class="shopFontTitle" style="text-align: center; font-size:2.5em;">Checkout</h3>
+    {{>  flashMsg/simpleFlashMsg}}
+<div class="outer-row">
+	<div class="col-25">
+		<div class="containers accordion" id="cartAccordion">
+			<div class="rownoreverse" id="headingCart">
+				<button class="btn-accordion" type="button" data-toggle="collapse" data-target="#collapseCart" aria-expanded="true" aria-controls="collapseCart">
+				<h4 class="classFontTitle">Cart
+					<span class="price" style="color:black">
+						<i class="fa fa-shopping-cart"></i>
+					</span>
+				</h4>
+				</button>
+					<div class="collapse show" id="collapseCart" aria-labelledby="headingCart" data-parent="#cartAccordion">
+						<div class="cartItems">
+							{{#if cartItems}}
+								{{#each cartItems}}
+								<div class="cartItem" data-item-id="{{ id }}" data-item-price="{{ price }}">
+									<p class="cartItemName"><span class="cartItem-quantity">{{itemNum}}</span> x {{ title }} <span class="price" style="float: right;">S${{ multiply price itemNum }}</span></p>
+								</div>
+								{{/each}}
+							{{else}}
+								<div class="cartItem">
+									<p>No items</p>
+								</div>
+							{{/if}}
+						</div>
+						<hr>
+						<div class="cartTotal">
+							<p>Total Amount <span class="price" style="color:black"><b>S${{ sum }}</b></span></p>
+						</div>
+					</div>
+				{{!-- </div> --}}
+			</div>
+		</div>
+		<div class="containers accordion" id="addressAccordion" style="margin-top: 10px;">
+			<div class="rownoreverse card-header" id="headingOne">
+				<button class="btn-accordion" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+				<h2 class="h3 mb-3 text-black">Other Addresses<span class="arrow"></span></h2>
+				</button>
+				<div class="collapse show" id="collapseOne" aria-labelledby="headingOne" data-parent="#addressAccordion">
+					<div class="">
+						{{#if AddressList}}
+							{{#each AddressList}}
+							<hr>
+								<div style="text-align:center;">
+									<p>{{ firstname }} {{ lastname }}</p>
+									<p>{{ address }}</p>
+									<p>{{ country }}</p>
+									<p>{{ city }}</p>
+									<p>{{ state }}</p>
+									<p>{{ postalcode }}</p>
+									<p>Phone: {{ mobile }}</p>
+									<form>
+										<input type="submit" value="Deliver to this address" formmethod="post" formaction="" class="btn btn-primary px-3 py-1 height-auto" style="margin-bottom: 1%; display: inline-block; text-align:center;">
+										<a href="" class="btn btn-warning px-2 py-1 height-auto" style="width:39%;margin-left:10%;float:left;">Edit</a>
+										<input type="submit" value="Remove" formaction="" class="btn btn-danger px-2 py-1 height-auto" style="width:39%;margin-right:8%;" onclick="return confirm('Are you sure you want to remove this item?');">
+									</form>
+								</div>
+								<br>
+							{{/each}}
+						{{else}}
+							<p>No Other Addresses Recorded</p>
+						{{/if}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-75">
+		<div class="containers">
+			<form action="/" method="POST">
 
-{% endblock cssJs %}
+				<div class="row">
+					<div class="col-50">
+						<h2 class="h3 mb-3 text-black">Shipping Details</h2>
+						<div class="rownoreverse" style="margin-right: -15px; margin-left: -15px;">
+							<div class="form-group col-50">
+								<label class="form-control-label" for="firstName">First Name</label>
+								<input class="form-control form-control" id="firstName" name="firstName" placeholder="John" required="" type="text" value="">
+							</div>
+							<div class="form-group col-50">
+								<label class="form-control-label" for="lastName">Last Name</label>
+								<input class="form-control form-control" id="lastName" name="lastName" placeholder="Doe" required="" type="text" value="">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="form-control-label" for="email">Email</label>
+							<input class="form-control form-control" id="email" name="email" placeholder="johndoe@gmail.com" required="" type="text" value="">
+						</div>
+						<div class="rownoreverse" style="margin-right: -15px; margin-left: -15px;">
+							<div class="form-group pr-3 col-50">
+								<label class="form-control-label" for="address">Address</label>
+								<input class="form-control form-control" id="address" name="address" placeholder="180 Ang Mo Kio Ave 8" required="" type="text" value="">
+							</div>
+							<div class="form-group pl-3 col-50">
+								<label class="form-control-label" for="postal">Postal Code</label>
+								<input class="form-control form-control" id="postal" name="postal" placeholder="569830" required="" type="text" value="">
+							</div>
+						</div>													
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-50">
+						<h2 class="h3 mb-3 text-black">Payment Method</h2>
+						{{!-- <span id='cwppButton'></span> --}}
+						{{!-- <script src='https://www.paypalobjects.com/js/external/connect/api.js'></script> --}}
+						{{!-- <script>
+							paypal.use( ['login'], function (login) {
+							login.render ({
+								"appid":"AQMqF2t4zLyStf3iODEPgdwXLvba-i-bEr2MJlQRDAmY-HcfaFWSj9Ek9djQ7ZJOqzODO-zZ_cI3jdMU",
+								"authend":"sandbox",
+								"scopes":"openid",
+								"containerid":"cwppButton",
+								"responseType":"http://127.0.0.1:5000/payment/cart",
+								"locale":"en-us",
+								"buttonShape":"pill",
+								"buttonSize":"lg",
+								"fullPage":"true",
+								"returnurl":"REPLACE_WITH_YOUR_RETURN_URL"
+							});
+							});
+						</script> --}}
 
-{% block content %}
-  <div class="content-section">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-          <section class="p-3 mt-3 preventFloat alert alert-{{ category }}">
-            {{ message }}
-          </section>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
-    <div class="parent">
-      <div class="child">
-        <form action="" method="POST">
-          {{ form.hidden_tag() }}
-          <fieldset class="form-group">
-            <legend class="border-bottom mb-4 shopFontTitle">Checkout</legend>
-            <h2>Contact Details</h2>
-            <div class="parent">
-              <div class="child pr-3">
-                <div class="form-group">
-                  {{ form.firstName.label(class="form-control-label") }}
-                  {% if form.firstName.errors %}
-                  {{ form.firstName(class="form-control form-control is-invalid") }}
-                  <div class="invalid-feedback">
-                    {% for error in form.firstName.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                  </div>
-                  {% else %}
-                  {{ form.firstName(class="form-control form-control") }}
-                  {% endif %}
-                </div>
-              </div>
-              <div class="child pl-3">
-                <div class="form-group">
-                  {{ form.lastName.label(class="form-control-label") }}
-                  {% if form.lastName.errors %}
-                  {{ form.lastName(class="form-control form-control is-invalid") }}
-                  <div class="invalid-feedback">
-                    {% for error in form.lastName.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                  </div>
-                  {% else %}
-                  {{ form.lastName(class="form-control form-control") }}
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              {{ form.email.label(class="form-control-label") }}
-              {% if form.email.errors %}
-              {{ form.email(class="form-control form-control is-invalid") }}
-              <div class="invalid-feedback">
-                {% for error in form.email.errors %}
-                <span>{{ error }}</span>
-                {% endfor %}
-              </div>
-              {% else %}
-              {{ form.email(class="form-control form-control") }}
-              {% endif %}
-            </div>
-            <div class="parent">
-              <div class="child">
-                <div class="form-group pr-3">
-                  {{ form.address.label(class="form-control-label") }}
-                  {% if form.address.errors %}
-                  {{ form.address(class="form-control form-control is-invalid") }}
-                  <div class="invalid-feedback">
-                    {% for error in form.address.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                  </div>
-                  {% else %}
-                  {{ form.address(class="form-control form-control") }}
-                  {% endif %}
-                </div>
-              </div>
-              <div class="child">
-                <div class="form-group pl-3">
-                  {{ form.postal.label(class="form-control-label") }}
-                  {% if form.postal.errors %}
-                  {{ form.postal(class="form-control form-control is-invalid") }}
-                  <div class="invalid-feedback">
-                    {% for error in form.postal.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                  </div>
-                  {% else %}
-                  {{ form.postal(class="form-control form-control") }}
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-            <h2>Payment Details</h2>
-            <div class="form-group">
-              {{ form.cardName.label(class="form-control-label") }}
-              {% if form.cardName.errors %}
-              {{ form.cardName(class="form-control form-control is-invalid") }}
-              <div class="invalid-feedback">
-                {% for error in form.cardName.errors %}
-                <span>{{ error }}</span>
-                {% endfor %}
-              </div>
-              {% else %}
-              {{ form.cardName(class="form-control form-control") }}
-              {% endif %}
-            </div>
-            <div class="form-group">
-              {{ form.cardNumber.label(class="form-control-label") }}
-              {% if form.cardNumber.errors %}
-              {{ form.cardNumber(class="form-control form-control is-invalid") }}
-              <div class="invalid-feedback">
-                {% for error in form.cardNumber.errors %}
-                <span>{{ error }}</span>
-                {% endfor %}
-              </div>
-              {% else %}
-              {{ form.cardNumber(class="form-control form-control") }}
-              {% endif %}
-            </div>
-            <div class="parent">
-              <div class="child pr-3">
-                <div class="form-group">
-                  {{ form.expDate.label(class="form-control-label") }}
-                  {% if form.expDate.errors %}
-                  {{ form.expDate(class="form-control form-control is-invalid") }}
-                  <div class="invalid-feedback">
-                    {% for error in form.expDate.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                  </div>
-                  {% else %}
-                  {{ form.expDate(class="form-control form-control") }}
-                  {% endif %}
-                </div>
-              </div>
-              <div class="child pl-3">
-                <div class="form-group">
-                  {{ form.cvv.label(class="form-control-label") }}
-                  {% if form.cvv.errors %}
-                  {{ form.cvv(class="form-control form-control is-invalid") }}
-                  <div class="invalid-feedback">
-                    {% for error in form.cvv.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                  </div>
-                  {% else %}
-                  {{ form.cvv(class="form-control form-control") }}
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-            <input type="submit" value="Submit" class="btn btn-primary"/>
-          </fieldset>
-        </form>
-      </div>
-      <div class="child pl-4 pt-5">
-        <h4>Cart
-          <span class="price" style="color:black">
-            <i class="fa fa-shopping-cart"></i>
-          </span>
-        </h4>
-        <div class="cartItems">
-            {% for cartItem in cartItems %}
-            <div class="cartItem">
-              <p class="cartItemName">{{ cartItem.itemNum }} x {{ cartItem.title }}<span class="price">S${{ cartItem.price * cartItem.itemNum }}</span></p>
-            </div>
-            {% endfor %}
-        </div>
-        <hr>
-        <div class="cartTotal">
-          <p>Total Amount <span class="price" style="color:black"><b>S${{ sum }}</b></span></p>
-        </div>
-      </div>
-    </div>
-  </div>
-{% endblock content %}
+						<script src="https://js.stripe.com/v3"></script>
+						<button type="button" class="btn btn-primary" id="openStripe">Credit/Debit Card</button>
+						
+						<div id="overlay">
+							<a href="javascript:void(0)" class="closebtn" id="closeStripe">&times;</a>
+							<div id="overlay-content" class="container">
+								<div class="form-group">
+									<label class="form-control-label" for="cardName">Name on Card</label>
+						
+									<input class="form-control form-control" id="cardName" name="cardName" placeholder="John Doe" required="" type="text" value="">
+						
+								</div>
+								<div class="form-group">
+									<label class="form-control-label" for="cardNumber">Card Number</label>
+								
+									<input class="form-control form-control" id="cardNumber" name="cardNumber" placeholder="1111-2222-3333-4444" required="" type="text" value="">
+								
+								</div>
+								<div class="rownoreverse" style="margin-right: -15px; margin-left: -15px;">
+									<div class="form-group col-50">
+										<label class="form-control-label" for="expDate">Exp Month</label>
+										<input class="form-control form-control" id="expDate" name="expDate" placeholder="09/25" required="" type="text" value="">
+									</div>
+									<div class="form-group col-50">
+										<label class="form-control-label" for="cvv">CVV</label>
+										
+										<input class="form-control form-control" id="cvv" name="cvv" placeholder="123" required="" type="text" value="">
+									</div>
+								</div>
+
+								<button class="btn btn-primary" id="checkout-button">Pay</button>
+							</div>
+						</div>
+						{{!-- <button class="btn btn-primary btn-stripe" type="button">VISA/MasterCard</button> --}}
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+</div>

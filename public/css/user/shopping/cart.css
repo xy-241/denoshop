@@ -51,7 +51,7 @@
 /*Modal*/
 
 
-.removeButton, {
+.removeButton {
   font-family: shopFont2;
 }
 
@@ -91,9 +91,9 @@
   width: 80%;
 }
 
-.cartItemPic{
+/* .cartItemPic{
 
-}
+} */
 
 .cartItemInfo{
   width: 100%;

@@ -1,27 +1,18 @@
+<script src="/js/useInterface/cart.js" defer></script>
 <div class="banner">
-	<img src="img/hacking2.jpg" alt="" />
+	<img src="/img/hacking2.jpg" alt="" />
 	<div class="background"></div>
 	<h2>
 		Deno Shop
 	</h2>
 </div>
 
-
+{% block content %}
 <!-- shoppingCart -->
-{{!-- <!-- Message Flash (Kenneth) -->
-{% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, message in messages %}
-      <section class="p-3 mt-3 preventFloat alert alert-{{ category }}">
-        {{ message }}
-      </section>
-    {% endfor %}
-  {% endif %}
-{% endwith %} --}}
 {{>  flashMsg/simpleFlashMsg}}
     {{> flashMsg/flashmsg}}
 <section class="shoppingCart">
-  <h3>Cart</h3>
+	<h3>Cart</h3>
 
     <div class="cartItems">
   
@@ -40,23 +31,19 @@
 
                 <input type="number" class="cartItemNum" value="{{ this.itemNum }}">
 
-            </div>
-          </div> <!--End of cart Info-->
-        </div> <!--End of cart Des-->
+						</div>
+					</div>
+					<!--End of cart Info-->
+				</div>
+				<!--End of cart Des-->
 
         <button type="button" class="removeButton">Remove</button>
       </div>
       {{/each}}
     </div>
 
-    <div class="cartTotal">
-      <p>Total Amount</p>
-      <p class="amountToPay">$0</p>
-    </div>
 
-    <div class="cartEmpty">
-      <p>Your Cart Is Empty, Buy Some And Be A Hacker!</p>
-    </div>
+
 
 </section>
 <!-- shoppingCart -->
@@ -65,5 +52,4 @@
   <!-- <button type="button" class="checkout">Checkout</button> -->
   <button type="button" class="checkout" onclick="window.location.href = '#redirectCheckout;">Checkout</button>
   <button type="button" class="checkout" onclick="window.location.href = '#history;">Purchases</button>
-  <script src="/js/useInterface/cart.js"></script>
 

@@ -1,0 +1,50 @@
+<h3 class="shopFontTitle" style="text-align: center; font-size:2.5em;">Delivery Status</h3>
+<div class="content-section"> 
+    <div>
+        <form method="POST">
+            <input type="text" id="search" class="updateBox" name="inputStatus"
+                placeholder="Enter the delivery status here">
+            <select class="btn btn-secondary btn-md px-4" name="dropdownStatus">
+                {{!-- {{#if (equal dropdownStatus "Processing") }} --}}
+                <option class="dropdown-item" value="Processing">Processing</option>
+                <option class="dropdown-item" value="Delivering">Delivering</option>
+                <option class="dropdown-item" value="Delivered">Delivered</option>
+                {{!-- {{#else dropdownStatus == "Delivering" }} --}}
+                <option class="dropdown-item" value="Delivering">Delivering</option>
+                <option class="dropdown-item" value="Processing">Processing</option>
+                <option class="dropdown-item" value="Delivered">Delivered</option>
+                {{!-- {% elif dropdownStatus == "Delivered" %} --}}
+                <option class="dropdown-item" value="Processing">Delivered</option>
+                <option class="dropdown-item" value="Processing">Processing</option>
+                <option class="dropdown-item" value="Delivering">Delivering</option>
+                {{!-- {% endif %} --}}
+
+            </select>
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+    </div>
+
+    <div>
+        <table class="tableStatus" border="1">
+            <tr>
+                <th class="trackingHistoryHeader">Tracking History</th>
+            </tr>
+            {{#if statusList}}
+                {{#each statusList}}
+                    <tr>
+                        <td> {{!--[{{ status.get_date() }} , {{ status.get_time() }}] {{ status.get_status() }} --}}
+                            <a href="">
+                                <input type="button" value="Remove" class="btn btn-danger height-auto btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this user?');">
+                            </a>
+                        </td>
+                    </tr>
+                {{/each}}
+            {{else}}
+                <tr>
+                    <td>There's no delivery history.</td>
+                </tr>
+            {{/if}}
+        </table>
+    </div>
+</div>

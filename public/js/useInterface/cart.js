@@ -42,15 +42,15 @@ function ready(){
   //Checkout Button
 
   //Check if carts has anything
-  var cartItemNumber = document.getElementsByClassName("cartItems")[0].childElementCount;
-  if(cartItemNumber == 0){
-    document.getElementsByClassName("cartTotal")[0].style.display = "none";
-    document.getElementsByClassName("cartEmpty")[0].style.display = "block";
-  }
-  else{
-    document.getElementsByClassName("cartTotal")[0].style.display = "flex";
-    document.getElementsByClassName("cartEmpty")[0].style.display = "none";
-  }
+  // var cartItemNumber = document.getElementsByClassName("cartItems")[0].childElementCount;
+  // if(cartItemNumber == 0){
+  //   document.getElementsByClassName("cartTotal")[0].style.display = "none";
+  //   document.getElementsByClassName("cartEmpty")[0].style.display = "block";
+  // }
+  // else{
+  //   document.getElementsByClassName("cartTotal")[0].style.display = "flex";
+  //   document.getElementsByClassName("cartEmpty")[0].style.display = "none";
+  // }
   //Check if carts has anything
   updateTheCart();
 }
@@ -79,17 +79,17 @@ function checkoutClearCart(event){
 }
 //checkout
 //Check Cart Status
-function checkCartStatus(){
-  var cartItemNumber = document.getElementsByClassName("cartItems")[0].childElementCount;
-  if(cartItemNumber == 0){
-    document.getElementsByClassName("cartTotal")[0].style.display = "none";
-    document.getElementsByClassName("cartEmpty")[0].style.display = "block";
-  }
-  else{
-    document.getElementsByClassName("cartTotal")[0].style.display = "flex";
-    document.getElementsByClassName("cartEmpty")[0].style.display = "none";
-  }
-}
+// function checkCartStatus(){
+//   var cartItemNumber = document.getElementsByClassName("cartItems")[0].childElementCount;
+//   if(cartItemNumber == 0){
+//     document.getElementsByClassName("cartTotal")[0].style.display = "none";
+//     document.getElementsByClassName("cartEmpty")[0].style.display = "block";
+//   }
+//   else{
+//     document.getElementsByClassName("cartTotal")[0].style.display = "flex";
+//     document.getElementsByClassName("cartEmpty")[0].style.display = "none";
+//   }
+// }
 //Check Cart Status
 
 function removeItemFromCart(event){
@@ -177,7 +177,7 @@ function updateTheCart(){
   amountToPay.innerText = "$" + sum;
 
   //Check if carts has anything
-  checkCartStatus();
+  // checkCartStatus();
   //Check if carts has anything
 
 }

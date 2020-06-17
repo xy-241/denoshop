@@ -34,6 +34,8 @@ require("dotenv").config();
  */
 const mainRoute = require("./routes/main");
 const userRoute = require("./routes/user");
+const paymentRoute = require("./routes/payment");
+const deliveryRoute = require("./routes/delivery");
 // const videoRoute = require("./routes/video");
 
 // const { formatDate, radioCheck, checkboxFormatter } = require("./helpers/hbs");
@@ -60,6 +62,7 @@ const app = express();
  *
  * */
 
+const { multiply } = require("./helpers/hbs");
 const { equal, noEqual } = require("./helpers/hbs");
 app.engine(
 	"handlebars",
@@ -67,6 +70,7 @@ app.engine(
 		helpers: {
 			equal,
 			noEqual,
+			multiply,
 			// formatDate,
 			// radioCheck,
 			// checkboxFormatter,
@@ -147,6 +151,8 @@ app.use(function (req, res, next) {
 //  * */
 app.use("/", mainRoute); // mainRoute is declared to point to routes/main.js
 app.use("/user", userRoute);
+app.use("/payment", paymentRoute);
+app.use("/delivery", deliveryRoute);
 // app.use("/video", videoRoute);
 // This route maps the root URL to any path defined in main.js
 
