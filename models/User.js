@@ -17,6 +17,9 @@ const User = db.define("user", {
 	deliveryInfo: {
 		type: Sequelize.STRING,
 	},
+	stripeid: {
+		type: Sequelize.STRING,
+	}
 });
 
 module.exports = User;

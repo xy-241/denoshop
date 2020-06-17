@@ -16,6 +16,7 @@
 }
 
 span.price {
+  text-align: right;
   float: right;
   color: grey;
 }
@@ -47,4 +48,229 @@ span.price {
   background-color: black;
   color:rgba(230, 231, 232, 1);
   transition: all 0.4s ease-in-out;
+}
+
+
+/* Bootstrap Css */
+.outer-row {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  /* -ms-flex-wrap: wrap; IE10 */
+  /* flex-wrap: wrap; */
+
+  /* background: #ffffff;
+  border: 1px solid #dddddd; */
+
+  margin-bottom: 20px;
+	margin-left: 10%;
+  margin-right: 10%;
+  
+	/* box-shadow: 0 0px 3px 1px rgba(0, 0, 0, 0.2); */
+}
+
+.row {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+}
+
+.rownoreverse {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+}
+
+.col-25 {
+  -ms-flex: 25%; /* IE10 */
+  flex: 25%;
+}
+
+.col-50 {
+  -ms-flex: 50%; /* IE10 */
+  flex: 50%;
+}
+
+.col-75 {
+  -ms-flex: 75%; /* IE10 */
+  flex: 75%;
+}
+
+.col-25,
+.col-50,
+.col-75 {
+  padding: 0 16px;
+}
+
+.container, .containers {
+  /* background-color: #f2f2f2; */
+  padding: 5px 20px 15px 20px;
+  /* border: 1px solid lightgrey; */
+  border-radius: 3px;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  box-shadow: 0 0px 3px 1px rgba(0, 0, 0, 0.2);
+}
+
+input[type=text] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+label {
+  margin-bottom: 10px;
+  display: block;
+}
+
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+@media (max-width: 800px) {
+  .row {
+    flex-direction: column-reverse;
+  }
+  .col-25 {
+    margin-bottom: 20px;
+  }
+  .outer-row{
+    flex-wrap: wrap;
+  }
+}
+
+.btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  width: 100%;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+.btn-accordion {
+  background-color: transparent;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.card-header {
+  background-color: transparent;
+  border-bottom: none;
+}
+
+/* .arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+} */
+
+.collapse {
+  width: -webkit-fill-available;
+}
+
+.btn-accordion .h3.mb-3.text-black:after{
+  content: " \2212";
+  /* border: solid black; */
+  /* border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg); */
+  transition: .3s all ease;
+
+}
+
+.btn-accordion.collapsed .h3.mb-3.text-black:after{
+  content: "\002B";
+  /* border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg); */
+  transition: .3s all ease;
+}
+
+
+/* Overlay */
+#overlay {
+  position: fixed; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+
+#overlay-content{
+  position: relative;
+  top: 25%; /* 25% from the top */
+  width: 100%; /* 100% width */
+  text-align: center; /* Centered text/links */
+  margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
+}
+
+/* The navigation links inside the overlay */
+#overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #D3D3D3;
+  display: block; /* Display block instead of inline */
+  transition: 0.3s; /* Transition effects on hover (color) */
+}
+
+/* When you mouse over the navigation links, change their color */
+#overlay a:hover, .overlay a:focus {
+  color: #f1f1f1;
+}
+
+/* Position the close button (top right corner) */
+#overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+}
+
+/* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
+@media screen and (max-height: 450px) {
+  #overlay a {font-size: 20px}
+  #overlay .closebtn {
+    font-size: 40px;
+    top: 15px;
+    right: 35px;
+  }
 }

@@ -51,7 +51,7 @@
 /*Modal*/
 
 
-.removeButton, {
+.removeButton {
   font-family: shopFont2;
 }
 
@@ -91,9 +91,9 @@
   width: 80%;
 }
 
-.cartItemPic{
+/* .cartItemPic{
 
-}
+} */
 
 .cartItemInfo{
   width: 100%;
@@ -145,9 +145,11 @@
   padding-top: 2px; /*shopFont2 4px*/  /*Text also responsive*/
   font-size: 1.1em;
 }
-.cartItemNumWrapper{
 
-}
+/* .cartItemNumWrapper{
+
+} */
+
 .cartItemNumWrapper input{
   display: block;
   font-family: text;
