@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const moment = require("moment");
 
 const alertMessage = require("../helpers/messenger");
 const ensureAuthenticated = require("../helpers/auth");
@@ -51,10 +52,13 @@ router.post("/register", (req, res) => {
 				let salt = bcrypt.genSaltSync(12);
 				password = bcrypt.hashSync(password, salt);
 				// Salting
+				let rawDate = new Date();
+				let dateJoined = moment(rawDate, "DD/MM/YYYY");
 				User.create({
 					username,
 					email,
 					password,
+					dateJoined
 				})
 					.then((user) => {
 						alertMessage(
