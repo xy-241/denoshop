@@ -21,6 +21,9 @@ const User = db.define("user", {
 	stripId: {
 		type: Sequelize.STRING,
 	},
+	dateJoined: {
+		type: Sequelize.DATE,
+	}
 });
 
 module.exports = User;
