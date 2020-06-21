@@ -23,6 +23,9 @@ const User = db.define("user", {
 	},
 	dateJoined: {
 		type: Sequelize.DATE,
+	},
+	googleId: {
+		type: Sequelize.INTEGER,
 	}
 });
 
