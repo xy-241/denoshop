@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
 <div class="content-section">
 
 	{{>  flashMsg/simpleFlashMsg}}
@@ -58,11 +60,21 @@
 				value="Login"
 			/>
 		</div>
+
+		
+	
 		<small class="text-muted">
 			<a class="text-primary" href="#reset_request">
 				Forgot Password?
 			</a>
 		</small>
+		<div class="divider mt-4">
+		</div>
+		<div class="section">
+				<a href="/auth/google" class="btn red darken-1">
+					<i class="fab fa-google left"></i>Log In With Google
+				</a>
+		</div>
 	</form>
 </div>
 <div class="m-3">
