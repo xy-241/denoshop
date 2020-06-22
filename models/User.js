@@ -25,7 +25,10 @@ const User = db.define("user", {
 		type: Sequelize.DATE,
 	},
 	googleId: {
-		type: Sequelize.INTEGER,
+		type: Sequelize.DECIMAL(21,0),
+	},
+	githubId: {
+		type: Sequelize.DECIMAL(21, 0), 
 	}
 });
 
