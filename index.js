@@ -22,7 +22,9 @@ denoShopDB.setUpDB(true);
 const authenticate = require("./config/passport"); // Passport Config
 authenticate.localStrategy(passport); // Using Local Strategy with infp passport.js in config
 
-require("./config/passportGoogle")(passport)
+// Third party login
+require("./config/passportGoogle")(passport);
+require("./config/passportGithub")(passport);
 
 // mySQL session
 const MySQLStore = require("express-mysql-session");

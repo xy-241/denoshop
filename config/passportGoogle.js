@@ -3,8 +3,8 @@ const User = require("../models/User"); // Load the user model
 
 const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const moment = require("moment");
 
-//const alertMessage = require("../helpers/messenger");
 
 
 module.exports = function(passport){
@@ -14,14 +14,18 @@ module.exports = function(passport){
     callbackURL: "/auth/google/callback"
   },
   (accessToken, refreshToken, profile, done) =>{
+    // DateJoined
+    let rawDate = new Date();
+		let dateJoined = moment(rawDate, "DD/MM/YYYY");
     const newUser = {
       googleId: profile.id,
       username: profile.displayName,
-      imageFile: profile.photos[0].value
+      imageFile: profile.photos[0].value,
+      dateJoined
     }
 
     try {
-      User.findOne({googleId: profile.id}).then((user) =>{
+      User.findOne({where: {googleId: profile.id}}).then((user) =>{
         if (user){
           done(null, user);
         } else{
