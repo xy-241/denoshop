@@ -108,3 +108,5 @@ node_modules/
 # Package.json
 package-lock.json
 config/db.js
+views/user/oldcheckout.handlebars
+public/js/useInterface/oldpurchase.js
