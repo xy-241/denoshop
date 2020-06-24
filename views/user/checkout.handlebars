@@ -1,171 +1,267 @@
-<script src="https://checkout.stripe.com/checkout.js" defer=""></script>
-<script>
-	var stripePublicKey = '{{ stripePublicKey }}'
-</script>
-<script src="/js/useInterface/purchase.js" defer></script>
+<script src="/js/useInterface/purchase.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
 
 <h3 class="shopFontTitle" style="text-align: center; font-size:2.5em;">Checkout</h3>
     {{>  flashMsg/simpleFlashMsg}}
 <div class="outer-row">
-	<div class="col-25">
-		<div class="containers accordion" id="cartAccordion">
-			<div class="rownoreverse" id="headingCart">
-				<button class="btn-accordion" type="button" data-toggle="collapse" data-target="#collapseCart" aria-expanded="true" aria-controls="collapseCart">
-				<h4 class="classFontTitle">Cart
-					<span class="price" style="color:black">
-						<i class="fa fa-shopping-cart"></i>
-					</span>
-				</h4>
-				</button>
-					<div class="collapse show" id="collapseCart" aria-labelledby="headingCart" data-parent="#cartAccordion">
-						<div class="cartItems">
-							{{#if cartItems}}
-								{{#each cartItems}}
-								<div class="cartItem" data-item-id="{{ id }}" data-item-price="{{ price }}">
-									<p class="cartItemName"><span class="cartItem-quantity">{{itemNum}}</span> x {{ title }} <span class="price" style="float: right;">S${{ multiply price itemNum }}</span></p>
-								</div>
-								{{/each}}
-							{{else}}
-								<div class="cartItem">
-									<p>No items</p>
-								</div>
-							{{/if}}
-						</div>
-						<hr>
-						<div class="cartTotal">
-							<p>Total Amount <span class="price" style="color:black"><b>S${{ sum }}</b></span></p>
-						</div>
-					</div>
-				{{!-- </div> --}}
-			</div>
-		</div>
-		<div class="containers accordion" id="addressAccordion" style="margin-top: 10px;">
-			<div class="rownoreverse card-header" id="headingOne">
-				<button class="btn-accordion" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-				<h2 class="h3 mb-3 text-black">Other Addresses<span class="arrow"></span></h2>
-				</button>
-				<div class="collapse show" id="collapseOne" aria-labelledby="headingOne" data-parent="#addressAccordion">
-					<div class="">
-						{{#if AddressList}}
-							{{#each AddressList}}
-							<hr>
-								<div style="text-align:center;">
-									<p>{{ firstname }} {{ lastname }}</p>
-									<p>{{ address }}</p>
-									<p>{{ country }}</p>
-									<p>{{ city }}</p>
-									<p>{{ state }}</p>
-									<p>{{ postalcode }}</p>
-									<p>Phone: {{ mobile }}</p>
-									<form>
-										<input type="submit" value="Deliver to this address" formmethod="post" formaction="" class="btn btn-primary px-3 py-1 height-auto" style="margin-bottom: 1%; display: inline-block; text-align:center;">
-										<a href="" class="btn btn-warning px-2 py-1 height-auto" style="width:39%;margin-left:10%;float:left;">Edit</a>
-										<input type="submit" value="Remove" formaction="" class="btn btn-danger px-2 py-1 height-auto" style="width:39%;margin-right:8%;" onclick="return confirm('Are you sure you want to remove this item?');">
-									</form>
-								</div>
-								<br>
-							{{/each}}
-						{{else}}
-							<p>No Other Addresses Recorded</p>
-						{{/if}}
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-75">
-		<div class="containers">
-			<form action="/" method="POST">
+    <div class="col-25">
+        {{!-- Cart Accordion Container --}}
+        <div class="containers accordion" id="cartAccordion">
+            <div class="rownoreverse" id="headingCart">
+                {{!-- Accordion Button --}}
+                <button class="btn-accordion" type="button" data-toggle="collapse" data-target="#collapseCart" aria-expanded="true" aria-controls="collapseCart">
+                <h4 class="classFontTitle">Cart
+                    <span class="price" style="color: black;">
+                        <i class="fa fa-shopping-cart"></i>
+                    </span>
+                </h4>
+                </button>
+                <div class="collapse show" id="collapseCart" aria-labelledby="headingCart" data-parent="#cartAccordion">
+                    <div class="cartItems">
+                        {{#if cartItems}}
+                            {{#each cartItems}}
+                            <div class="cartItem" data-item-id="{{id}}" date-item-price="{{price}}">
+                                <p class="cartItemName"><span class="cartItem-quantity">{{itemNum}}</span> x {{title}} <span class="price" style="float:right;">S${{ multiply price itemNum }}</span></p>
+                            </div>
+                            {{/each}}
+                        {{else}}
+                            <div class="cartItem">
+                                <p>No Items</p>
+                            </div>
+                        {{/if}}
+                    </div>
+                    <hr>
+                    <div class="cartTotal">
+                        <p>Total Amount <span class="price" style="color: black"><b>S${{ sum }}</b></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{!-- End of Accordion --}}
+        {{!-- Address Accordion Container --}}
+        <div class="containers accordion" id="addressAccordion" style="margin-top: 10px;">
+            <div class="rownoreverse card-header" id="headingOne">
+                {{!-- Accordion Button --}}
+                <button class="btn-accordion" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <h2 class="h3 mb-3 text-black">Other Addresses<span class="arrow"></span></h2>
+                </button>
+            </div>
+            <div class="collapse show" id="collapseOne" aria-labelledby="headingOne" data-parent="#addressAccordion">
+                <div>
+                    {{#if AddressList}}
+                        {{#each AddressList}}
+                        <hr>
+                        <div style="text-align: center;">
+                            <p>{{ firstname }} {{ lastname }}</p>
+                            <p>{{ address }}</p>
+                            <p>{{ country }}</p>
+                            <p>{{ city }}</p>
+                            <p>{{ state }}</p>
+                            <p>{{ postalcode }}</p>
+                            <p>Phone: {{ mobile }}</p>
+                            <form>
+                                <input type="submit" value="Deliver to this address" formmethod="post" formaction="" class="btn btn-primary px-3 py-1 height-auto" style="margin-bottom: 1%; display: inline-block; text-align:center;">
+                                <a href="" class="btn btn-warning px-2 py-1 height-auto" style="width:39%;margin-left:10%;float:left;">Edit</a>
+                                <input type="submit" value="Remove" formaction="" class="btn btn-danger px-2 py-1 height-auto" style="width:39%;margin-right:8%;" onclick="return confirm('Are you sure you want to remove this item?');">
+                            </form>
+                        </div>
+                        <br>
+                        {{/each}}
+                    {{else}}
+                        <p>No Other Addresses Recorded</p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        {{!-- End of Accordion --}}
+    </div>
 
-				<div class="row">
-					<div class="col-50">
-						<h2 class="h3 mb-3 text-black">Shipping Details</h2>
-						<div class="rownoreverse" style="margin-right: -15px; margin-left: -15px;">
-							<div class="form-group col-50">
-								<label class="form-control-label" for="firstName">First Name</label>
-								<input class="form-control form-control" id="firstName" name="firstName" placeholder="John" required="" type="text" value="">
-							</div>
-							<div class="form-group col-50">
-								<label class="form-control-label" for="lastName">Last Name</label>
-								<input class="form-control form-control" id="lastName" name="lastName" placeholder="Doe" required="" type="text" value="">
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="form-control-label" for="email">Email</label>
-							<input class="form-control form-control" id="email" name="email" placeholder="johndoe@gmail.com" required="" type="text" value="">
-						</div>
-						<div class="rownoreverse" style="margin-right: -15px; margin-left: -15px;">
-							<div class="form-group pr-3 col-50">
-								<label class="form-control-label" for="address">Address</label>
-								<input class="form-control form-control" id="address" name="address" placeholder="180 Ang Mo Kio Ave 8" required="" type="text" value="">
-							</div>
-							<div class="form-group pl-3 col-50">
-								<label class="form-control-label" for="postal">Postal Code</label>
-								<input class="form-control form-control" id="postal" name="postal" placeholder="569830" required="" type="text" value="">
-							</div>
-						</div>													
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-50">
-						<h2 class="h3 mb-3 text-black">Payment Method</h2>
-						{{!-- <span id='cwppButton'></span> --}}
-						{{!-- <script src='https://www.paypalobjects.com/js/external/connect/api.js'></script> --}}
-						{{!-- <script>
-							paypal.use( ['login'], function (login) {
-							login.render ({
-								"appid":"AQMqF2t4zLyStf3iODEPgdwXLvba-i-bEr2MJlQRDAmY-HcfaFWSj9Ek9djQ7ZJOqzODO-zZ_cI3jdMU",
-								"authend":"sandbox",
-								"scopes":"openid",
-								"containerid":"cwppButton",
-								"responseType":"http://127.0.0.1:5000/payment/cart",
-								"locale":"en-us",
-								"buttonShape":"pill",
-								"buttonSize":"lg",
-								"fullPage":"true",
-								"returnurl":"REPLACE_WITH_YOUR_RETURN_URL"
-							});
-							});
-						</script> --}}
+    <div class="col-75">
+        <form action="/" method="POST">
+            {{!-- Accordion Wrapper --}}
+            <div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
+                {{!-- Accordion Card / Container --}}
+                <div class="containers card">
+                    {{!-- Card Header --}}
+                    <div class="card-header" role="tab" id="headingTwo1">
+                        <button type="button" class="btn-accordion" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseTwo1" aria-expanded="true" aria-controls="collapseTwo1">
+                            <h4 class="mb-0">Delivery Address <i class="fas fa-angle-down rotate-icon"></i></h4>
+                        </button>
+                    </div>
 
-						<script src="https://js.stripe.com/v3"></script>
-						<button type="button" class="btn btn-primary" id="openStripe">Credit/Debit Card</button>
-						
-						<div id="overlay">
-							<a href="javascript:void(0)" class="closebtn" id="closeStripe">&times;</a>
-							<div id="overlay-content" class="container">
-								<div class="form-group">
-									<label class="form-control-label" for="cardName">Name on Card</label>
-						
-									<input class="form-control form-control" id="cardName" name="cardName" placeholder="John Doe" required="" type="text" value="">
-						
-								</div>
-								<div class="form-group">
-									<label class="form-control-label" for="cardNumber">Card Number</label>
-								
-									<input class="form-control form-control" id="cardNumber" name="cardNumber" placeholder="1111-2222-3333-4444" required="" type="text" value="">
-								
-								</div>
-								<div class="rownoreverse" style="margin-right: -15px; margin-left: -15px;">
-									<div class="form-group col-50">
-										<label class="form-control-label" for="expDate">Exp Month</label>
-										<input class="form-control form-control" id="expDate" name="expDate" placeholder="09/25" required="" type="text" value="">
-									</div>
-									<div class="form-group col-50">
-										<label class="form-control-label" for="cvv">CVV</label>
-										
-										<input class="form-control form-control" id="cvv" name="cvv" placeholder="123" required="" type="text" value="">
-									</div>
-								</div>
+                    {{!-- Card Body --}}
+                    <div id="collapseTwo1" class="collapse show" role="tabpanel" aria-labelledby="headingTwo1" data-parent="#accordionEx1">
+                        <div class="card-body">
+                            <div class="rownoreverse" style="margin-right: -15px; margin-left: -15px;">
+                                <div class="form-group col-50">
+                                    <label class="form-control-label" for="firstName">First Name</label>
+                                    <input class="form-control" id="firstName" name="firstName" placeholder="John" required="" type="text" value="">
+                                </div>
+                                <div class="form-group col-50">
+                                    <label class="form-control-label" for="lastName">Last Name</label>
+                                    <input class="form-control" id="lastName" name="lastName" placeholder="Doe" required="" type="text" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" for="email">Email</label>
+                                <input class="form-control" id="email" name="email" placeholder="johndoe@gmail.com" required="" type="text" value="">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" for="address">Address</label>
+                                <input class="form-control" id="address" name="address" placeholder="180 Ang Mo Kio Ave 8" required="" type="text" value="">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" for="postal">Postal Code</label>
+                                <input class="form-control" id="postal" name="postal" placeholder="569830" required="" type="text" value="">
+                            </div>
+                            <a class="next-btn collapsed" role="button" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseTwo21" aria-expanded="false">Next</a>
+                        </div>
+                    </div>
+                    {{!-- End Of Body --}}
+                </div>
+                {{!-- End of Accordion Card --}}
 
-								<button class="btn btn-primary" id="checkout-button">Pay</button>
-							</div>
-						</div>
-						{{!-- <button class="btn btn-primary btn-stripe" type="button">VISA/MasterCard</button> --}}
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
-	
+                {{!-- Accordion Card --}}
+                <div class="containers card">
+
+                    {{!-- Card Header --}}
+                    <div class="card-header" role="tab" id="headingTwo2">
+                        <button type="button" class="btn-accordion collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseTwo21" aria-expanded="false" aria-controls="collapseTwo21">
+                            <h4 class="mb-0">Delivery Time &amp; Date <i class="fas fa-angle-down rotate-icon"></i></h4>
+                        </button>
+                    </div>
+
+                    {{!-- Card Body --}}
+                    <div id="collapseTwo21" class="collapse" role="tabpanel" aria-labelledby="headingTwo21" data-parent="#accordionEx1">
+                        <div class="card-body">
+                            <div class="form-group datepickerbtn">
+                                <label class="form-control-label">Date</label>
+                                <input id="datepicker" width="200" name="deliveryDate" readonly/>
+                            </div>
+                            <div class="form-group" id="divDeliveryTime">
+                                <label class="form-control-label" style="padding-left: 0;">Time</label>
+                                
+                                <div class="radioBtn">
+                                    <input type="radio" id="0800" name="deliveryTime" value="0800" checked>
+                                    <label for="0800">8.00AM - 10.00AM</label>
+                                </div>
+                                <div class="radioBtn">
+                                    <input type="radio" id="1000" name="deliveryTime" value="1000">
+                                    <label for="1000">10.00AM - 12.00PM</label>
+                                </div>
+                                <div class="radioBtn">
+                                    <input type="radio" id="1200" name="deliveryTime" value="1200">
+                                    <label for="1200">12.00PM - 2.00PM</label>
+                                </div>
+                                <div class="radioBtn">
+                                    <input type="radio" id="1400" name="deliveryTime" value="1400">
+                                    <label for="1400">2.00PM - 4.00PM</label>
+                                </div>
+                                <div class="radioBtn">
+                                    <input type="radio" id="1600" name="deliveryTime" value="1600">
+                                    <label for="1600">4.00PM - 6.00PM</label>                                   
+                                </div>
+                            </div>
+                            <a class="next-btn collapsed" role="button" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseThree31" aria-expanded="false">Next</a>
+                        </div>
+                    </div>
+                    {{!-- End of Card Body --}}
+                </div>
+                {{!-- End of Card Accordion --}}
+
+                {{!-- Card Accordion --}}
+                <div class="containers card">
+
+                    {{!-- Card header --}}
+                    <div class="card-header" role="tab" id="headingThree31">
+                        <button type="button" class="btn-accordion collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseThree31" aria-expanded="false" aria-controls="collapseThree31">
+                            <h4 class="mb-0">Payment Method <i class="fas fa-angle-down rotate-icon"></i></h4>
+                        </button>
+                    </div>
+
+                    {{!-- Card Body --}}
+                    <div id="collapseThree31" class="collapse" role="tabpanel" aria-labelledby="headingThree31" data-parent="#accordionEx1">
+                        <div class="card-body">
+                            {{!-- Paypal --}}
+                            <div id="paypal-button-container"></div>
+                            <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=SGD" data-sdk-integration-source="button-factory"></script>
+                            <script>
+                            paypal.Buttons({
+                                style: {
+                                    shape: 'rect',
+                                    color: 'gold',
+                                    layout: 'horizontal',
+                                    tagline: false,
+                                    
+                                },
+                                createOrder: function(data, actions) {
+                                    return actions.order.create({
+                                        purchase_units: [{
+                                            amount: {
+                                                value: '1'
+                                            }
+                                        }]
+                                    });
+                                },
+                                onApprove: function(data, actions) {
+                                    return actions.order.capture().then(function(details) {
+                                        alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                                    });
+                                }
+                            }).render('#paypal-button-container');
+                            </script>
+
+                            {{!-- Stripe --}}
+                            <button type="button" class="btn btn-primary" id="openStripe">Credit/Debit Card</button>
+                            
+                            {{!-- Overlay --}}
+                            <div id="overlay">
+                                <a href="javascript:void(0)" class="closebtn" id="closeStripe">&times;</a>
+                                <div id="overlay-content" class="container">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="cardName">Name on Card</label>
+                            
+                                        <input class="form-control form-control" id="cardName" name="cardName" placeholder="John Doe" required="" type="text" value="">
+                            
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="cardNumber">Card Number</label>
+                                    
+                                        <input class="form-control form-control" id="cardNumber" name="cardNumber" placeholder="1111-2222-3333-4444" required="" type="text" value="">
+                                    
+                                    </div>
+                                    <div class="rownoreverse" style="margin-right: -15px; margin-left: -15px;">
+                                        <div class="form-group col-50">
+                                            <label class="form-control-label" for="expDate">Exp Month</label>
+                                            <input class="form-control form-control" id="expDate" name="expDate" placeholder="09/25" required="" type="text" value="">
+                                        </div>
+                                        <div class="form-group col-50">
+                                            <label class="form-control-label" for="cvv">CVV</label>
+                                            
+                                            <input class="form-control form-control" id="cvv" name="cvv" placeholder="123" required="" type="text" value="">
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-primary" id="checkout-button">Pay</button>
+                                </div>
+                            </div>
+                            {{!-- End of Overlay --}}
+                        </div>
+                    </div>
+                    {{!-- End of Card Body --}}
+                </div>
+                {{!-- End of Card Accordion --}}
+            </div>
+            {{!-- End Of Accordion Wrapper --}}
+        </form>
+    </div>
 </div>
+
+<script>
+		$('#datepicker').datepicker({
+			format: 'dd/mm/yyyy',
+			value: new Date().toLocaleDateString(),
+			uiLibrary: 'bootstrap4',
+			todayHighlight: true,
+		});
+</script>

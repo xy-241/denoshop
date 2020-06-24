@@ -7,7 +7,6 @@
 	</h2>
 </div>
 
-{% block content %}
 <!-- shoppingCart -->
 {{>  flashMsg/simpleFlashMsg}}
     {{> flashMsg/flashmsg}}
@@ -15,32 +14,42 @@
 	<h3>Cart</h3>
 
     <div class="cartItems">
-  
-      {{#each cartItems }}
-      <div class="cartItem">
-        <div class="cartItemDes">
-          <div class="cartItemPic">
-            <img src="{{this.imageFile}}">
+      {{#if cartItems }}
+        {{#each cartItems }}
+        <div class="cartItem">
+          <div class="cartItemDes">
+            <div class="cartItemPic">
+              <img src="{{this.imageFile}}">
+            </div>
+
+            <div class="cartItemInfo">
+              <p class="cartItemName">{{ this.title }}</p>
+              <div class="cartItemBuyingInfo">
+                <p class="cartItemPrice">S${{ this.price }}</p>
+
+
+                  <input type="number" class="cartItemNum" value="{{ this.itemNum }}">
+
+              </div>
+            </div>
+            <!--End of cart Info-->
           </div>
+          <!--End of cart Des-->
 
-          <div class="cartItemInfo">
-            <p class="cartItemName">{{ this.title }}</p>
-            <div class="cartItemBuyingInfo">
-              <p class="cartItemPrice">S${{ this.price }}</p>
-
-
-                <input type="number" class="cartItemNum" value="{{ this.itemNum }}">
-
-						</div>
-					</div>
-					<!--End of cart Info-->
-				</div>
-				<!--End of cart Des-->
-
-        <button type="button" class="removeButton">Remove</button>
+          <button type="button" class="removeButton">Remove</button>
+        </div>
+        {{/each}}
       </div>
-      {{/each}}
-    </div>
+      <div class="cartTotal">
+        <p>Total Amount</p>
+        <p class="amountToPay">$0</p>
+      </div>
+    {{else}}
+      </div>
+      <div class="cartEmpty">
+        <p>Your Cart Is Empty, Buy Some And Be A Hacker!</p>
+      </div>
+    {{/if}}
 
 
 
@@ -50,6 +59,6 @@
 
 
   <!-- <button type="button" class="checkout">Checkout</button> -->
-  <button type="button" class="checkout" onclick="window.location.href = '#redirectCheckout;">Checkout</button>
+  <button type="button" class="checkout" onclick="window.location.href = '/payment/checkout'">Checkout</button>
   <button type="button" class="checkout" onclick="window.location.href = '#history;">Purchases</button>
 

@@ -127,24 +127,82 @@ label {
 }
 
 
-/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
-@media (max-width: 800px) {
-  .row {
-    flex-direction: column-reverse;
-  }
-  .col-25 {
-    margin-bottom: 20px;
-  }
-  .outer-row{
-    flex-wrap: wrap;
-  }
+#divDeliveryTime{
+  display: block;
+}
+
+.radioBtn input[type="radio"] {
+  display: none;
+}
+
+.radioBtn label {
+  padding: 5px;
+  cursor: pointer;
+  background: darkgray;
+  color: #fff;
+  border-radius: 3px;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.radioBtn input[type="radio"]:checked+label, .Checked+label {
+  background: #212529;
+}
+
+.radioBtn{
+  position: relative;
+  display: inline-block;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  outline: 0;
+  vertical-align: baseline;
+  font-style: normal;
+  min-height: 17px;
+  font-size: 1rem;
+  line-height: 17px;
+  width: 150px;
+}
+
+.datepickerbtn .btn{
+  background-color: #212529;
+}
+
+.next-btn:hover{
+  text-decoration: none;
+  background: #212529;
+  color: #fff !important;
+  transition: all .2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+}
+
+.next-btn{
+  margin-left: auto;
+  height: 40px;
+  padding: 9px 20px;
+  border: 1px solid #212529;
+  background: #212529;
+  color: #fff;
+  border-radius: 5px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  /* display: inline-block; */
+  float: right;
+}
+
+#openStripe{
+  height: 45px;
+  text-align: center;
+  padding: initial;
 }
 
 .btn {
   background-color: #4CAF50;
   color: white;
   padding: 12px;
-  margin: 10px 0;
+  /* margin: 10px 0; */
   border: none;
   width: 100%;
   border-radius: 3px;
@@ -174,48 +232,24 @@ label {
   border-bottom: none;
 }
 
-/* .arrow {
-  border: solid black;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 3px;
-}
-
-.left {
-  transform: rotate(135deg);
-  -webkit-transform: rotate(135deg);
-}
-
-.down {
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-} */
-
 .collapse {
   width: -webkit-fill-available;
 }
 
 .btn-accordion .h3.mb-3.text-black:after{
   content: " \2212";
-  /* border: solid black; */
-  /* border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 3px;
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg); */
   transition: .3s all ease;
 
 }
 
 .btn-accordion.collapsed .h3.mb-3.text-black:after{
   content: "\002B";
-  /* border: solid black;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 3px;
-  transform: rotate(135deg);
-  -webkit-transform: rotate(135deg); */
   transition: .3s all ease;
+}
+
+.btn-accordion.collapsed .fa-angle-down.rotate-icon{
+  transform: rotate(90deg);
+  transition: .3s transform ease-in-out;
 }
 
 
@@ -230,7 +264,8 @@ label {
   right: 0;
   bottom: 0;
   background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  z-index: 100; /* Specify a stack order in case you're using a different order for other elements */
+  /* z-index: 100; becuz Paypal is at 99 */
   cursor: pointer; /* Add a pointer on hover */
 }
 
@@ -265,6 +300,24 @@ label {
   font-size: 60px;
 }
 
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+@media (max-width: 800px) {
+  .row {
+    flex-direction: column-reverse;
+  }
+  .col-25 {
+    margin-bottom: 20px;
+  }
+  .outer-row{
+    flex-wrap: wrap;
+  }
+  #openStripe{
+    height: 35px;
+    min-height: 35px;
+    max-height: 55px;
+  }
+}
+
 /* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
 @media screen and (max-height: 450px) {
   #overlay a {font-size: 20px}
@@ -273,4 +326,16 @@ label {
     top: 15px;
     right: 35px;
   }
+}
+
+.card{
+  position: static !important;
+}
+
+.paypal-button{
+  position: static;
+}
+
+.gj-picker.gj-picker-bootstrap.datepicker.gj-unselectable{
+  z-index: 2;   /* Make sure calendar does not go over the navbar when scrolling */
 }
