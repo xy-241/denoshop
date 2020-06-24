@@ -17,10 +17,14 @@ const passport = require("passport"); // User authentication with passport
 
 // mySQL
 const denoShopDB = require("./config/DBConnection");
-denoShopDB.setUpDB(false);
+denoShopDB.setUpDB(true);
 
 const authenticate = require("./config/passport"); // Passport Config
 authenticate.localStrategy(passport); // Using Local Strategy with infp passport.js in config
+
+// Third party login
+require("./config/passportGoogle")(passport);
+require("./config/passportGithub")(passport);
 
 // mySQL session
 const MySQLStore = require("express-mysql-session");
@@ -36,6 +40,7 @@ const mainRoute = require("./routes/main");
 const userRoute = require("./routes/user");
 const paymentRoute = require("./routes/payment");
 const deliveryRoute = require("./routes/delivery");
+const authRoute = require("./routes/auth")
 // const videoRoute = require("./routes/video");
 
 // const { formatDate, radioCheck, checkboxFormatter } = require("./helpers/hbs");
@@ -119,12 +124,12 @@ let sessionIns = session({
 	resave: false,
 	saveUninitialized: false,
 }); // middle for session + DB
-
 app.use(sessionIns);
 
 // Initialize passport middleware
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session()); // Express session is needed
+
 
 // // Flash Messages
 app.use(flash());
@@ -153,6 +158,7 @@ app.use("/", mainRoute); // mainRoute is declared to point to routes/main.js
 app.use("/user", userRoute);
 app.use("/payment", paymentRoute);
 app.use("/delivery", deliveryRoute);
+app.use("/auth", authRoute);
 // app.use("/video", videoRoute);
 // This route maps the root URL to any path defined in main.js
 
@@ -162,6 +168,6 @@ app.use("/delivery", deliveryRoute);
  * */
 const port = process.env.PORT || 5000;
 // Starts the server and listen to port 5000
-app.listen(port, "0.0.0.0", () => {
-	console.log(`Server started on port ${port}`);
+app.listen(port, () => {
+	console.log(`Server running in ${process.env.NODE_ENV} on port ${port}`);
 });

@@ -1,7 +1,8 @@
-// require("dotenv").config();
+require("dotenv").config();
 module.exports = {
-	host: 'localhost',
-	database: 'denoshop',
-	username: 'denoAdmin',
-	password: 'denoAdmin',
+	host: process.env.DBHOST,
+	database: process.env.DBNAME,
+	username: process.env.DBUSER,
+	password: process.env.DBPASS,
+	
 };

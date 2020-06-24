@@ -21,6 +21,15 @@ const User = db.define("user", {
 	stripId: {
 		type: Sequelize.STRING,
 	},
+	dateJoined: {
+		type: Sequelize.DATE,
+	},
+	googleId: {
+		type: Sequelize.DECIMAL(21,0),
+	},
+	githubId: {
+		type: Sequelize.DECIMAL(21, 0), 
+	}
 });
 
 module.exports = User;
