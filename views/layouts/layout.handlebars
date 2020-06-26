@@ -43,6 +43,10 @@
 		
 	{{!--Google fonts Icon--}}
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap"
+    rel="stylesheet"
+  />
 
 
 		{{#if style }}
@@ -59,12 +63,16 @@
 		{{!-- Checking - omitting nav and footer--}}
 		{{#if (equal title "Register" )}}
 		{{else if (equal title "Login")}}
+		{{else if (equal title "My Account")}}
 		{{else}}
 			{{> _navbar}}
 		{{/if}}
 		{{!-- Checking - omitting nav and footer--}}
 		
-		<article class="workContent">
+		{{#if (equal title "My Account")}}
+		{{else}}
+			<article class="workContent">
+				{{/if}}
 		
 			{{!-- {% block header %} {% endblock %} {% block content %} {% endblock %} --}}
 			{{{body}}}
@@ -73,6 +81,7 @@
 		{{!-- Checking - omitting nav and footer--}}
 		{{#if (equal title "Register" )}}
 		{{else if (equal title "Login")}}
+		{{else if (equal title "My Account")}}
 		{{else}}
 			{{> _footer}}
 		{{/if}}

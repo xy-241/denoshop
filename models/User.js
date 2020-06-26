@@ -10,7 +10,7 @@ const User = db.define("user", {
 	},
 	imageFile: {
 		type: Sequelize.STRING,
-		defaultValue: "default.jpg",
+		defaultValue: "https://res.cloudinary.com/dchpyunul/image/upload/v1593146704/denoshop/userProfileImage/default.jpg",
 	},
 	password: {
 		type: Sequelize.STRING,
