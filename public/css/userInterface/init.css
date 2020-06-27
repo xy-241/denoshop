@@ -31,15 +31,16 @@ body {
 
 /* Customise the scrollbar */
 body::-webkit-scrollbar {
-  width: 0.25rem;
+  width: 0.35em;
 }
 
 body::-webkit-scrollbar-track {
-  background: #1e1e24;
+  background: #262729
 }
 
 body::-webkit-scrollbar-thumb {
-  background: #6649b8;
+  background: #ffff;
+  border-radius: 20px;
 }
 
 ul {

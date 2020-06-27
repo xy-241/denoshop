@@ -63,16 +63,12 @@
 		{{!-- Checking - omitting nav and footer--}}
 		{{#if (equal title "Register" )}}
 		{{else if (equal title "Login")}}
-		{{else if (equal title "My Account")}}
 		{{else}}
 			{{> _navbar}}
 		{{/if}}
 		{{!-- Checking - omitting nav and footer--}}
 		
-		{{#if (equal title "My Account")}}
-		{{else}}
 			<article class="workContent">
-				{{/if}}
 		
 			{{!-- {% block header %} {% endblock %} {% block content %} {% endblock %} --}}
 			{{{body}}}
@@ -81,7 +77,6 @@
 		{{!-- Checking - omitting nav and footer--}}
 		{{#if (equal title "Register" )}}
 		{{else if (equal title "Login")}}
-		{{else if (equal title "My Account")}}
 		{{else}}
 			{{> _footer}}
 		{{/if}}
