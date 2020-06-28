@@ -63,7 +63,7 @@ router.get("/logout", (req, res) => {
 
 router.get("/account", ensureAuthenticated, (req, res) => {
 	res.render("user/account", {
-		style: { text: "user/management/account.css" },
+		style: { text: "user/management/account.css", text1: "user/management/accountAddress.css"},
 		title: "My Account",
 	});
 });
