@@ -27,8 +27,22 @@ body {
 	transition: all 0.5s ease-in-out;
        /*overflow: hidden;
        background: rgb(26, 27, 29);*/
-
 }
+
+/* Customise the scrollbar */
+body::-webkit-scrollbar {
+  width: 0.35em;
+}
+
+body::-webkit-scrollbar-track {
+  background: #262729
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #ffff;
+  border-radius: 20px;
+}
+
 ul {
 	list-style-type: none;
 	padding: 0;

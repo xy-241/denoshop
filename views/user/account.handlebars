@@ -16,225 +16,31 @@
 		</div>
 	</div>
 </div>
-<form action="/user/update/{{user.id}}?_method=PUT" method="post">
-	<!-- Post the info to the same route, enctype needed to pass pic file probably -->
-	<input type="hidden" name="_method" value="PUT" />
-	<fieldset class="form-group">
-		<legend class="border-bottom mb-4">
-			User Info
-		</legend>
-		<div class="form-group">
-			<label class="form-control-label" for="username">
-				username
-			</label>
-			<input
-				class="form-control form-control-lg"
-				id="username"
-				name="username"
-				required
-				type="text"
-				value="{{user.username}}"
-			/>
-		</div>
-		<div class="form-group">
-			<label class="form-control-label" for="email">
-				Email
-			</label>
-			<input
-				class="form-control form-control-lg"
-				id="email"
-				name="email"
-				required
-				type="text"
-				value="{{user.email}}"
-			/>
-		</div>
-		<div class="form-group">
-			<label class="form-control-label" for="deliveryInfo">
-				Delivery Info
-			</label>
-			<textarea
-				class="md-textarea form-control"
-				id="deliveryInfo"
-				name="deliveryInfo"
-				rows="4"
-				cols="50"
-				wrap="hard"
-			>{{user.deliveryInfo}}
-			</textarea>
-		</div>
-		<div class="form-group">
-			<label for="picture">
-				Update Profile Picture
-			</label>
-			<input
-				class="form-control-file"
-				id="picture"
-				name="imageFile"
-				type="file"
-			/>
-		</div>
-	</fieldset>
-	<div class="form-group">
-		<input
-			class="btn btn-outline-info"
-			id="submit"
-			name="submit"
-			type="submit"
-			value="Update"
-		/>
-		<button
-			type="button"
-			class="btn btn-danger"
-			data-toggle="modal"
-			data-target="#deleteModal"
-		>
-			Delete
-		</button>
-	</div>
-</form>
-<!-- Modal -->
-<div
-	class="modal fade"
-	id="deleteModal"
-	tabindex="-1"
-	role="dialog"
-	aria-labelledby="deleteModalLabel"
-	aria-hidden="true"
->
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="deleteModalLabel">
-					Delete Account?
-				</h5>
-				<button
-					type="button"
-					class="close"
-					data-dismiss="modal"
-					aria-label="Close"
-				>
-					<span aria-hidden="true">
-						×
-					</span>
-				</button>
-			</div>
-			<div class="modal-footer">
-				<button
-					type="button"
-					class="btn btn-secondary"
-					data-dismiss="modal"
-				>
-					Close
-				</button>
-				<form action="/user/delete/{{user.id}}" method="get">
-					<!-- Post the info to the same route, enctype needed to pass pic file probably -->
-					<input
-						class="btn btn-danger"
-						type="submit"
-						value="Delete"
-					/>
-				</form>
-			</div>
-			
-		</div>
-	</div>
-</div>
 
-<div class="container">
-{{#if videos}}
-	<div class="card card-body">
-		<h3 class="text-primary">Video Jots</h3>
-		{{#each videos}}
-			<div class="card border-primary mb-2 w-100 mx-auto">
-				<div class="card-header">
-					<h5 class="card-title">{{title}}</h5>
-				</div>
-				<div class="card-body">
-					<div class="row">
-						<div class="col-sm-12 col-md-12 col-lg-2"> <!-- Poster -->
-							<a href="{{posterURL}}" alt="Poster Unavailable" class="img-thumbnail img-fluid">
-								<img src="{{posterURL}}" alt="Poster Unavailable" class="img-thumbnail img-fluid">
-							</a>
-						</div> <!--POster-->
 
-						<div class="col-sm-12 col-md-12 col-lg-8">
-							<div class="row">
-								<div class="col-sm-12 col-md-6 col-lg-3">
-									<p class="font-italic">Subtitles</p>
-									<p class="text-info">
-										{{#if subtitles}}
-											{{checkboxFormatter subtitles}}
-										{{else}}
-											None
-										{{/if}}
-									</p>
-								</div>
-								<div class="col-sm-12 col-md-6 col-lg-4">
-									<p class="font-italic">Language</p>
-									<p class="text-info">
-										{{checkboxFormatter language}}
-									</p>
-								</div>
-								<div class="col-sm-12 col-md-6 col-lg-2">
-									<p class="font-italic">Classification</p>
-									<p class="text-info">{{classification}}</p>
-								</div>
-								<div class="col-sm-12 col-md-6 col-lg-3">
-									<p class="font-italic">Date Release</p>
-									<p class="text-info">{{formatDate dateRelease 'DD MMM YYYY'}}</p>
-								</div>
-							</div>
- 
-							<div class="row"> {{!Starring}}
-								<div class="col-sm-12 col-md-6 col-lg-10">
-									<p class="font-italic">Starring</p>
-									<p class="text-info">{{starring}}</p>
-								</div>
-							</div> {{! Starring}}
-						</div>
 
-						<div class="col-sm-12 col-md-12 col-lg-2">
-							<p class="font-italic"></p>
-							<a href="/video/edit/{{id}}" class="card-link">
-								<i class="fas fa-pencil-alt"></i>
-								Edit
-							</a>
-							<a href="/delete/{{id}}" class="card-link" data-toggle="confirmation"
-							   data-title="Confirm delete?">
-								<i class="far fa-trash-alt"></i>
-								Delete
-							</a>
-						</div>
-					</div>
+<main role="main" class="container"></main>
+  <div class="row">
 
-				</div>
+    <div class="col-md-3 mb-5">
+      <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><i class="fa fa-user-circle" aria-hidden="true"></i> My Profile</a>
+        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><i class="fa fa-archive" aria-hidden="true"></i> My Orders</a>
+        <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false"><i class="fa fa-credit-card" aria-hidden="true"></i> My Wallet</a>
+        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false"><i class="fa fa-heart" aria-hidden="true"></i> Shopping Wishlist</a>
+        <a class="nav-link" id="v-pills-address-tab" data-toggle="pill" href="#v-pills-address" role="tab" aria-controls="v-pills-address" aria-selected="false"><i class="fa fa-location-arrow" aria-hidden="true"></i> My Address</a>
+      </div>
+    </div>
 
-				<div class="accordion" id="storyAccordion">
-					<div class="card-header" id="headingOne">
-						<button class="btn btn-link" type="button" data-toggle="collapse"
-								data-target="#collapse{{id}}"
-								aria-expanded="false" aria-controls="collapseOne"
-						>
-							Story<i class="fas fa-chevron-down"></i>
-						</button>
+    <div class="col-md-9">
+      <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">{{> userDashboard/accountInfo}}</div>
+        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
+        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
+        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
+        <div class="tab-pane fade" id="v-pills-address" role="tabpanel" aria-labelledby="v-pills-address-tab">Address</div>
+      </div>
+    </div>
 
-					</div>
-
-					<div id="collapse{{id}}" class="collapse" aria-labelledby="headingOne"
-						 data-parent="#storyAccordion"
-					>
-						<div class="card-body">
-
-						  {{story}}
-						</div>
-					</div>
-				</div>
-			</div>
-		{{/each}}
-	</div>
-
-</div>
-{{else}}
-	<h3>No videos jotted</h3>
-{{/if}}
+  </div>
+</main>

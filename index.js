@@ -17,7 +17,7 @@ const passport = require("passport"); // User authentication with passport
 
 // mySQL
 const denoShopDB = require("./config/DBConnection");
-denoShopDB.setUpDB(true);
+denoShopDB.setUpDB(false);
 
 const authenticate = require("./config/passport"); // Passport Config
 authenticate.localStrategy(passport); // Using Local Strategy with infp passport.js in config
@@ -168,6 +168,8 @@ app.use("/auth", authRoute);
  * */
 const port = process.env.PORT || 5000;
 // Starts the server and listen to port 5000
+
 app.listen(port, () => {
+	
 	console.log(`Server running in ${process.env.NODE_ENV} on port ${port}`);
 });
