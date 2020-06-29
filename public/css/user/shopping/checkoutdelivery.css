@@ -1,6 +1,11 @@
 .workContent {
   padding-top: 90px;
 }
+
+.navMain {
+	z-index: 999;
+}
+
 .preventFloat {
   position: None;
 }
