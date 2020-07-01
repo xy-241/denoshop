@@ -21,8 +21,7 @@
   flex-direction: column;
   justify-content: center;
   margin-top: 10px;
-
-  text-align: center;
+  
 }
 
 .cartItem{
@@ -34,115 +33,29 @@
   margin-bottom: 10px;
   border-radius: 5%;
   background-color: rgba(230, 231, 232, 0.24);
-  width: 80%;
-}
-
-.cartItemDes{
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 20px;
-  width:auto;
-
-  display: flex;
-  justify-content: center;
-}
-
-
-
-.cartItemInfo{
   width: 100%;
 }
 
-.cartItemName, .cartItemPrice, .cartTotal, .cartEmpty{
-  font-family: text;
+.deliveryInfoLogo {
+  font-size: 1.7rem;  
 }
-.cartItemName{
+#deliveryInfoName {
   font-size: 1.2em;
 }
-.cartItemBuyingInfo{
-  display: flex;
-  justify-content: space-between;
-  width:100%;
-
-  margin-top: 70px;
-  margin-left: 10px;
+#deliveryInfoCell {
+  color: grey;
+  font-size: 0.8em;
+}
+#deliveryInfoAddr{
+  font-size: 0.9em;
 }
 
-.cartItemPrice{
-  padding-top: 2px; /*shopFont2 4px*/  /*Text also responsive*/
-  font-size: 1.1em;
-}
 
-.cartItemNumWrapper input{
-  display: block;
-  font-family: text;
-  padding-top: 4px;
-  padding-left: 4px;
-  width:40px;
-  font-size: 1.1em;
-
-}
-
-.removeButton {
-  font-family: shopFont2;
-}
-.removeButton{
-  font-family: shopFont2;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 12px;
-
-  text-align: center;
-
-  background-color: white;
-  border:none;
-  border: 1px black solid;
-  font-size: 1.1em;
-  padding-top: 3px;
-  padding-left: 5px;
-  padding-right: 5px;
-
-  box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 0.5);
-}
-.removeButton:hover{
-  background-color: black;
-  color:rgba(230, 231, 232, 1);
-  transition: all 0.4s ease-in-out;
-}
 
 @media only screen and (min-width: 600px){
   .cartItem{
     border-radius: 0;
   }
-  .cartItemInfo{
-    display: flex;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 50px;
-  }
-  .cartItemName{
-    font-size: 1.4em;
-    flex-basis: 25%;
-  }
-  .cartItemBuyingInfo{
-    margin-top: 0px;
-    justify-content: space-around;
-    flex-basis: 75%;
-  }
-
-  .cartItemPrice{
-    padding-top: 4px;
-    font-size: 1.3em;
-    padding-top: 0px;
-  }
-
-  .cartItemNumWrapper input{
-    padding-bottom: 0px;
-    font-size: 1.3em;
-  }
-  .removeButton{
-    font-size: 1.3em;
-  }
+  
 }
 /* delivery Address */
