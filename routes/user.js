@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const moment = require("moment");
 
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+const stripe = require("stripe")(stripeSecretKey);
+
 const alertMessage = require("../helpers/messenger");
 const ensureAuthenticated = require("../helpers/auth");
 
@@ -54,11 +57,26 @@ router.post("/register", (req, res) => {
 				// Salting
 				let rawDate = new Date();
 				let dateJoined = moment(rawDate, "DD/MM/YYYY");
+				let stripeid ="";
+				stripe.customers.create(
+					{
+					email: email,
+					},
+					function(err, customer) {
+						if (err){
+							console.log(err)
+						} else {
+							stripeid = customer.id;
+							console.log("Customer create successfully");
+						}
+					}
+				);
 				User.create({
 					username,
 					email,
 					password,
-					dateJoined
+					dateJoined,
+					stripeid
 				})
 					.then((user) => {
 						alertMessage(
