@@ -57,7 +57,7 @@ router.post("/register", (req, res) => {
 				// Salting
 				let rawDate = new Date();
 				let dateJoined = moment(rawDate, "DD/MM/YYYY");
-				let stripeid ="";
+				let stripeId ="";
 				stripe.customers.create(
 					{
 					email: email,
@@ -66,29 +66,30 @@ router.post("/register", (req, res) => {
 						if (err){
 							console.log(err)
 						} else {
-							stripeid = customer.id;
+							stripeId = customer.id;
+							console.log(stripeId);
 							console.log("Customer create successfully");
+							User.create({
+								username,
+								email,
+								password,
+								dateJoined,
+								stripeId
+							})
+								.then((user) => {
+									alertMessage(
+										res,
+										"success",
+										username + " added. Please login",
+										"fas fa-sign-in-alt",
+										true
+									);
+									res.redirect("/login");
+								})
+								.catch((err) => console.log(err));
 						}
 					}
 				);
-				User.create({
-					username,
-					email,
-					password,
-					dateJoined,
-					stripeid
-				})
-					.then((user) => {
-						alertMessage(
-							res,
-							"success",
-							username + " added. Please login",
-							"fas fa-sign-in-alt",
-							true
-						);
-						res.redirect("/login");
-					})
-					.catch((err) => console.log(err));
 			}
 		});
 	}

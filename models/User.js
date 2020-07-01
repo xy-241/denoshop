@@ -18,7 +18,7 @@ const User = db.define("user", {
 	phoneNum: {
 		type: Sequelize.INTEGER,
 	},
-	stripId: {
+	stripeId: {
 		type: Sequelize.STRING,
 	},
 	dateJoined: {
