@@ -50,7 +50,7 @@
 			</fieldset>
 			<div class="form-group">
 				<input
-					class="btn btn-outline-info"
+					class="btn btn-primary"
 					id="submit"
 					name="submit"
 					type="submit"
@@ -95,11 +95,12 @@
 					<div class="modal-footer">
 						<button
 							type="button"
-							class="btn btn-secondary"
+							class="btn btn-primary"
 							data-dismiss="modal"
 						>
 							Close
 						</button>
+				
 						<form action="/user/delete/{{user.id}}" method="get">
 							<!-- Post the info to the same route, enctype needed to pass pic file probably -->
 							<input
@@ -113,101 +114,3 @@
 				</div>
 			</div>
 		</div>
-
-		{{!-- <div class="container">
-		{{#if videos}}
-			<div class="card card-body">
-				<h3 class="text-primary">Video Jots</h3>
-				{{#each videos}}
-					<div class="card border-primary mb-2 w-100 mx-auto">
-						<div class="card-header">
-							<h5 class="card-title">{{title}}</h5>
-						</div>
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-12 col-md-12 col-lg-2"> <!-- Poster -->
-									<a href="{{posterURL}}" alt="Poster Unavailable" class="img-thumbnail img-fluid">
-										<img src="{{posterURL}}" alt="Poster Unavailable" class="img-thumbnail img-fluid">
-									</a>
-								</div> <!--POster-->
-
-								<div class="col-sm-12 col-md-12 col-lg-8">
-									<div class="row">
-										<div class="col-sm-12 col-md-6 col-lg-3">
-											<p class="font-italic">Subtitles</p>
-											<p class="text-info">
-												{{#if subtitles}}
-													{{checkboxFormatter subtitles}}
-												{{else}}
-													None
-												{{/if}}
-											</p>
-										</div>
-										<div class="col-sm-12 col-md-6 col-lg-4">
-											<p class="font-italic">Language</p>
-											<p class="text-info">
-												{{checkboxFormatter language}}
-											</p>
-										</div>
-										<div class="col-sm-12 col-md-6 col-lg-2">
-											<p class="font-italic">Classification</p>
-											<p class="text-info">{{classification}}</p>
-										</div>
-										<div class="col-sm-12 col-md-6 col-lg-3">
-											<p class="font-italic">Date Release</p>
-											<p class="text-info">{{formatDate dateRelease 'DD MMM YYYY'}}</p>
-										</div>
-									</div>
-		
-									<div class="row"> {{!Starring}}
-										<div class="col-sm-12 col-md-6 col-lg-10">
-											<p class="font-italic">Starring</p>
-											<p class="text-info">{{starring}}</p>
-										</div>
-									</div> {{! Starring}}
-								</div>
-
-								<div class="col-sm-12 col-md-12 col-lg-2">
-									<p class="font-italic"></p>
-									<a href="/video/edit/{{id}}" class="card-link">
-										<i class="fas fa-pencil-alt"></i>
-										Edit
-									</a>
-									<a href="/delete/{{id}}" class="card-link" data-toggle="confirmation"
-									data-title="Confirm delete?">
-										<i class="far fa-trash-alt"></i>
-										Delete
-									</a>
-								</div>
-							</div>
-
-						</div>
-
-						<div class="accordion" id="storyAccordion">
-							<div class="card-header" id="headingOne">
-								<button class="btn btn-link" type="button" data-toggle="collapse"
-										data-target="#collapse{{id}}"
-										aria-expanded="false" aria-controls="collapseOne"
-								>
-									Story<i class="fas fa-chevron-down"></i>
-								</button>
-
-							</div>
-
-							<div id="collapse{{id}}" class="collapse" aria-labelledby="headingOne"
-								data-parent="#storyAccordion"
-							>
-								<div class="card-body">
-
-								{{story}}
-								</div>
-							</div>
-						</div>
-					</div>
-				{{/each}}
-			</div>
-
-		</div>
-		{{else}}
-			<h3>No videos jotted</h3>
-		{{/if}} --}}
