@@ -1,0 +1,385 @@
+<div class="border-bottom userDashboardHeader">
+    <i class="fa fa-location-arrow" aria-hidden="true"></i> My Address
+</div>
+
+<!-- Add Addr Button -->
+<button type="button" class="btn btn-primary mt-3 ml-3 mb-3" data-toggle="modal" data-target="#exampleModalAddAddr" data-whatever="@mdo">Add New Address</button>
+
+
+<!-- List Addr -->
+<div class="cartItems ">
+    <div class="cartItem container pt-3">
+		<div class="row">
+			<div class="col-2 "  align="center">
+			
+				<i class="far fa-address-card deliveryInfoLogo mt-1"></i>
+			</div>
+			<div class="col-10">
+				<div class="row">
+					<p id="deliveryInfoName">
+						XinYang
+						<span id="deliveryInfoCell" class="ml-3 pt-0">98958681</span>
+					</p>
+					
+				</div>
+				<div class="row">
+					<p id="deliveryInfoAddr">Hougang Avenue 10, Hougang Mall, Singapore | Hougang Avenue 10, Hougang Mall, Singapore</p>
+				</div>
+				<div class="row">
+					<i class="far fa-edit mr-3 " type="button"  data-toggle="modal" data-target="#exampleModalEditAddr" data-whatever="@mdo"></i>
+					<i type="button" class="far fa-trash-alt" data-toggle="modal" data-target="#exampleModalDelete"></i>
+				</div>
+			</div>
+		</div>
+    </div>
+	
+</div>
+<!-- List Addr -->
+
+<!-- Edit delivery Addr Modal-->
+<div class="modal fade" id="exampleModalEditAddr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      
+    <div class="modal-content ">
+        
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit address</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{!-- Form Start --}}
+        <form id="address">
+			<fieldset class="form-group">
+				{{!-- <legend class="border-bottom mb-4">
+					Add a new address
+				</legend> --}}
+			<div class="form-group" id="locationField">
+				<label for="inputAddress">Address</label>
+				<input
+					type="text"
+					class="form-control"
+					id="editAutocomplete"
+					placeholder="Enter your address"
+					onfocus="geolocate()"
+				/>
+			</div>
+
+			<div class="form-row">
+				<div class="col-md-3 mb-3">
+					<label for="receiverName">Receiver Name</label>
+					<input
+						type="text"
+						class="form-control"
+						id="receiverName"
+						placeholder=""
+						required
+					/>
+					
+				</div>
+				<div class="col-md-3 mb-3">
+					<label for="phoneNum">Phone Number</label>
+					<input
+						type="text"
+						class="form-control"
+						id="phoneNum"
+						placeholder=""
+						required
+					/>
+				</div>
+			</div>
+
+			<div class="form-row">
+				<div class="col-md-3 mb-3">
+					<label for="country">Country</label>
+					<input
+						type="text"
+						class="form-control"
+						id="countryE"
+						disabled="true"
+						placeholder=""
+					/>
+					
+				</div>
+				<div class="col-md-3 mb-3">
+					<label for="administrative_area_level_1">State</label>
+					<input
+						type="text"
+						class="form-control"
+						id="administrative_area_level_1E"
+						disabled="true"
+						placeholder=""
+					/>
+				</div>
+				<div class="col-md-3 mb-3">
+					<label for="locality">City</label>
+					<input
+						type="text"
+						class="form-control"
+						id="localityE"
+						disabled="true"
+						placeholder=""
+					/>
+				</div>
+			</div>
+
+			
+
+			<div class="form-row">
+				<div class="col-md-3 mb-3">
+					<label for="street_number">Block No</label>
+					<input
+						type="text"
+						class="form-control"
+						id="street_numberE"
+						disabled="true"
+						placeholder=""
+					/>
+				</div>
+				<div class="col-md-3 mb-3">
+					<label for="route">Street</label>
+					<input
+						type="text"
+						class="form-control"
+						id="routeE"
+						disabled="true"
+						placeholder=""
+					/>
+				</div>
+				<div class="col-md-3 mb-3">
+					<label for="unitNo">Unit Number</label>
+					<input
+						type="text"
+						class="form-control"
+						id="unitNoE"
+						placeholder=""
+				
+					/>
+				</div>
+			</div>
+
+			
+
+			<div class="form-row">
+				<div class="col-md-3 mb-3">
+					<label for="postal_code">Postal Code</label>
+					<input
+						type="text"
+						class="form-control"
+						id="postal_codeE"
+						disabled="true"
+						placeholder=""
+					/>
+				</div>
+
+				
+			</div>
+            <button type="submit" class="btn btn-primary">Add</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
+            
+
+			{{!-- <button type="submit" class="btn btn-primary">Save</button> --}}
+			<fieldset class="form-group"></fieldset>
+		</form>
+        {{!-- Form End --}}
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Edit delivery Addr Modal-->
+
+
+<!-- Add delivery Addr Modal-->
+<div class="modal fade" id="exampleModalAddAddr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      
+    <div class="modal-content ">
+        
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add a new address</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{!-- Form Start --}}
+        <form id="address">
+			<fieldset class="form-group">
+				{{!-- <legend class="border-bottom mb-4">
+					Add a new address
+				</legend> --}}
+			<div class="form-group" id="locationField">
+				<label for="inputAddress">Address</label>
+				<input
+					type="text"
+					class="form-control"
+					id="autocomplete"
+					placeholder="Enter your address"
+					onfocus="geolocate()"
+				/>
+			</div>
+
+			<div class="form-row">
+				<div class="col-md-3 mb-3">
+					<label for="receiverName">Receiver Name</label>
+					<input
+						type="text"
+						class="form-control"
+						id="receiverName"
+						placeholder=""
+						required
+					/>
+					
+				</div>
+				<div class="col-md-3 mb-3">
+					<label for="phoneNum">Phone Number</label>
+					<input
+						type="text"
+						class="form-control"
+						id="phoneNum"
+						placeholder=""
+						required
+					/>
+				</div>
+			</div>
+
+			<div class="form-row">
+				<div class="col-md-3 mb-3">
+					<label for="country">Country</label>
+					<input
+						type="text"
+						class="form-control"
+						id="country"
+						disabled="true"
+						placeholder=""
+					/>
+					
+				</div>
+				<div class="col-md-3 mb-3">
+					<label for="administrative_area_level_1">State</label>
+					<input
+						type="text"
+						class="form-control"
+						id="administrative_area_level_1"
+						disabled="true"
+						placeholder=""
+					/>
+				</div>
+				<div class="col-md-3 mb-3">
+					<label for="locality">City</label>
+					<input
+						type="text"
+						class="form-control"
+						id="locality"
+						disabled="true"
+						placeholder=""
+					/>
+				</div>
+			</div>
+
+			
+
+			<div class="form-row">
+				<div class="col-md-3 mb-3">
+					<label for="street_number">Block No</label>
+					<input
+						type="text"
+						class="form-control"
+						id="street_number"
+						disabled="true"
+						placeholder=""
+					/>
+				</div>
+				<div class="col-md-3 mb-3">
+					<label for="route">Street</label>
+					<input
+						type="text"
+						class="form-control"
+						id="route"
+						disabled="true"
+						placeholder=""
+					/>
+				</div>
+				<div class="col-md-3 mb-3">
+					<label for="unitNo">Unit Number</label>
+					<input
+						type="text"
+						class="form-control"
+						id="unitNo"
+						placeholder=""
+				
+					/>
+				</div>
+			</div>
+
+			
+
+			<div class="form-row">
+				<div class="col-md-3 mb-3">
+					<label for="postal_code">Postal Code</label>
+					<input
+						type="text"
+						class="form-control"
+						id="postal_code"
+						disabled="true"
+						placeholder=""
+					/>
+				</div>
+
+				
+			</div>
+            <button type="submit" class="btn btn-primary">Add</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
+            
+
+			{{!-- <button type="submit" class="btn btn-primary">Save</button> --}}
+			<fieldset class="form-group"></fieldset>
+		</form>
+        {{!-- Form End --}}
+      </div>
+      {{!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div> --}}
+    </div>
+  </div>
+</div>
+<!-- Add delivery Addr Modal-->
+
+<!-- Delete Modal -->
+<div class="modal fade" id="exampleModalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Address?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <form action="/user/delete/{{user.id}}" method="get">
+							<!-- Post the info to the same route, enctype needed to pass pic file probably -->
+							<input
+								class="btn btn-danger"
+								type="submit"
+								value="Delete"
+							/>
+						</form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Delete Modal -->
+
+<!-- JS Section -->
+<script src="/js/user/deliveryAddresses.js"></script>
+<script
+    type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDsgDlDWdce4y8FzDa2-Hb1MPcpqGHtGs&libraries=places&callback=initAutocomplete"
+></script>
+<!-- JS Section -->
+
