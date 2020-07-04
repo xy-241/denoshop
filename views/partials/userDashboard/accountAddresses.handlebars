@@ -194,10 +194,7 @@
 <!-- Add delivery Addr Modal-->
 <div class="modal fade" id="exampleModalAddAddr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
-      
     <div class="modal-content ">
-        
-
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Add a new address</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -206,13 +203,13 @@
       </div>
       <div class="modal-body">
         {{!-- Form Start --}}
-        <form id="address">
+        <form id="address" action="/deliveryInfo/addAddress" method="POST">
 			<fieldset class="form-group">
 				{{!-- <legend class="border-bottom mb-4">
 					Add a new address
 				</legend> --}}
 			<div class="form-group" id="locationField">
-				<label for="inputAddress">Address</label>
+				<label for="autocomplete">Address</label>
 				<input
 					type="text"
 					class="form-control"
@@ -229,6 +226,7 @@
 						type="text"
 						class="form-control"
 						id="receiverName"
+						name="receiverName"
 						placeholder=""
 						required
 					/>
@@ -240,6 +238,7 @@
 						type="text"
 						class="form-control"
 						id="phoneNum"
+						name="phoneNo"
 						placeholder=""
 						required
 					/>
@@ -253,6 +252,7 @@
 						type="text"
 						class="form-control"
 						id="country"
+						name="country"
 						disabled="true"
 						placeholder=""
 					/>
@@ -264,6 +264,7 @@
 						type="text"
 						class="form-control"
 						id="administrative_area_level_1"
+						name="state"
 						disabled="true"
 						placeholder=""
 					/>
@@ -274,6 +275,7 @@
 						type="text"
 						class="form-control"
 						id="locality"
+						name="city"
 						disabled="true"
 						placeholder=""
 					/>
@@ -289,6 +291,7 @@
 						type="text"
 						class="form-control"
 						id="street_number"
+						name="blockNo"
 						disabled="true"
 						placeholder=""
 					/>
@@ -299,6 +302,7 @@
 						type="text"
 						class="form-control"
 						id="route"
+						name="street"
 						disabled="true"
 						placeholder=""
 					/>
@@ -309,6 +313,7 @@
 						type="text"
 						class="form-control"
 						id="unitNo"
+						name="unitNo"
 						placeholder=""
 				
 					/>
@@ -324,6 +329,7 @@
 						type="text"
 						class="form-control"
 						id="postal_code"
+						name="postcode"
 						disabled="true"
 						placeholder=""
 					/>
@@ -331,12 +337,10 @@
 
 				
 			</div>
-            <button type="submit" class="btn btn-primary">Add</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
-            
-
 			{{!-- <button type="submit" class="btn btn-primary">Save</button> --}}
 			<fieldset class="form-group"></fieldset>
+			<button type="submit" class="btn btn-primary">Add</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
 		</form>
         {{!-- Form End --}}
       </div>
