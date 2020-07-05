@@ -119,6 +119,38 @@ function geolocate() {
 }
 
 
+// Post data to the server
+
+// if(document.readyState == "loading"){
+//   document.addEventListener("DOMContentLoaded", ready);
+// } else{
+//   ready();
+// }
+
+// function ready(){
+//   //Add to cart
+//   let addAddr = document.getElementById("addAddr");
+//   addAddr.addEventListener("click", postAddAddrData);
+  
+
+// }
+
+// function postAddAddrData(){
+// 	const url = `${window.origin}/deliveryInfo/addAddress`;
+
+// 	let modalAddAddr = document.getElementById('exampleModalAddAddr')
+	
+// 	let receiverName = document.getElementById('receiverName').innerText;
+// 	console.log(receiverName);
+// 	console.log(url)
+
+	
+// }
+
+
+
+
+
 
 
 

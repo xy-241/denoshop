@@ -10,6 +10,7 @@ const DeliveryInfo = require("../../models/DeliveryInfo")
 
 router.post('/addAddress', (req, res) => {
     let {receiverName, phoneNo, country, state, city, blockNo, street, unitNo, postcode} = req.body;
+    let userId = req.user.id;
     DeliveryInfo.create({
         country,
         city,
@@ -20,6 +21,7 @@ router.post('/addAddress', (req, res) => {
         blockNo,
         phoneNo,
         receiverName,
+        userId
     }).then((addr) => {
         alertMessage(
             res,
@@ -28,8 +30,43 @@ router.post('/addAddress', (req, res) => {
             "fas fa-sign-in-alt",
             true
         );
-        res.redirect("/login");
+        res.redirect("/account");
     }).catch(err => console.log(err))
 
+})
+
+router.get("/delete/:id", ensureAuthenticated, (req, res) => {
+    DeliveryInfo.findOne({where: {userId: req.params.id}}).then((deliveryAddr) => {
+        // Prevent unauthorised users
+        if (user.id !== req.user.id) {
+			alertMessage(
+				res,
+				"danger",
+				"Unauthorised access to this user",
+				"fas fa-exclamation-circle",
+				true
+			);
+			req.logout();
+			res.redirect("/login");
+		} else if(deliveryAddr) {
+            DeliveryInfo.destroy({where: {userId: req.params.id}}).then((destroyInfo)=>{
+                alertMessage(
+					res,
+					"info",
+					destroyInfo,
+					"fas fa-trash-alt",
+					true
+				);
+            })
+        } else {
+            alertMessage(
+					res,
+					"info",
+					"Oops, something went wrong. Please try again later",
+					"fas fa-trash-alt",
+					true
+			);
+        }
+    })
 })
 module.exports = router;
