@@ -20,19 +20,20 @@
 				<div class="row">
 					<p id="deliveryInfoName">
 						{{this.receiverName}}
-						
+
 						<span id="deliveryInfoCell" class="ml-3 pt-0">{{this.phoneNo}}</span>
 					</p>
 
 				</div>
 				<div class="row">
-					<p id="deliveryInfoAddr">{{this.street}} Block {{this.blockNo}} {{this.unitNo}}, {{this.country}},
+					<p id="deliveryInfoAddr">{{this.street}} Block {{this.blockNo}} {{this.unitNo}}, {{this.country}}
 						{{this.state}}, {{this.country}} {{this.postcode}}</p>
 				</div>
 				<div class="row">
 					<i class="far fa-edit mr-3 " type="button" data-toggle="modal" data-target="#exampleModalEditAddr"
-						data-whatever="{{this.receiverName}},{{this.phoneNo}},{{this.country}},{{this.state}},{{this.city}},{{this.blockNo}},{{this.street}},{{this.unitNo}},{{this.postcode}}"></i>
-					<i type="button" class="far fa-trash-alt" data-toggle="modal" data-target="#exampleModalDelete" data-whatever="{{this.id}}"></i>
+						data-whatever="{{this.receiverName}},{{this.phoneNo}},{{this.country}},{{this.state}},{{this.city}},{{this.blockNo}},{{this.street}},{{this.unitNo}},{{this.postcode}},{{this.id}}"></i>
+					<i type="button" class="far fa-trash-alt" data-toggle="modal" data-target="#exampleModalDelete"
+						data-whatever="{{this.id}}"></i>
 
 				</div>
 			</div>
@@ -59,8 +60,9 @@
 				</button>
 			</div>
 			<div class="modal-body">
+				<input type="hidden" name="_method" value="PUT" />
 				{{!-- Form Start --}}
-				<form id="address">
+				<form id="editAddress" method="post">
 					<fieldset class="form-group">
 						{{!-- <legend class="border-bottom mb-4">
 					Add a new address
@@ -73,30 +75,30 @@
 
 						<div class="form-row">
 							<div class="col-md-3 mb-3">
-								<label for="receiverName">Receiver Name</label>
-								<input type="text" class="form-control" id="receiverName" placeholder="" required />
+								<label for="receiverName">Receiver Name*</label>
+								<input type="text" class="form-control" id="receiverName" placeholder="" name="receiverName" required />
 
 							</div>
 							<div class="col-md-3 mb-3">
-								<label for="phoneNum">Phone Number</label>
-								<input type="text" class="form-control" id="phoneNum" placeholder="" required />
+								<label for="phoneNum">Phone Number*</label>
+								<input type="text" class="form-control" id="phoneNum" placeholder="" name="phoneNo" required />
 							</div>
 						</div>
 
 						<div class="form-row">
 							<div class="col-md-3 mb-3">
 								<label for="country">Country</label>
-								<input type="text" class="form-control" id="countryE" placeholder="" />
+								<input type="text" class="form-control" id="countryE" placeholder="" name="country"/>
 
 							</div>
 							<div class="col-md-3 mb-3">
 								<label for="administrative_area_level_1">State</label>
 								<input type="text" class="form-control" id="administrative_area_level_1E"
-									placeholder="" />
+									placeholder="" name="state"/>
 							</div>
 							<div class="col-md-3 mb-3">
 								<label for="locality">City</label>
-								<input type="text" class="form-control" id="localityE" placeholder="" />
+								<input type="text" class="form-control" id="localityE" placeholder="" name="city"/>
 							</div>
 						</div>
 
@@ -105,15 +107,15 @@
 						<div class="form-row">
 							<div class="col-md-3 mb-3">
 								<label for="street_number">Block No</label>
-								<input type="text" class="form-control" id="street_numberE" placeholder="" />
+								<input type="text" class="form-control" id="street_numberE" placeholder="" name="blockNo"/>
 							</div>
 							<div class="col-md-3 mb-3">
 								<label for="route">Street</label>
-								<input type="text" class="form-control" id="routeE" placeholder="" />
+								<input type="text" class="form-control" id="routeE" placeholder="" name="street"/>
 							</div>
 							<div class="col-md-3 mb-3">
-								<label for="unitNo">Unit Number</label>
-								<input type="text" class="form-control" id="unitNoE" placeholder="" />
+								<label for="unitNo">Unit Number*</label>
+								<input type="text" class="form-control" id="unitNoE" placeholder="" name="unitNo"/>
 							</div>
 						</div>
 
@@ -122,20 +124,20 @@
 						<div class="form-row">
 							<div class="col-md-3 mb-3">
 								<label for="postal_code">Postal Code</label>
-								<input type="text" class="form-control" id="postal_codeE" placeholder="" />
+								<input type="text" class="form-control" id="postal_codeE" placeholder="" name="postcode"/>
 							</div>
 							<div class="col-md-3 mb-3">
 								<label for="">Default Address</label>
-								<div>
+								{{!-- <div>
 									<input class="form-control" type="checkbox" checked data-toggle="toggle"
 										data-onstyle="info">
-								</div>
+								</div> --}}
 
 							</div>
 
 
 						</div>
-						<button type="submit" class="btn btn-primary">Edit</button>
+						<button type="submit" id="editAddrButton" class="btn btn-primary">Edit</button>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
 
 
@@ -176,13 +178,13 @@
 
 						<div class="form-row">
 							<div class="col-md-3 mb-3">
-								<label for="receiverName">Receiver Name</label>
+								<label for="receiverName">Receiver Name*</label>
 								<input type="text" class="form-control" id="receiverName" name="receiverName"
 									placeholder="" required />
 
 							</div>
 							<div class="col-md-3 mb-3">
-								<label for="phoneNum">Phone Number</label>
+								<label for="phoneNum">Phone Number*</label>
 								<input type="text" class="form-control" id="phoneNum" name="phoneNo" placeholder=""
 									required />
 							</div>
@@ -223,7 +225,7 @@
 									placeholder="" />
 							</div>
 							<div class="col-md-3 mb-3">
-								<label for="unitNo">Unit Number</label>
+								<label for="unitNo">Unit Number*</label>
 								<input type="text" class="form-control" id="unitNo" name="unitNo" placeholder="" />
 							</div>
 						</div>
@@ -270,7 +272,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<form action="/sg" method="get" id="addrDelete">
+				<form action="" method="get" id="addrDelete">
 					<!-- Post the info to the same route, enctype needed to pass pic file probably -->
 					<input class="btn btn-danger" type="submit" value="Delete" />
 				</form>

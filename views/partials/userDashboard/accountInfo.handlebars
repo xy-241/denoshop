@@ -1,116 +1,69 @@
 <form action="/user/update/{{user.id}}?_method=PUT" method="post">
-			<!-- Post the info to the same route, enctype needed to pass pic file probably -->
-			<input type="hidden" name="_method" value="PUT" />
-			<fieldset class="form-group">
-				<legend class="border-bottom mb-4">
-					<i class="fa fa-user-circle" aria-hidden="true"></i> My Profile
-				</legend>
-				<div class="form-group">
-					<label class="form-control-label" for="username">
-						username
-					</label>
-					<input
-						class="form-control form-control-lg"
-						id="username"
-						name="username"
-						required
-						type="text"
-						value="{{user.username}}"
-					/>
-				</div>
-                {{#if user.githubId}}
-                {{else if user.googleId}}
-                {{else}}
-                    <div class="form-group">
-                        <label class="form-control-label" for="email">
-                            Email
-                        </label>
-                        <input
-                            class="form-control form-control-lg"
-                            id="email"
-                            name="email"
-                            required
-                            type="text"
-                            value="{{user.email}}"
-                        />
-                    </div>
-                {{/if}}
-				
-				<div class="form-group">
-					<label for="picture">
-						Update Profile Picture
-					</label>
-					<input
-						class="form-control-file"
-						id="picture"
-						name="imageFile"
-						type="file"
-					/>
-				</div>
-			</fieldset>
-			<div class="form-group">
-				<input
-					class="btn btn-primary"
-					id="submit"
-					name="submit"
-					type="submit"
-					value="Update"
-				/>
-				<button
-					type="button"
-					class="btn btn-danger"
-					data-toggle="modal"
-					data-target="#deleteModal"
-				>
-					Delete
+	<!-- Post the info to the same route, enctype needed to pass pic file probably -->
+	<input type="hidden" name="_method" value="PUT" />
+	<fieldset class="form-group">
+		<legend class="border-bottom mb-4">
+			<i class="fa fa-user-circle" aria-hidden="true"></i> My Profile
+		</legend>
+		<div class="form-group">
+			<label class="form-control-label" for="username">
+				username
+			</label>
+			<input class="form-control form-control-lg" id="username" name="username" required type="text"
+				value="{{user.username}}" />
+		</div>
+		{{#if user.githubId}}
+		{{else if user.googleId}}
+		{{else}}
+		<div class="form-group">
+			<label class="form-control-label" for="email">
+				Email
+			</label>
+			<input class="form-control form-control-lg" id="email" name="email" required type="text"
+				value="{{user.email}}" />
+		</div>
+		{{/if}}
+
+		<div class="form-group">
+			<label for="picture">
+				Update Profile Picture
+			</label>
+			<input class="form-control-file" id="picture" name="imageFile" type="file" />
+		</div>
+	</fieldset>
+	<div class="form-group">
+		<input class="btn btn-primary" id="submit" name="submit" type="submit" value="Update" />
+		<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+			Delete
+		</button>
+	</div>
+</form>
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="deleteModalLabel">
+					Delete Account?
+				</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">
+						×
+					</span>
 				</button>
 			</div>
-		</form>
-		<!-- Delete Modal -->
-		<div
-			class="modal fade"
-			id="deleteModal"
-			tabindex="-1"
-			role="dialog"
-			aria-labelledby="deleteModalLabel"
-			aria-hidden="true"
-		>
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="deleteModalLabel">
-							Delete Account?
-						</h5>
-						<button
-							type="button"
-							class="close"
-							data-dismiss="modal"
-							aria-label="Close"
-						>
-							<span aria-hidden="true">
-								×
-							</span>
-						</button>
-					</div>
-					<div class="modal-footer">
-						<button
-							type="button"
-							class="btn btn-primary"
-							data-dismiss="modal"
-						>
-							Close
-						</button>
-				
-						<form action="/user/delete/{{user.id}}" method="get">
-							<!-- Post the info to the same route, enctype needed to pass pic file probably -->
-							<input
-								class="btn btn-danger"
-								type="submit"
-								value="Delete"
-							/>
-						</form>
-					</div>
-					
-				</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">
+					Close
+				</button>
+
+				<form action="/user/delete/{{user.id}}" method="get">
+					<!-- Post the info to the same route, enctype needed to pass pic file probably -->
+					<input class="btn btn-danger" type="submit" value="Delete" />
+				</form>
 			</div>
+
 		</div>
+	</div>
+</div>

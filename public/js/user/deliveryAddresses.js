@@ -137,19 +137,23 @@ function ready() {
 		modal.find("#routeE").val(dataArray[6]);
 		modal.find("#unitNoE").val(dataArray[7]);
 		modal.find("#postal_codeE").val(dataArray[8]);
+
+		
+		let editEndpoint = "/deliveryInfo/update/" + dataArray[9]+"?_method=PUT";
+		//console.log(editEndpoint)
+		$("#editAddress").attr("action", editEndpoint);
 	});
 
 	$("#exampleModalDelete").on("show.bs.modal", function (event) {
 		let button = $(event.relatedTarget); // Button that triggered the modal
 		let addrIndex = button.data("whatever");
 
-		
 		let endpoint = "/deliveryInfo/delete/" + addrIndex;
-		console.log(endpoint)
-		$("#addrDelete").attr('action', endpoint);
-		
-		
+		//console.log(endpoint);
+		$("#addrDelete").attr("action", endpoint);
 	});
+
+	
 }
 
 // function postAddAddrData() {
