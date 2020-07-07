@@ -4,6 +4,8 @@ const router = express.Router();
 const alertMessage = require("../helpers/messenger");
 const ensureAuthenticated = require("../helpers/auth");
 
+const DeliveryInfo = require("../models/DeliveryInfo")
+
 router.get(["/", "/home"], (req, res) => {
 	let hackingProducts = [
 		{
@@ -62,10 +64,14 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/account", ensureAuthenticated, (req, res) => {
-	res.render("user/account", {
+	DeliveryInfo.findAll({where: {userId: req.user.id}}).then((deliveryAddrs) =>{
+		res.render("user/account", {
 		style: { text: "user/management/account.css", text1: "user/management/accountAddress.css"},
 		title: "My Account",
+		deliveryAddrs
 	});
+	})
+	
 });
 
 router.get("/cart", (req, res) => {

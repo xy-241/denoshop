@@ -1,112 +1,101 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<!-- Required meta tags -->
-		<meta charset="utf-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1, shrink-to-fit=no"
-		/>
 
-		<!-- Bootstrap CSS -->
-		<link
-			rel="stylesheet"
-			href="/css/bootstrap.css"
-		/>
-		
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-		{{#if title }}
-		<title>YXY - {{ title }}</title>
-		{{else}}
-		<title>YXY - Error</title>
-		{{/if}}
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="/css/bootstrap.css" />
 
 
-		<link
-			rel="shortcut icon"
-			href="../../public/img/logoT.png"
-		/>
-		<link
-			rel="stylesheet"
-			href="/css/userInterface/init.css"
-		/>
-		<link
-			rel="stylesheet"
-			href="/css/userInterface/nav.css"
-		/>
-		<script src="/js/useInterface/nav.js"></script>
+	{{#if title }}
+	<title>YXY - {{ title }}</title>
+	{{else}}
+	<title>YXY - Error</title>
+	{{/if}}
 
-	 <!-- Compiled and minified CSS -->
-    
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
-	
-		
+
+	<link rel="shortcut icon" href="../../public/img/logoT.png" />
+	<link rel="stylesheet" href="/css/userInterface/init.css" />
+	<link rel="stylesheet" href="/css/userInterface/nav.css" />
+	<script src="/js/useInterface/nav.js"></script>
+
+	<!-- Compiled and minified CSS -->
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+		integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+
+
 	{{!--Google fonts Icon--}}
+
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap"
-    rel="stylesheet"
-  />
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap" rel="stylesheet" />
 
 
-		{{#if style }}
-			{{#each style}}
-				<link
-			rel="stylesheet"
-			href="/css/{{this}}"
-		/>
-			{{/each}}
-		{{/if}}
-		{{!-- {% block cssJs %}{% endblock %} --}}
-	</head>
-	<body>
-		{{!-- Checking - omitting nav and footer--}}
-		{{#if (equal title "Register" )}}
-		{{else if (equal title "Login")}}
-		{{else}}
-			{{> _navbar}}
-		{{/if}}
-		{{!-- Checking - omitting nav and footer--}}
-		
-			<article class="workContent">
-		
-			{{!-- {% block header %} {% endblock %} {% block content %} {% endblock %} --}}
-			{{{body}}}
-		</article>
 
-		{{!-- Checking - omitting nav and footer--}}
-		{{#if (equal title "Register" )}}
-		{{else if (equal title "Login")}}
-		{{else}}
-			{{> _footer}}
-		{{/if}}
-		{{!-- Checking - omitting nav and footer--}}
-		
+	{{#if style }}
+	{{#each style}}
+	<link rel="stylesheet" href="/css/{{this}}" />
+	{{/each}}
+	{{/if}}
 
-		<!-- Optional JavaScript -->
-		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-		<script
-			src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-			crossorigin="anonymous"
-		></script>
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-			crossorigin="anonymous"
-		></script>
-		<script
-			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-			crossorigin="anonymous"
-		></script>
-<!--		<script src="/animation/script.js"></script>
+
+	{{!-- {% block cssJs %}{% endblock %} --}}
+
+
+
+</head>
+
+<body>
+	{{!-- Checking - omitting nav and footer--}}
+	{{#if (equal title "Register" )}}
+	{{else if (equal title "Login")}}
+	{{else}}
+	{{> _navbar}}
+	{{/if}}
+	{{!-- Checking - omitting nav and footer--}}
+
+	<article class="workContent">
+
+		{{!-- {% block header %} {% endblock %} {% block content %} {% endblock %} --}}
+		{{{body}}}
+	</article>
+
+	{{!-- Checking - omitting nav and footer--}}
+	{{#if (equal title "Register" )}}
+	{{else if (equal title "Login")}}
+	{{else}}
+	{{> _footer}}
+	{{/if}}
+	{{!-- Checking - omitting nav and footer--}}
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+	<!--		<script src="/animation/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.min.js"></script> -->
-		    <!-- Compiled and minified JavaScript -->
+	<!-- Compiled and minified JavaScript -->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
+	{{#if (equal title "My Account")}}
+	{{else}}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	{{/if}}
 	{{!-- For autocomplete address form --}}
-	
-	</body>
+	<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
+		rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
+</body>
+
 </html>
