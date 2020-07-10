@@ -45,9 +45,11 @@
 								S$
 								{{this.price}}
 							</span>
-							<a class="addToCartN" href="/cart">
-								Add To Cart
-							</a>
+							{{!-- {{#if (user)}} --}}
+							<button type="button" class="addToCartN">Add To Cart</button>
+							{{!-- {{else}}
+							<button type="button" class="addToCart">Add To Cart</button>
+							{{/if}} --}}
 						</div>
 					</div>
 				{{/if}}
@@ -72,9 +74,11 @@
 								S$
 								{{this.price}}
 							</span>
-							<a class="addToCartN" href="/cart">
-								Add To Cart
-							</a>
+							{{!-- {{#if (user)}} --}}
+							<button type="button" class="addToCartN">Add To Cart</button>
+							{{!-- {{else}}
+							<button type="button" class="addToCart">Add To Cart</button>
+							{{/if}} --}}
 						</div>
 					</div>
 				{{/if}}
@@ -103,3 +107,5 @@
 	</div>
 </section>
 <!-- Modal -->
+
+<script src="/js/user/addToCart.js" ></script>
