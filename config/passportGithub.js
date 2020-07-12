@@ -11,7 +11,8 @@ module.exports = function(passport){
     passport.use(new GithubStrategy({
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
-        callbackURL: "/auth/github/callback"
+        callbackURL: "/auth/github/callback",
+        proxy:true
     },
     (accessToken, refreshToken, profile, done) =>  {
         cloudinary.uploader.upload(profile.photos[0].value, { tags: 'basic_sample', folder:'/denoshop/userProfileImage/github',}, function (err, image) {
