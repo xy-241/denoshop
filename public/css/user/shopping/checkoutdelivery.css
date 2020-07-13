@@ -168,14 +168,37 @@ label {
   width: 150px;
 }
 
+.radioBtn label:hover {
+  text-decoration: none;
+  background: #212529;
+  color: #fff !important;
+  transition: all .2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+}
+
+.radioBtn input[type="radio"]:checked+label:hover, .Checked+label:hover{
+  text-decoration: none;
+  background: #fff;
+  color: #212529 !important;
+  transition: all .2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  border: 1px solid #212529;
+}
+
 .datepickerbtn .btn{
   background-color: #212529;
 }
 
-.next-btn:hover{
+.next-btn:hover, #openAddress:hover{
   text-decoration: none;
-  background: #212529;
-  color: #fff !important;
+  background: #fff;
+  color: #212529 !important;
   transition: all .2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
@@ -201,6 +224,22 @@ label {
   height: 45px;
   text-align: center;
   padding: initial;
+}
+
+#openAddress{
+  margin-left: auto;
+  height: 40px;
+  padding: 9px 20px;
+  border: 1px solid #212529;
+  background: #212529;
+  color: #fff;
+  border-radius: 5px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  /* display: inline-block; */
+  float: right;
+  width: auto;
+  margin-right: 1rem;
 }
 
 .btn {
@@ -259,7 +298,7 @@ label {
 
 
 /* Overlay */
-#overlay {
+#overlayStripe, #overlayAddress {
   position: fixed; /* Sit on top of the page content */
   display: none; /* Hidden by default */
   width: 100%; /* Full width (cover the whole page) */
@@ -271,7 +310,9 @@ label {
   background-color: rgba(0,0,0,0.5); /* Black background with opacity */
   z-index: 100; /* Specify a stack order in case you're using a different order for other elements */
   /* z-index: 100; becuz Paypal is at 99 */
-  cursor: pointer; /* Add a pointer on hover */
+  cursor: auto; /* Add a pointer on hover */
+  display: none;
+  overflow: auto;
 }
 
 #overlay-content{
@@ -282,23 +323,28 @@ label {
   margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
 }
 
+#overlayAddress #overlay-content {
+  top: 10%;
+  margin-bottom: 50px;
+}
+
 /* The navigation links inside the overlay */
-#overlay a {
+#overlayStripe a, #overlayAddress a {
   padding: 8px;
   text-decoration: none;
-  font-size: 36px;
+  /* font-size: 36px; */
   color: #D3D3D3;
   display: block; /* Display block instead of inline */
   transition: 0.3s; /* Transition effects on hover (color) */
 }
 
 /* When you mouse over the navigation links, change their color */
-#overlay a:hover, .overlay a:focus {
+#overlayAddress a:hover, #overlayStripe a:hover, #overlayAddress a:focus, #overlayStripe a:focus {
   color: #f1f1f1;
 }
 
 /* Position the close button (top right corner) */
-#overlay .closebtn {
+#overlayAddress .closebtn, #overlayStripe .closebtn {
   position: absolute;
   top: 20px;
   right: 45px;
@@ -325,8 +371,8 @@ label {
 
 /* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
 @media screen and (max-height: 450px) {
-  #overlay a {font-size: 20px}
-  #overlay .closebtn {
+  #overlayAddress a, #overlayStripe a {font-size: 20px}
+  #overlayAddress .closebtn, #overlayStripe .closebtn {
     font-size: 40px;
     top: 15px;
     right: 35px;
@@ -343,4 +389,12 @@ label {
 
 .gj-picker.gj-picker-bootstrap.datepicker.gj-unselectable{
   z-index: 2;   /* Make sure calendar does not go over the navbar when scrolling */
+}
+
+table{
+  margin: auto;
+}
+
+td {
+  padding: 10px;
 }
