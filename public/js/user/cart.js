@@ -118,11 +118,15 @@ function checkCartStatus(){
   var cartItemNumber = document.getElementsByClassName("cartItems")[0].childElementCount;
   if(cartItemNumber == 0){
     document.getElementsByClassName("cartTotal")[0].style.display = "none";
-    document.getElementsByClassName("cartEmpty")[0].style.display = "block";
+	document.getElementsByClassName("cartEmpty")[0].style.display = "block";
+	document.getElementsByClassName("checkout")[0].disabled = true;
+	document.getElementsByClassName("checkout")[0].classList.remove("hover");
   }
   else{
     document.getElementsByClassName("cartTotal")[0].style.display = "flex";
-    document.getElementsByClassName("cartEmpty")[0].style.display = "none";
+	document.getElementsByClassName("cartEmpty")[0].style.display = "none";
+	document.getElementsByClassName("checkout")[0].disabled = false;
+	document.getElementsByClassName("checkout")[0].classList.add("hover");
   }
 }
 //Check Cart Status

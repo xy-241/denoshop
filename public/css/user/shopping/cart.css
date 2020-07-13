@@ -457,16 +457,16 @@ button{
   padding-top: 5px;
   padding-left: 5px;
   padding-right: 5px;
-
+  cursor: default;
 
   box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 0.5);
 }
-.checkout:hover{
+
+.checkout.hover:hover{
   background-color: black;
   color:rgba(230, 231, 232, 1);
   transition: all 0.4s ease-in-out;
 }
-
 
 
 /*SubPages*/
