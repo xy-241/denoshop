@@ -64,103 +64,114 @@ router.get("/checkout", (req, res) => {
 router.get("/privacypolicy", (req, res) => {
     res.render("user/privacypolicy", {
         style: {text: "user/payment/privacypolicy.css"},
-        text: "Privacy Policy",
+        title: "Privacy Policy",
     })
 });
 
 router.get("/useragreement", (req, res) => {
     res.render("user/useragreement", {
         style: {text: "user/payment/useragreement.css"},
-        text: "User Agreement",
+        title: "User Agreement",
     })
 });
 
+router.get("/orderplaced", (req, res) => {
+    res.render("user/orderplaced", {
+        style: {text: "user/payment/ordersuccess.css"},
+        title: "Order Success",
+    })
+})
+
 router.post("/purchaseStripe", (req, res) => {
-    if (req.user.stripeid == null){
-        stripe.customers.create({
-            address: [{
-                city: city,
-                line1: addressline1,
-                line2: addressline2,
-                postalcode: postalcode,
-                state: state,
-            }],
-            shipping: [{
-                address: shippingAddress,
-                name: shippingName,
-                phone: shippingPhone,
-            }]
-        }).then(customer => {
-            req.user.stripeid = customer.id
-        })
-    }
+    
 
-    const expiry = document.getElementById('expDate').split('/')
-    const expMonth = expiry[0]
-    const expYear = expiry[1]
+    res.redirect("/payment/orderplaced");
+    // if (req.user.stripeid == null){
+    //     stripe.customers.create({
+            
+    //         address: [{
+    //             city: city,
+    //             line1: addressline1,
+    //             line2: addressline2,
+    //             postalcode: postalcode,
+    //             state: state,
+    //         }],
+    //         shipping: [{
+    //             address: shippingAddress,
+    //             name: shippingName,
+    //             phone: shippingPhone,
+    //         }]
+    //     }).then(customer => {
+    //         req.user.stripeid = customer.id
+    //     })
+    // }
 
-    CartItem.findAll({
-        where: {
-            userId: req.user.id,
-        },
-    }).then((cartItems) => {
-        var items = []
-        cartItems.forEach(function(item) {
-            var itemdata = []
-            var quantity = item.quantity
-            var price = item.price
-            var id = item.id
-            itemdata.push({
-                product: id,
-                unit_amount: price,
-                currency: 'sgd',
-            })
-            items.push({
-                price_data: itemdata,
-                quantity: quantity,
-            })
-        })},
+    // const expiry = document.getElementById('expDate').split('/')
+    // const expMonth = expiry[0]
+    // const expYear = expiry[1]
 
-        stripe.tokens.create({
-            card: {
-                number: document.getElementById('cardNumber'),
-                exp_month: expMonth,
-                exp_year: expYear,
-                cvc: document.getElementById('cvv'),
-            },
-            function(err, token) {
-                if (err){
-                    console.log(err.message)
-                    res.status(err.code).end()
-                } else{
-                    stripe.charges.create({
-                        amount: sum,
-                        currency: 'sgd',
-                        customer: req.user.stripeid,
-                        recipient_email: document.getElementById('email'),
-                        source: token,
-                        shipping: [{
-                            address: [{
-                                line1: document.getElementById('address'),
-                                postal_code: document.getElementById('postal'),
-                            }],
-                            name: document.getElementById('name'),
-                        }],
-                        capture: true,
-                    }),
-                    function(err, charge){
-                        if (err){
-                            console.log(err.message)
-                            res.status(err.code).end()
-                        } else if (charge){
-                            console.log('Purchase Successful')
-                            res.json({ message: 'Successfully purchased items'})
-                        }
-                    };
-                };
-            }
-        }),
-    );
+    // CartItem.findAll({
+    //     where: {
+    //         userId: req.user.id,
+    //     },
+    // }).then((cartItems) => {
+    //     var items = []
+    //     cartItems.forEach(function(item) {
+    //         var itemdata = []
+    //         var quantity = item.quantity
+    //         var price = item.price
+    //         var id = item.id
+    //         itemdata.push({
+    //             product: id,
+    //             unit_amount: price,
+    //             currency: 'sgd',
+    //         })
+    //         items.push({
+    //             price_data: itemdata,
+    //             quantity: quantity,
+    //         })
+    //     })},
+
+    //     // stripe.tokens.create({
+    //     //     card: {
+    //     //         number: document.getElementById('cardNumber'),
+    //     //         exp_month: expMonth,
+    //     //         exp_year: expYear,
+    //     //         cvc: document.getElementById('cvv'),
+    //     //     },
+    //     //     function(err, token) {
+    //     //         if (err){
+    //     //             console.log(err.message)
+    //     //             res.status(err.code).end()
+    //     //         } else{
+    //     //             stripe.charges.create({
+    //     //                 amount: sum,
+    //     //                 currency: 'sgd',
+    //     //                 customer: req.user.stripeid,
+    //     //                 recipient_email: document.getElementById('email'),
+    //     //                 source: token,
+    //     //                 shipping: [{
+    //     //                     address: [{
+    //     //                         line1: document.getElementById('address'),
+    //     //                         postal_code: document.getElementById('postal'),
+    //     //                     }],
+    //     //                     name: document.getElementById('name'),
+    //     //                 }],
+    //     //                 capture: true,
+    //     //             }),
+    //     //             function(err, charge){
+    //     //                 if (err){
+    //     //                     console.log(err.message)
+    //     //                     res.status(err.code).end()
+    //     //                 } else if (charge){
+    //     //                     console.log('Purchase Successful')
+    //     //                     res.json({ message: 'Successfully purchased items'})
+    //     //                 }
+    //     //             };
+    //     //         };
+    //     //     }
+    //     // }),
+    // );
 });
 
 module.exports = router;
