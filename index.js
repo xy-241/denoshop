@@ -43,6 +43,7 @@ const deliveryRoute = require("./routes/delivery");
 const authRoute = require("./routes/auth")
 const deliveryInfoRoute = require('./routes/userAccount/deliveryInfo');
 const cartRoute = require('./routes/cart/cartItem');
+const chatRoute = require("./routes/chat");
 // const videoRoute = require("./routes/video");
 
 // const { formatDate, radioCheck, checkboxFormatter } = require("./helpers/hbs");
@@ -163,6 +164,7 @@ app.use("/delivery", deliveryRoute);
 app.use("/auth", authRoute);
 app.use('/deliveryInfo', deliveryInfoRoute)
 app.use('/cart', cartRoute);
+app.use("/chat",chatRoute);
 // app.use("/video", videoRoute);
 // This route maps the root URL to any path defined in main.js
 
@@ -170,6 +172,7 @@ app.use('/cart', cartRoute);
  * Creates a unknown port 5000 for express server since we don't want our app to clash with well known
  * ports such as 80 or 8080.
  * */
+
 const port = process.env.PORT || 5000;
 // Starts the server and listen to port 5000
 
@@ -177,3 +180,6 @@ app.listen(port, () => {
 	
 	console.log(`Server running in ${process.env.NODE_ENV} on port ${port}`);
 });
+
+// const server = http.listen(port, () => {
+// });

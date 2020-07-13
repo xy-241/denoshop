@@ -1,0 +1,74 @@
+{{!-- <div class="content-section" style="display: none;"></div>
+        <h1 class="shopFontTitle">Live Chat</h1>
+        <form id="send-container">
+            <div id="message-container"></div>
+            <input type='text' id='message-input'>
+            <button type="submit" id="send-button">Send</button>
+        </form> --}}
+<script>
+    const roomName = '{{roomName}}'
+    const username = '{{username}}'
+</script>
+<script defer src="http://localhost:8000/socket.io/socket.io.js"></script>
+<script defer src="/js/chat/script.js"></script>
+
+<div class="container py-5 px-4">
+  <div class="row">
+  <header class="text-center col-11">
+    <h1 class="display-4 text-black shopFontTitle" style="font-size: 250%;" >Customer Support Live Chat</h1>
+  </header>
+  <button class="btn btn-link" id="endButton" type="submit"><i class="fas fa-sign-out-alt"></i></button>
+  </div>
+    <!-- Chat Box-->
+    <div class="px-0 shadow p-3 mb-5 bg-white rounded">
+      <div class="px-4 py-5 chat-box bg-white" id="message-container">
+        <p class="small font-italic text-muted">Please wait, an agent will join shortly</p>
+        {{#each msgList}}
+        {{#if (equal this.position 'client')}}
+        <!-- Reciever Message-->
+        <div class="media w-50 ml-auto mb-3">
+          <div class="media-body">
+            <div class="bg-primary rounded py-2 px-3 mb-2">
+              <p class="text-small mb-0 text-white">{{this.message}}</p>
+            </div>
+            <p class="small text-muted">{{this.dateTime}}</p>
+          </div>
+        </div>
+        {{else if (equal this.position 'staff')}} 
+        <!-- Sender Message-->
+          <div class="media-body w-50 mb-3">
+            <div class="bg-light rounded py-2 px-3 mb-2">
+              <p class="text-small mb-0 text-dark">{{this.message}}</p>
+            </div>
+            <p class="small text-muted">{{this.dateTime}}</p>
+          </div>
+        {{else if (equal this.position 'staffJoin')}} 
+        <div>
+          <p class="small font-italic text-muted">{{this.message}} <br> {{this.dateTime}}</p>
+        </div>
+        {{else if (equal this.position 'clientJoin')}} 
+        <div>
+          <p class="small font-italic text-muted">{{this.message}} <br> {{this.dateTime}}</p>
+        </div>
+        {{else}} 
+        <div>
+          <p class="small font-italic text-muted">{{this.message}} <br> {{this.dateTime}}</p>
+        </div>
+        {{/if}}
+        {{/each}}
+
+      </div>
+
+      <!-- Typing area -->
+      <form class="bg-light" id="send-container">
+        <div class="input-group">
+          <input type="text" placeholder="Type a message" class="form-control rounded-0 border-0 py-4 bg-light" id='message-input'>
+          <div class="input-group-append">
+            <button id="send-button" type="submit" class="btn btn-link"> <i class="fa fa-paper-plane"></i></button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>  

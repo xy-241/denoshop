@@ -1,0 +1,18 @@
+.workContent{
+    padding-top: 90px;
+    margin-bottom: 113px;
+  }
+  
+.listContainer{
+    background: #ffffff;
+	padding: 10px 20px;
+	border: 1px solid #dddddd;
+	border-radius: 3px;
+
+	margin-bottom: 20px;
+	margin-left: 1%;
+	margin-right: 1%;
+
+    box-shadow: 0 0px 3px 1px rgba(0, 0, 0, 0.2);
+    
+}
