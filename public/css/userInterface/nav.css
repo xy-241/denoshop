@@ -16,6 +16,7 @@
 	position: fixed;
 	opacity: 0.98;
 	transition: all 0.1s ease-in-out;
+	/* z-index: 999; */
 }
 
 /*Menu */
@@ -138,6 +139,7 @@
 	font-family: shopFont2;
 	/* font-weight: 400; */
 	font-size: 1.3em;
+	
 }
 .sideNav ul li a {
 	display: block;
@@ -147,6 +149,9 @@
 	transition: all 0.5s ease-in-out; /*#####*/
 }
 
+.sideNav a{
+	color:white;color:white;
+}
 .sideNav a:hover {
 	color: grey;
 }

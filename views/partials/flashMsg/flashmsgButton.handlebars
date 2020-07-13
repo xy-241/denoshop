@@ -1,0 +1,27 @@
+{{#if flashMessenger }}
+{{#each flashMessenger.alertsBeforeFlush}}
+<div class="alert alert-{{this.type}} {{#if this.canBeDismissed}}alertdismissible{{/if}} z-index:9999">
+{{#if this.canBeDismissed}}
+<a href="#" class="close" data-dismiss="alert" arialabel="close">&times;</a>
+{{/if}}
+<h6>
+{{#if this.titleIcon}}
+
+<i class="{{this.titleIcon}}"></i>
+{{/if}}
+
+{{this.title}}
+</h6>
+{{#if this.messages}}
+{{#each this.messages}}
+{{#if (equal this.type 'return')}}
+<button class="btn btn-success mr-2" onclick='window.location.href = "http://localhost:3000/chat/room/{{this.chatid}}"'>Return to chat</button>
+{{else}}
+<button class="btn btn-danger" value="{{this.chatid}}" id="errorendButton">End chat</button>
+{{/if}}
+{{/each}}
+</ol>
+{{/if}}
+</div>
+{{/each}}
+{{/if}}

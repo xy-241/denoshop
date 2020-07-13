@@ -1,0 +1,61 @@
+/* Add address modal*/
+.btn-primary {
+    background-color: #262729;
+    border-color: #262729;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: black;
+  border-color:black;
+}
+
+.pac-container { 
+    z-index: 100000;
+}
+/* Add address modal*/
+
+/* delivery Address */
+.cartItems{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 10px;
+  
+}
+
+.cartItem{
+  padding-bottom: 15px;
+  box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 0.2);
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  border-radius: 5%;
+  background-color: rgba(230, 231, 232, 0.24);
+  width: 100%;
+}
+
+.deliveryInfoLogo {
+  font-size: 1.7rem;  
+}
+#deliveryInfoName {
+  font-size: 1.2em;
+}
+#deliveryInfoCell {
+  color: grey;
+  font-size: 0.8em;
+}
+#deliveryInfoAddr{
+  font-size: 0.9em;
+}
+
+
+
+@media only screen and (min-width: 600px){
+  .cartItem{
+    border-radius: 0;
+  }
+  
+}
+/* delivery Address */

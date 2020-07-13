@@ -11,7 +11,8 @@ module.exports = function(passport){
   passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLECLIENTID,
     clientSecret: process.env.GOOGLECLIENTSECRET,
-    callbackURL: "/auth/google/callback"
+    callbackURL: "/auth/google/callback",
+    proxy:true
   },
   (accessToken, refreshToken, profile, done) =>{
     cloudinary.uploader.upload(profile.photos[0].value, { tags: 'basic_sample', folder:'/denoshop/userProfileImage/google' }, function (err, image) {

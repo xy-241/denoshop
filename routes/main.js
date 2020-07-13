@@ -4,34 +4,13 @@ const router = express.Router();
 const alertMessage = require("../helpers/messenger");
 const ensureAuthenticated = require("../helpers/auth");
 
+const DeliveryInfo = require("../models/DeliveryInfo")
+const HackingProduct = require("../models/HackingProduct")
+const CartItem = require("../models/CartItem")
+
 router.get(["/", "/home"], (req, res) => {
-	let hackingProducts = [
-		{
-			category: "tools",
-			title: "Arduino",
-			imageFile: "http://tinyurl.com/yb2z9wdb",
-			price: "20",
-		},
-		{
-			category: "tools",
-			title: "Raspberry Pi",
-			imageFile: "http://tinyurl.com/y8zhlj94  ",
-			price: "50",
-		},
-		{
-			category: "outfits",
-			title: "Deno Cap",
-			imageFile: "http://tinyurl.com/ycxvfan5",
-			price: "10",
-		},
-		{
-			category: "outfits",
-			title: "Deno Hoodie",
-			imageFile: "http://tinyurl.com/y7xhusrj",
-			price: "40",
-		},
-	];
-	res.render("home", {
+	HackingProduct.findAll().then(hackingProducts => {
+		res.render("home", {
 		style: { text: "userInterface/home.css" },
 		title: "Home",
 		current_user: { id: false, is_authenticated: false },
@@ -40,6 +19,7 @@ router.get(["/", "/home"], (req, res) => {
 		hackingProducts,
 		// Load the hacking products
 	});
+	}).catch(err => console.log(err))
 });
 
 router.get("/login", (req, res) => {
@@ -62,35 +42,33 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/account", ensureAuthenticated, (req, res) => {
-	res.render("user/account", {
-		style: { text: "user/management/account.css" },
+	DeliveryInfo.findAll({where: {userId: req.user.id}}).then((deliveryAddrs) =>{
+		res.render("user/account", {
+		style: { text: "user/management/account.css", text1: "user/management/accountAddress.css"},
 		title: "My Account",
+		deliveryAddrs
 	});
+	})
+	
 });
 
-router.get("/cart", (req, res) => {
-	const cartItems = [
-		{
-			price: "10",
-			imageFile: "http://tinyurl.com/yb2z9wdb",
-			dateAdded: "2020-10-21",
-			itemNum: 1,
-		},
-	];
-	res.render("user/cart", {
-		style: { text: "user/shopping/cart.css" },
-		title: "Cart",
-		cartItems,
-	});
+router.get("/cart", ensureAuthenticated,(req, res) => {
+	CartItem.findAll({where: {userId: req.user.id}}).then(cartItems => {
+		if(cartItems){
+			res.render("user/cart", {
+				style: { text: "user/shopping/cart.css" },
+				title: "Cart",
+				cartItems,
+			});
+		} else {
+			res.render("user/cart", {
+				style: { text: "user/shopping/cart.css" },
+				title: "Cart"
+			});
+		}
+	}).catch(err => console.log(err))
+	
 });
 
-// app.get('/auth/google',
-//   passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-// app.get('/auth/google/callback', 
-//   passport.authenticate('google', { failureRedirect: '/login' }),
-//   function(req, res) {
-//     // Successful authentication, redirect home.
-//     res.redirect('/');
-//   });
 module.exports = router;

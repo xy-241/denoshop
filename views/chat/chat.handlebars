@@ -1,0 +1,74 @@
+<script defer src="http://localhost:8000/socket.io/socket.io.js"></script>
+<script defer src="/js/chat/script.js"></script>
+<script>
+  window.addEventListener( "pageshow", function ( event ) {
+  var historyTraversal = event.persisted || 
+	( typeof window.performance != "undefined" && 
+	window.performance.navigation.type === 2 );
+  if ( historyTraversal ) {
+    // Handle page restore.
+    window.location.reload();
+  }
+});
+    const userID = "{{userID}}"
+</script>
+<div class="content-section">
+	{{> flashMsg/flashmsgButton}}
+	{{!-- <form action="/chat/room" id="chatForm" method="POST"> --}}
+    <form id="chatForm" method="POST">
+
+		<fieldset class="form-group">
+			<legend class="border-bottom mb-4 shopFontTitle">
+				Contact
+			</legend>
+                        <p><i>Please fill up the form below and our friendly online team will assist you as soon as possible.</i></p>
+                        <br>
+			<div class="form-group">
+				<label class="form-control-label" for="name">
+					Name*
+				</label>
+				<input class="form-control" id="name" name="name" required type="text" value="{{username}}"/>
+			</div>
+			<div class="form-group">
+				<label class="form-control-label" for="email">
+					Email*
+				</label>
+				<input class="form-control" id="email" name="email" required type="email" value="{{email}}"/>
+			</div>
+                        <div class="form-group">
+				<label class="form-control-label" for="phone">
+					Phone Number
+				</label>
+				<input class="form-control" id="phone" name="phone" type="number" value=""/>
+			</div>
+                        <div class="form-group">
+                                <label class="form-check-label" for="department">Department*</label>
+                                <select class="form-control" id="department" name="department" required>
+                                <option value="" selected disabled hidden>Select one</option>
+                                <option>Order Status</option>
+                                <option>Product Advice and Enquiries</option>
+                                <option>Warranty</option>
+                                <option>Gift Ideas</option>
+                                <option>Store Enquiries</option>
+                                <option>Others</option>
+                                </select>
+                        </div>
+                        <div class="form-group">
+				<label class="form-control-label" for="desc">
+					Describe the problem*
+				</label>
+				<textarea class="form-control" rows="5" id="desc" name="desc" required></textarea>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" id="urgent" name="urgent" type="checkbox"/>
+				<label class="form-check-label text-danger" for="urgent">
+					This issue is urgent and requires immediate attention !
+				</label>
+			</div>
+		</fieldset>
+		<div class="form-group">
+			<input class="btn btn-outline-info" id="submit" name="submit" type="submit" value="Submit"/>
+		</div>
+	</form>
+
+</div>
