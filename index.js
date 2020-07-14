@@ -1,3 +1,4 @@
+require('newrelic');
 /*
  * 'require' is similar to import used in Java and Python. It brings in the libraries required to be used
  * in this JS file.
