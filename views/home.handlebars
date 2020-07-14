@@ -45,11 +45,11 @@
 								S$
 								{{this.price}}
 							</span>
-							{{!-- {{#if (user)}} --}}
-							<button type="button" class="addToCartN">Add To Cart</button>
-							{{!-- {{else}}
-							<button type="button" class="addToCart">Add To Cart</button>
-							{{/if}} --}}
+							{{#if (noEqual user)}} 
+							<button type="button" class="addToCartN" >Add To Cart</button>
+							{{else}}
+							<button type="button" class="addToCartN" disabled>Add To Cart</button>
+                            {{/if}}
 						</div>
 					</div>
 				{{/if}}
@@ -74,11 +74,11 @@
 								S$
 								{{this.price}}
 							</span>
-							{{!-- {{#if (user)}} --}}
-							<button type="button" class="addToCartN">Add To Cart</button>
-							{{!-- {{else}}
-							<button type="button" class="addToCart">Add To Cart</button>
-							{{/if}} --}}
+							{{#if (noEqual user)}} 
+							<button type="button" class="addToCartN" >Add To Cart</button>
+							{{else}}
+							<button type="button" class="addToCartN" disabled>Add To Cart</button>
+                            {{/if}}
 						</div>
 					</div>
 				{{/if}}
