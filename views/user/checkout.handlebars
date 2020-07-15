@@ -41,7 +41,7 @@
     </div>
 
     <div class="col-75">
-        <form method="POST">
+        <form method="POST" action="/payment/charge">
             {{!-- Accordion Wrapper --}}
             <div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
                 {{!-- Accordion Card / Container --}}
@@ -59,24 +59,24 @@
                             <div class="rownoreverse" style="margin-right: -15px; margin-left: -15px;">
                                 <div class="form-group col-50">
                                     <label class="form-control-label" for="firstName">First Name</label>
-                                    <input class="form-control" id="firstName" name="firstName" placeholder="John" required="" type="text" value="">
+                                    <input class="form-control" id="DeliveryFirstName" name="DeliveryFirstName" placeholder="John" required="" type="text" value="">
                                 </div>
                                 <div class="form-group col-50">
                                     <label class="form-control-label" for="lastName">Last Name</label>
-                                    <input class="form-control" id="lastName" name="lastName" placeholder="Doe" required="" type="text" value="">
+                                    <input class="form-control" id="DeliveryLastName" name="DevlieryLastName" placeholder="Doe" required="" type="text" value="">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label" for="email">Email</label>
-                                <input class="form-control" id="email" name="email" placeholder="johndoe@gmail.com" required="" type="text" value="">
+                                <input class="form-control" id="DeliveryEmail" name="DeliveryEmail" placeholder="johndoe@gmail.com" required="" type="text" value="">
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label" for="address">Address</label>
-                                <input class="form-control" id="address" name="address" placeholder="180 Ang Mo Kio Ave 8" required="" type="text" value="">
+                                <input class="form-control" id="DeliveryAddress" name="DeliveryAddress" placeholder="180 Ang Mo Kio Ave 8" required="" type="text" value="">
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label" for="postal">Postal Code</label>
-                                <input class="form-control" id="postal" name="postal" placeholder="569830" required="" type="text" value="">
+                                <input class="form-control" id="DeliveryPostal" name="DeliveryPostal" placeholder="569830" required="" type="text" value="">
                             </div>
                             <a class="next-btn collapsed" role="button" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseTwo21" aria-expanded="false">Next</a>
                             <button type="button" class="btn btn-primary" id="openAddress">Other Addresses</button>
@@ -166,29 +166,29 @@
                         <div class="card-body">
                             <div class="form-group datepickerbtn">
                                 <label class="form-control-label">Date</label>
-                                <input id="datepicker" width="200" name="deliveryDate" readonly/>
+                                <input id="datepicker" width="200" name="DeliveryDate" readonly/>
                             </div>
                             <div class="form-group" id="divDeliveryTime">
                                 <label class="form-control-label" style="padding-left: 0;">Time</label>
                                 
                                 <div class="radioBtn">
-                                    <input type="radio" id="0800" name="deliveryTime" value="0800" checked>
+                                    <input type="radio" id="0800" name="DeliveryTime" value="8.00AM - 10.00AM" checked>
                                     <label for="0800">8.00AM - 10.00AM</label>
                                 </div>
                                 <div class="radioBtn">
-                                    <input type="radio" id="1000" name="deliveryTime" value="1000">
+                                    <input type="radio" id="1000" name="DeliveryTime" value="10.00AM - 12.00PM">
                                     <label for="1000">10.00AM - 12.00PM</label>
                                 </div>
                                 <div class="radioBtn">
-                                    <input type="radio" id="1200" name="deliveryTime" value="1200">
+                                    <input type="radio" id="1200" name="DeliveryTime" value="12.00PM - 2.00PM">
                                     <label for="1200">12.00PM - 2.00PM</label>
                                 </div>
                                 <div class="radioBtn">
-                                    <input type="radio" id="1400" name="deliveryTime" value="1400">
+                                    <input type="radio" id="1400" name="DeliveryTime" value="2.00PM - 4.00PM">
                                     <label for="1400">2.00PM - 4.00PM</label>
                                 </div>
                                 <div class="radioBtn">
-                                    <input type="radio" id="1600" name="deliveryTime" value="1600">
+                                    <input type="radio" id="1600" name="DeliveryTime" value="4.00PM - 6.00PM">
                                     <label for="1600">4.00PM - 6.00PM</label>                                   
                                 </div>
                             </div>
@@ -242,40 +242,21 @@
                             </script>
 
                             {{!-- Stripe --}}
-                            <button type="button" class="btn btn-primary" id="openStripe">Credit/Debit Card</button>
-                            
-                            {{!-- Overlay --}}
-                            <div id="overlayStripe">
-                                <a href="javascript:void(0)" class="closebtn" id="closeStripe">&times;</a>
-                                <div id="overlay-content" class="container">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="cardName">Name on Card</label>
-                            
-                                        <input class="form-control form-control" id="cardName" name="cardName" placeholder="John Doe" required="" type="text" value="">
-                            
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="cardNumber">Card Number</label>
-                                    
-                                        <input class="form-control form-control" id="cardNumber" name="cardNumber" placeholder="1111-2222-3333-4444" required="" type="text" value="">
-                                    
-                                    </div>
-                                    <div class="rownoreverse" style="margin-right: -15px; margin-left: -15px;">
-                                        <div class="form-group col-50">
-                                            <label class="form-control-label" for="expDate">Exp Month</label>
-                                            <input class="form-control form-control" id="expDate" name="expDate" placeholder="09/25" required="" type="text" value="">
-                                        </div>
-                                        <div class="form-group col-50">
-                                            <label class="form-control-label" for="cvv">CVV</label>
-                                            
-                                            <input class="form-control form-control" id="cvv" name="cvv" placeholder="123" required="" type="text" value="">
-                                        </div>
-                                    </div>
+                            <script
+                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                data-key="{{stripePublicKey}}"
+                                data-amount="{{ multiply sum 100 }}"
+                                {{!-- data-name="Web Development Ebook"
+                                data-description="Ebook written by Brad Traversy"
+                                data-image="" --}}
+                                data-locale="SG">
+                            </script>
+                            <script>
+                                // Hide default stripe button
+                                document.getElementsByClassName('stripe-button-el')[0].style.display = 'none';
+                            </script>
+                            <button type="submit" class="btn btn-outline-dark text-white btn-lg">Credit/Debit Card</button>
 
-                                    <button type="submit" formaction="/payment/purchaseStripe" class="btn btn-primary" id="checkout-button">Pay</button>
-                                </div>
-                            </div>
-                            {{!-- End of Overlay --}}
                         </div>
                     </div>
                     {{!-- End of Card Body --}}

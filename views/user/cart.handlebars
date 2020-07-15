@@ -14,7 +14,6 @@
 	<h3>Cart</h3>
 
     <div class="cartItems">
-      {{#if cartItems }}
         {{#each cartItems }}
         <div class="cartItem">
           <div class="cartItemDes">
@@ -44,12 +43,10 @@
         <p>Total Amount</p>
         <p class="amountToPay">$0</p>
       </div>
-    {{else}}
-      </div>
-      <div class="cartEmpty">
-        <p>Your Cart Is Empty, Buy Some And Be A Hacker!</p>
-      </div>
-    {{/if}}
+    </div>
+    <div class="cartEmpty">
+      <p>Your Cart Is Empty, Buy Some And Be A Hacker!</p>
+    </div>
 
 
 
@@ -59,8 +56,8 @@
 
 
   <!-- <button type="button" class="checkout">Checkout</button> -->
-  <button type="button" class="checkout" onclick="window.location.href = '/payment/checkout'">Checkout</button>
-  <button type="button" class="checkout" onclick="window.location.href = '#history;">Purchases</button>
+  <button type="button" class="checkout hover" onclick="window.location.href = '/payment/checkout'">Checkout</button>
+  <button type="button" class="checkout hover" onclick="window.location.href = '#history;">Purchases</button>
 
 
 <script src="/js/user/cart.js" ></script>
