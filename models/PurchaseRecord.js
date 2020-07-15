@@ -17,6 +17,9 @@ const PurchaseRecord = db.define("purchaseRecord", {
 	rating: {
 		type: Sequelize.FLOAT,
 	},
+	chargeId: {
+		type: Sequelize.STRING,
+	}
 });
 
 module.exports = PurchaseRecord;
