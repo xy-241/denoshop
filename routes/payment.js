@@ -14,6 +14,12 @@ const stripe = require("stripe")(stripeSecretKey);
 const DeliveryInfo = require("../models/DeliveryInfo");
 // DB Table
 
+const CartItem = require("../models/CartItem");
+const PurchaseRecord = require("../models/PurchaseRecord");
+const Order = require("../models/Order");
+
+const moment = require("moment");
+
 router.get("/cart", (req, res) => {
     res.render("user/cart", {
         style: { text: "user/shopping/cart.css"},
@@ -34,56 +40,34 @@ router.get("/checkout", ensureAuthenticated, (req, res) => {
             userId: req.user.id
         }
     }).then((AddressList) =>{
-        if (AddressList == []) {
-            
-        }
         let defaultAddress = AddressList[0];
+
+        let cartItems = CartItem.findAll({
+            where: {
+                userId: req.user.id
+            }
+        })
+
+        let sum = 0
+        Array.prototype.forEach.call(cartItems, item => {
+            let price = item.price;
+            let quantity = item.itemNum;
+
+            let total = quantity * price;
+            sum += total;
+        });    
 
 		res.render("user/checkout", {
             style: { text: "user/shopping/checkoutdelivery.css"},
             title: "Checkout",
-            sum: 70,
-            cartItems: [{
-                itemNum: 2,
-                title: "Examplessss",
-                price: 20,
-            },{
-                itemNum: 1,
-                title: "Hmmmm",
-                price: 30,
-            }],
+            sum,
+            cartItems,
             defaultAddress,
             AddressList,
             stripePublicKey: stripePublicKey
 	    });
     })
 });
-	// res.render("user/checkout", {
-	// 	style: { text: "user/shopping/checkoutdelivery.css"},
-	// 	title: "Checkout",
-	// 	sum: 70,
-	// 	AddressList: [
-	// 		{
-	// 		firstname: "Alex",
-	// 		lastname: "Tan",
-	// 		address: "something something address",
-	// 		country: "Singapore",
-	// 		city: "Singapore",
-	// 		postalcode: 123456,
-	// 		mobile: 98765432,},
-	// 		{
-	// 			firstname: "Alex",
-	// 			lastname: "Tan",
-	// 			address: "something something address",
-	// 			country: "Singapore",
-	// 			city: "Singapore",
-	// 			postalcode: 123456,
-	// 			mobile: 98765432,
-	// 		}
-    //     ],
-    //     stripePublicKey: stripePublicKey,
-	// });
-// })
 
 router.get("/privacypolicy", (req, res) => {
     res.render("user/privacypolicy", {
@@ -113,74 +97,76 @@ router.get("/orderplaced", (req, res) => {
 
 router.post("/charge", (req, res) => {
 
-    CartItem.findAll({
-        where: {
-            userId: req.user.id,
-        },
-    }).then((cartItems) => {
-        var items = []
-        cartItems.forEach(function(item) {
-            var itemdata = []
-            var quantity = item.quantity
-            var price = item.price
-            var id = item.id
-            itemdata.push({
-                product: id,
-                unit_amount: price,
-                currency: 'sgd',
-            })
-            items.push({
-                price_data: itemdata,
-                quantity: quantity,
-            })
-        })
-    });
-
-
-    let amount = 500;
-
-    console.log(req.body);
-    res.send('Test');
-    
     stripe.customers.update(
-        req.user.stripeId,
-        {source: req.body.stripeToken}
-    ).then(customer =>
+            req.user.stripeId,
+            {source: req.body.stripeToken}
+    ).then(customer => {
+        CartItem.findAll({
+            where: {
+                userId: req.user.id,
+            },
+        }).then((cartItems) => {
+            var items = []
+            var sum = 0
+
+            Array.prototype.forEach.call(cartItems, item => {
+                var quantity = item.itemNum
+                var price = item.price
+                
+                var totalprice = price * quantity;
+                sum += totalprice;
+
+                items.push({
+                    item
+                })
+            })
+            return sum
+        })
+    }).then((sum) => {
+        console.log(sum);
         stripe.charges.create({
             amount,
             description: "DenoShop",
             currency: "sgd",
             customer: customer.id,
             })
-        ).then(charge => {
-        console.log(charge);
-        console.log("test");
+    }).then(charge => {
+        var chargeId = charge.id;
+
+        CartItem.findAll({
+            where: {
+                userId: req.user.id,
+            },
+        }).then((cartItems) => {
+            Array.prototype.forEach.call(cartItems, item => {
+                var itemNum = item.itemNum
+                var title = item.title
+                var dateAdded = moment.format("YYYY-MM-DD")
+                
+                PurchaseRecord.create({
+                    title,
+                    itemNum,
+                    dateAdded,
+                    review,
+                    rating,
+                    chargeId
+                })    
+            })
+        }).then(purchaserecord => {
+            CartItem.destroy({
+                where: {
+                    userId: req.user.id,
+                }
+            })
+            var deliveryDate = moment(req.body.deliveryDate, "YYYY-MM-DD");
+            var deliveryTime = req.body.deliveryTime;
+            Order.create({
+                chargeId,
+                deliveryDate,
+                deliveryTime
+            })
+        })
     })
 })
-
-    
-    //     
-    
-    //     //                         line1: document.getElementById('address'),
-    //     //                         postal_code: document.getElementById('postal'),
-    //     //                     }],
-    //     //                     name: document.getElementById('name'),
-    //     //                 }],
-    //     //                 capture: true,
-    //     //             }),
-    //     //             function(err, charge){
-    //     //                 if (err){
-    //     //                     console.log(err.message)
-    //     //                     res.status(err.code).end()
-    //     //                 } else if (charge){
-    //     //                     console.log('Purchase Successful')
-    //     //                     res.json({ message: 'Successfully purchased items'})
-    //     //                 }
-    //     //             };
-    //     //         };
-    //     //     }
-    //     // }),
-    // );
-// });
 
 module.exports = router;
