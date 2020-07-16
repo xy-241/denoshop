@@ -25,22 +25,22 @@
 }
 body {
 	transition: all 0.5s ease-in-out;
-       /*overflow: hidden;
+	/*overflow: hidden;
        background: rgb(26, 27, 29);*/
 }
 
 /* Customise the scrollbar */
 body::-webkit-scrollbar {
-  width: 0.35em;
+	width: 0.35em;
 }
 
 body::-webkit-scrollbar-track {
-  background: #262729
+	background: #262729;
 }
 
 body::-webkit-scrollbar-thumb {
-  background: #ffff;
-  border-radius: 20px;
+	background: #ffff;
+	border-radius: 20px;
 }
 
 ul {
@@ -75,6 +75,6 @@ a {
 	font-size: 1.8em;
 }
 
-.userDashboardHeader{
+.userDashboardHeader {
 	font-size: 1.5rem;
 }
