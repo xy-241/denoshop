@@ -6,10 +6,13 @@ const Order = db.define("order", {
         type: Sequelize.STRING,
     },
     deliveryDate: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
     },
     deliveryTime: {
         type: Sequelize.STRING,
+    },
+    deliveryAddressId: {
+        type: Sequelize.INTEGER,
     }
 })
 

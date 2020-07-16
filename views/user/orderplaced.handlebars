@@ -1,24 +1,25 @@
 <div class="container">
     <div class="row justify-content-center">
         <h3 class="shopFontTitle" style="text-align: center; font-size: 2.5rem;"><i class="fa fa-check-circle" style="color: green"></i> Order Successfully Placed</h3>
-        <p>Thank you for your order! will received order timing - <span>(Today, 3.00PM - 5.00PM)</span></p>
+        <p>Thank you for your order! will received order timing - <span>({{order.deliveryDate}}, {{order.deliveryTime}})</span></p>
         <div class="container-border">
             <div class="title585">
                 <h4><i class="fa fa-paper-plane"></i> Your order will be sent to this address</h4>
             </div>
             <ul class="address-placed-dt1">
-                <li><p><i class="fa fa-map-marker-alt"></i> Address: <span>{{DeliveryAddress}}, {{DeliveryPostal}}</span></p></li>
-                {{!-- <li><p><i class="fa fa-phone-alt"></i> Phone Number: <span>+919999999999</span></p></li> --}}
-                <li><p><i class="fa fa-envelope"></i> Email Address: <span>{{DeliveryEmail}}</span></p></li>
+                <li><p><i class="fa fa-map-marker-alt"></i> Address: <span>{{deliveryAddress.street}} Block {{deliveryAddress.blockNo}} {{deliveryAddress.unitNo}}, {{deliveryAddress.country}}
+                                                            {{deliveryAddress.state}}, {{deliveryAddress.country}} {{deliveryAddress.postcode}}</span></p></li>
+                <li><p><i class="fa fa-phone-alt"></i> Phone Number: <span>{{deliveryAddress.phoneNo}}</span></p></li>
+                {{!-- <li><p><i class="fa fa-envelope"></i> Email Address: <span>{{DeliveryEmail}}</span></p></li> --}}
                 {{!-- <li><p><i class="fa fa-credit-card"></i> Payment Method: <span>Cash on Delivery</span></p></li> --}}
             </ul>
             <div class="stay-invoice">
                 <div class="st-hm">Stay Home <i class="far fa-smile"></i></div>
                 <a href="#" class="invc-link hover-btn">Invoice</a>
             </div>
-            <div class="placed-bottom-dt">
+            {{!-- <div class="placed-bottom-dt">
                 The payment of <span>$16</span> you'll make when the deliver arrives with your order.
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>
