@@ -11,7 +11,7 @@ const HackingProduct = require("../../models/HackingProduct");
 const CartItem = require("../../models/CartItem");
 // DB Table
 
-router.get("/cartNum", (req, res) => {
+router.get("/cartNum", ensureAuthenticated, (req, res) => {
 	CartItem.findAll({
 		where: { userId: req.user.id },
 	})
