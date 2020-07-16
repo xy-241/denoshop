@@ -62,7 +62,7 @@ function quantityInputUpdate(event) {
 	if (button.value < 1 || isNaN(button.value)) {
 		button.value = 1;
 	}
-    var roundedValue = Math.round(button.value);
+	var roundedValue = Math.round(button.value);
 	var itemName = button.parentElement.parentElement.parentElement.getElementsByClassName(
 		"cartItemName"
 	)[0].innerText;
@@ -92,37 +92,42 @@ function quantityInputUpdate(event) {
 	updateTheCart();
 }
 
-function updateTheCart(){
-  var cartItems = document.getElementsByClassName("cartItems")[0];
-  var cartItem = cartItems.getElementsByClassName("cartItem");
-  var sum = 0;
-  var amountToPay = document.getElementsByClassName("amountToPay")[0];
+function updateTheCart() {
+	var cartItems = document.getElementsByClassName("cartItems")[0];
+	var cartItem = cartItems.getElementsByClassName("cartItem");
+	var sum = 0;
+	var amountToPay = document.getElementsByClassName("amountToPay")[0];
 
-  for(var i = 0; i<cartItem.length; i++){
-    var price =  parseFloat(cartItem[i].getElementsByClassName("cartItemPrice")[0].innerText.replace("S$", ""));
-    var number = parseFloat(cartItem[i].getElementsByClassName("cartItemNum")[0].value);
-    sum += (price * number);
-  }
+	for (var i = 0; i < cartItem.length; i++) {
+		var price = parseFloat(
+			cartItem[i]
+				.getElementsByClassName("cartItemPrice")[0]
+				.innerText.replace("S$", "")
+		);
+		var number = parseFloat(
+			cartItem[i].getElementsByClassName("cartItemNum")[0].value
+		);
+		sum += price * number;
+	}
 
-  sum = Math.round(sum * 100) /100;
-  amountToPay.innerText = "$" + sum;
+	sum = Math.round(sum * 100) / 100;
+	amountToPay.innerText = "$" + sum;
 
-  //Check if carts has anything
-  checkCartStatus();
-  //Check if carts has anything
-
+	//Check if carts has anything
+	checkCartStatus();
+	//Check if carts has anything
 }
 
 //Check Cart Status
-function checkCartStatus(){
-  var cartItemNumber = document.getElementsByClassName("cartItems")[0].childElementCount;
-  if(cartItemNumber == 0){
-    document.getElementsByClassName("cartTotal")[0].style.display = "none";
-    document.getElementsByClassName("cartEmpty")[0].style.display = "block";
-  }
-  else{
-    document.getElementsByClassName("cartTotal")[0].style.display = "flex";
-    document.getElementsByClassName("cartEmpty")[0].style.display = "none";
-  }
+function checkCartStatus() {
+	var cartItemNumber = document.getElementsByClassName("cartItems")[0]
+		.childElementCount;
+	if (cartItemNumber == 0) {
+		document.getElementsByClassName("cartTotal")[0].style.display = "none";
+		document.getElementsByClassName("cartEmpty")[0].style.display = "block";
+	} else {
+		document.getElementsByClassName("cartTotal")[0].style.display = "flex";
+		document.getElementsByClassName("cartEmpty")[0].style.display = "none";
+	}
 }
 //Check Cart Status
