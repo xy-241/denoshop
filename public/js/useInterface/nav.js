@@ -1,3 +1,27 @@
+if (document.readyState == "loading") {
+	document.addEventListener("DOMContentLoaded", ready);
+} else {
+	ready();
+}
+
+function ready() {
+	fetch(`${window.origin}/cart/cartNum`)
+		.then((res) => {
+			return res.json();
+		})
+		.then((data) => {
+			if( parseInt(data) > 100){
+        $(".cartNumCount").text("99+");
+      } else {
+        $(".cartNumCount").text(data);
+      }
+			
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+}
+
 //menu
 function menuFunction(x){
   x.classList.toggle("change");
