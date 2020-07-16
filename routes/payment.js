@@ -6,8 +6,13 @@ const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 const stripePublicKey = process.env.STRIPE_PUBLIC_KEY;
 
 const express = require("express");
+const ensureAuthenticated = require('../helpers/auth');
 const router = express.Router();
 const stripe = require("stripe")(stripeSecretKey);
+
+// DB Table
+const DeliveryInfo = require("../models/DeliveryInfo");
+// DB Table
 
 router.get("/cart", (req, res) => {
     res.render("user/cart", {
@@ -23,42 +28,62 @@ router.get("/cart", (req, res) => {
     });
 });
 
-router.get("/checkout", (req, res) => {
-	res.render("user/checkout", {
-		style: { text: "user/shopping/checkoutdelivery.css"},
-		title: "Checkout",
-		cartItems: [{
-			itemNum: 2,
-			title: "Examplessss",
-			price: 20,
-		},{
-			itemNum: 1,
-			title: "Hmmmm",
-			price: 30,
-		}],
-		sum: 70,
-		AddressList: [
-			{
-			firstname: "Alex",
-			lastname: "Tan",
-			address: "something something address",
-			country: "Singapore",
-			city: "Singapore",
-			postalcode: 123456,
-			mobile: 98765432,},
-			{
-				firstname: "Alex",
-				lastname: "Tan",
-				address: "something something address",
-				country: "Singapore",
-				city: "Singapore",
-				postalcode: 123456,
-				mobile: 98765432,
-			}
-        ],
-        stripePublicKey: stripePublicKey,
-	});
-})
+router.get("/checkout", ensureAuthenticated, (req, res) => {
+    DeliveryInfo.findAll({
+        where: {
+            userId: req.user.id
+        }
+    }).then((AddressList) =>{
+        if (AddressList == []) {
+            
+        }
+        let defaultAddress = AddressList[0];
+
+		res.render("user/checkout", {
+            style: { text: "user/shopping/checkoutdelivery.css"},
+            title: "Checkout",
+            sum: 70,
+            cartItems: [{
+                itemNum: 2,
+                title: "Examplessss",
+                price: 20,
+            },{
+                itemNum: 1,
+                title: "Hmmmm",
+                price: 30,
+            }],
+            defaultAddress,
+            AddressList,
+            stripePublicKey: stripePublicKey
+	    });
+    })
+});
+	// res.render("user/checkout", {
+	// 	style: { text: "user/shopping/checkoutdelivery.css"},
+	// 	title: "Checkout",
+	// 	sum: 70,
+	// 	AddressList: [
+	// 		{
+	// 		firstname: "Alex",
+	// 		lastname: "Tan",
+	// 		address: "something something address",
+	// 		country: "Singapore",
+	// 		city: "Singapore",
+	// 		postalcode: 123456,
+	// 		mobile: 98765432,},
+	// 		{
+	// 			firstname: "Alex",
+	// 			lastname: "Tan",
+	// 			address: "something something address",
+	// 			country: "Singapore",
+	// 			city: "Singapore",
+	// 			postalcode: 123456,
+	// 			mobile: 98765432,
+	// 		}
+    //     ],
+    //     stripePublicKey: stripePublicKey,
+	// });
+// })
 
 router.get("/privacypolicy", (req, res) => {
     res.render("user/privacypolicy", {

@@ -56,28 +56,61 @@
                     {{!-- Card Body --}}
                     <div id="collapseTwo1" class="collapse show" role="tabpanel" aria-labelledby="headingTwo1" data-parent="#accordionEx1">
                         <div class="card-body">
-                            <div class="rownoreverse" style="margin-right: -15px; margin-left: -15px;">
-                                <div class="form-group col-50">
-                                    <label class="form-control-label" for="firstName">First Name</label>
-                                    <input class="form-control" id="DeliveryFirstName" name="DeliveryFirstName" placeholder="John" required="" type="text" value="">
+                            <fieldset class="form-group">
+                                <div class="form-group" id="locationField">
+                                    <label for="autocomplete">Address</label>
+                                    <input type="text" class="form-control" id="autocomplete" placeholder="Enter your address" value=""
+                                        onfocus="geolocate()" />
                                 </div>
-                                <div class="form-group col-50">
-                                    <label class="form-control-label" for="lastName">Last Name</label>
-                                    <input class="form-control" id="DeliveryLastName" name="DevlieryLastName" placeholder="Doe" required="" type="text" value="">
+                                <div class="form-row">
+                                    <div class="col-md-3 mb-3">
+                                        <label for="receiverName">Receiver Name*</label>
+                                        <input type="text" class="form-control" id="receiverName" name="receiverName" value="{{defaultAddress.receiverName}}"
+                                            placeholder="" required />
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="phoneNum">Phone Number*</label>
+                                        <input type="text" class="form-control" id="phoneNum" name="phoneNo" placeholder="" value="{{defaultAddress.phoneNo}}"
+                                            required />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label" for="email">Email</label>
-                                <input class="form-control" id="DeliveryEmail" name="DeliveryEmail" placeholder="johndoe@gmail.com" required="" type="text" value="">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label" for="address">Address</label>
-                                <input class="form-control" id="DeliveryAddress" name="DeliveryAddress" placeholder="180 Ang Mo Kio Ave 8" required="" type="text" value="">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label" for="postal">Postal Code</label>
-                                <input class="form-control" id="DeliveryPostal" name="DeliveryPostal" placeholder="569830" required="" type="text" value="">
-                            </div>
+                                <div class="form-row">
+                                    <div class="col-md-3 mb-3">
+                                        <label for="country">Country</label>
+                                        <input type="text" class="form-control" id="country" name="country" placeholder="" value="{{defaultAddress.country}}"/>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="administrative_area_level_1">State</label>
+                                        <input type="text" class="form-control" id="administrative_area_level_1" name="state" placeholder="" value="{{defaultAddress.state}}"/>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="locality">City</label>
+                                        <input type="text" class="form-control" id="locality" name="city" placeholder="" value="{{defaultAddress.city}}"/>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-3 mb-3">
+                                        <label for="street_number">Block No</label>
+                                        <input type="text" class="form-control" id="street_number" name="blockNo" placeholder="" value="{{defaultAddress.blockNo}}"/>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="route">Street</label>
+                                        <input type="text" class="form-control" id="route" name="street" placeholder="" value="{{defaultAddress.street}}"/>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="unitNo">Unit Number*</label>
+                                        <input type="text" class="form-control" id="unitNo" name="unitNo" placeholder="" value="{{defaultAddress.unitNo}}"/>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-3 mb-3">
+                                        <label for="postal_code">Postal Code</label>
+                                        <input type="text" class="form-control" id="postal_code" name="postcode" placeholder="" value="{{defaultAddress.postcode}}"/>
+                                    </div>
+                                </div>
+                                <fieldset class="form-group"></fieldset>
+                            </fieldset>
+                           
                             <div class="">
                                 <a class="next-btn collapsed" role="button" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseTwo21" aria-expanded="false">Next</a>
                                 <button type="button" class="btn btn-primary" id="openAddress">Other Addresses</button>
@@ -90,54 +123,41 @@
                                     {{#if AddressList}}
                                     {{!-- Accordion Card --}}
                                     <h3 class="shopFontTitle" style="padding-top: 20px;">Other Addresses</h3>
+
+                                    <!-- List Addr -->
                                     {{#each AddressList}}
-                                    <div class="card">
-                                        <div class="accordion md-accordion" id="accordionAddress" role="tablist" aria-multiselectable="true">                                            
-                                            {{!-- Card Header --}}
-                                            <div class="card-header" role="tab" id="headingAddressOne{{@index}}">
-                                                <button type="button" class="btn-accordion collapsed" data-toggle="collapse" data-parent="#accordionAddress" href="#collapseAddressOne{{@index}}" aria-expanded="false" aria-controls="collapseAddressOne{{@index}}" style="width:85%">
-                                                    <h4 class="mb-0">{{address}}<i class="fas fa-angle-down rotate-icon"></i></h4>
-                                                </button>
-                                                <button type="button" class="btn" style="width: 15%; float: right;">Select</button>
-                                            </div>
+                                    <div class="cartItems ">
+                                        <div class="cartItem container pt-3">
+                                            <div class="row">
+                                                <div class="col-2 " align="center">
 
-                                            {{!-- Card Body --}}
-                                            <div id="collapseAddressOne{{@index}}" class="collapse" role="tabpanel" aria-labelledby="headingAddressOne{{@index}}" data-parent="#accordionAddress">
-                                                <div class="card-body">
-                                                    <table border="">
-                                                        <thead>
-                                                            <th>Name</th>
-                                                            <th>Address</th>
-                                                            <th>Country</th>
-                                                            <th>City</th>
-                                                            <th>State</th>
-                                                            <th>Postal Code</th>
-                                                            <th>Phone</th>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>{{ firstname }} {{ lastname }}</td>
-                                                                <td>{{ address }}</td>
-                                                                <td>{{ country }}</td>
-                                                                <td>{{ city }}</td>
-                                                                <td>{{ state }}</td>
-                                                                <td>{{ postalcode }}</td>
-                                                                <td>{{ mobile }}</td>
-                                                                <td><a href="" class="btn btn-warning px-2 py-1 height-auto" style="">Edit</a></td>
-                                                                <td>
-                                                                    <input type="submit" value="Remove" formaction="" class="btn btn-danger px-2 py-1 height-auto" style="background-color:#dc3545;" onclick="return confirm('Are you sure you want to remove this item?');">
+                                                    <i class="far fa-address-card deliveryInfoLogo mt-1"></i>
+                                                </div>
+                                                <div class="col-10">
+                                                    <div class="row">
+                                                        <p id="deliveryInfoName">
+                                                            {{this.receiverName}}
 
-                                                                    {{!-- <form action="" method="POST">
-                                                                        <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this book?');">
-                                                                    </form> --}}
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                            <span id="deliveryInfoCell" class="ml-3 pt-0">{{this.phoneNo}}</span>
+                                                        </p>
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <p id="deliveryInfoAddr">{{this.street}} Block {{this.blockNo}} {{this.unitNo}}, {{this.country}}
+                                                            {{this.state}}, {{this.country}} {{this.postcode}}</p>
+                                                    </div>
+                                                    <div class="row">
+                                                        <i class="far fa-edit mr-3 " type="button" data-toggle="modal" data-target="#exampleModalEditAddr"
+                                                            data-whatever="{{this.receiverName}},{{this.phoneNo}},{{this.country}},{{this.state}},{{this.city}},{{this.blockNo}},{{this.street}},{{this.unitNo}},{{this.postcode}},{{this.id}}"></i>
+                                                        <i type="button" class="far fa-trash-alt" data-toggle="modal" data-target="#exampleModalDelete"
+                                                            data-whatever="{{this.id}}"></i>
+
+
+                                                    </div>
                                                 </div>
                                             </div>
-                                            {{!-- End of Card Body --}}
                                         </div>
+
                                     </div>
                                     {{/each}}
                                     {{!-- End of Card Accordion --}}
@@ -278,3 +298,9 @@
 			todayHighlight: true,
 		});
 </script>
+
+<!-- JS Section -->
+<script src="/js/user/deliveryAddresses.js" ></script>
+{{!-- <script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDsgDlDWdce4y8FzDa2-Hb1MPcpqGHtGs&libraries=places&callback=initAutocomplete"></script> --}}
+<!-- JS Section -->
