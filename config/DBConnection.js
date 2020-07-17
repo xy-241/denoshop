@@ -9,6 +9,15 @@ const deliveryInfo = require("../models/DeliveryInfo");
 const chat = require("../models/Chat");
 const order = require("../models/Order")
 // Import all the models
+// DB Sync
+const category = require("../models/Category");
+const banner = require("../models/Banner");
+const promodecode = require("../models/PromoCode");
+const productStats = require("../models/ProductStats");
+const productRating = require("../models/ProductRatings");
+const userRating = require("../models/UserRating");
+
+// DB Sync
 
 const setUpDB = (drop) => {
 	mySQLDB
@@ -24,7 +33,7 @@ const setUpDB = (drop) => {
 			deliveryInfo.hasMany(order);
 
 			// First dbSync
-			category.hasMany(hackingProduct, {foreignKey: 'category'});
+			category.hasMany(hackingProduct);
 
 			// Product-Stats Relation
 			hackingProduct.hasMany(productStats);
