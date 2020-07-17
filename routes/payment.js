@@ -103,21 +103,23 @@ router.get("/useragreement", (req, res) => {
     })
 });
 
-router.get("/orderplaced/:id", (req, res) => {
+router.get("/orderplaced/1", (req, res) => {
     console.log("Orderplaceddddd123");
     console.log(req);
 
     Order.findOne({
         where: {
-            orderId: req.params.id
+            id: 1,
+            userId: req.user.id,
         }
     }).then(orderObj => {
-        var deliveryAddressId = orderObj.deliveryAddressId
+        var deliveryInfoId = orderObj.deliveryInfoId
         DeliveryInfo.findOne({
             where: {
-                id: deliveryAddressId
+                id: deliveryInfoId
             }
         }).then(deliveryAddress => {
+            console.log(deliveryAddress)
             res.render("user/orderplaced", {
                 style: {text: "user/payment/ordersuccess.css"},
                 title: "Order Success",
@@ -234,24 +236,29 @@ router.post("/charge", (req, res) => {
 
                     DeliveryInfo.findOne({
                         where: {
-                            userId: userId,
+                            userId: req.user.id,
                             receiverName: receiverName,
                             postcode: postcode
                         }
                     }).then(deliveryInfoObject => {
-                        var deliveryAddressId = deliveryInfoObject.id
+                        console.log(deliveryInfoObject)
+                        console.log("DeliveryInfo Object")
+
+                        var deliveryInfoId = deliveryInfoObject.id
                         var deliveryDate = moment().format(req.body.deliveryDate, "YYYY-MM-DD");
                         console.log(deliveryDate)
                         var deliveryTime = req.body.deliveryTime;
+                        userId = req.user.id
                         Order.create({
                             chargeId,
                             deliveryDate,
                             deliveryTime,
-                            deliveryAddressId
+                            userId,
+                            deliveryInfoId
                         }).then(orderObj => {
-                            var orderId = orderObj.id
+                            var id = orderObj.id
 
-                            res.redirect("/payment/orderplaced/?id=" + orderId)
+                            res.redirect("/payment/orderplaced/" + id)
                         })
                     })
                 })
