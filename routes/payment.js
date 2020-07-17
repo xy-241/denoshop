@@ -247,7 +247,7 @@ router.post("/charge", (req, res) => {
                         var deliveryInfoId = deliveryInfoObject.id
                         var deliveryDate = moment().format(req.body.deliveryDate, "YYYY-MM-DD");
                         console.log(deliveryDate)
-                        var deliveryTime = req.body.deliveryTime;
+                        var deliveryTime = req.body.DeliveryTime;
                         userId = req.user.id
                         Order.create({
                             chargeId,

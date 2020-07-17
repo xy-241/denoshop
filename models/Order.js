@@ -11,9 +11,6 @@ const Order = db.define("order", {
     deliveryTime: {
         type: Sequelize.STRING,
     },
-    deliveryAddressId: {
-        type: Sequelize.INTEGER,
-    }
 })
 
 module.exports = Order;
