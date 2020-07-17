@@ -37,19 +37,19 @@ const setUpDB = (drop) => {
 
 			// Product-Stats Relation
 			hackingProduct.hasMany(productStats);
-			productStats.belongsTo(hackingProduct);
+			//productStats.belongsTo(hackingProduct);
 
 			// Product-Rating Relation
 			hackingProduct.hasMany(productRating);
-			productRating.belongsTo(hackingProduct);
+			//productRating.belongsTo(hackingProduct);
 
 			// Product-UserRating Relation
 			hackingProduct.hasMany(userRating);
-			userRating.belongsTo(hackingProduct);
+			//userRating.belongsTo(hackingProduct);
 
 			// User-UserRating Relation
 			user.hasMany(userRating);
-			userRating.belongsTo(user);
+			//userRating.belongsTo(user);
 			// First dbSync
 
 			mySQLDB
