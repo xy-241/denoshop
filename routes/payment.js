@@ -20,7 +20,7 @@ const Order = require("../models/Order");
 
 const moment = require("moment");
 
-router.get("/cart", (req, res) => {
+router.get("/add", (req, res) => {  //Add sample cartItems!!
     var cartItems = []
 
     var price = 20
@@ -294,11 +294,5 @@ router.post("/charge", ensureAuthenticated, (req, res) => {
         })
     })
 })
-
-const denoShopDB = require("../config/DBConnection");
-
-router.get("/reset", (res, req) => {
-    denoShopDB.setUpDB(true)
-});
 
 module.exports = router;
