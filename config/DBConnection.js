@@ -26,10 +26,11 @@ const setUpDB = (drop) => {
 			console.log("Denoshop DB is connected!");
 		})
 		.then(() => {
-			user.hasMany(purchaseRecord); // Define relationship
+			// Define relationship
 			user.hasMany(cartItem);
 			user.hasMany(deliveryInfo);
 			user.hasMany(order);
+			order.hasMany(purchaseRecord);
 			deliveryInfo.hasMany(order);
 
 			// First dbSync
