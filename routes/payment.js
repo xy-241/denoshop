@@ -103,13 +103,13 @@ router.get("/useragreement", (req, res) => {
     })
 });
 
-router.get("/orderplaced/1", (req, res) => {
+router.get("/orderplaced/:orderId", (req, res) => {
     console.log("Orderplaceddddd123");
     console.log(req);
 
     Order.findOne({
         where: {
-            id: 1,
+            id: req.params.orderId,
             userId: req.user.id,
         }
     }).then(orderObj => {
@@ -130,141 +130,175 @@ router.get("/orderplaced/1", (req, res) => {
     })    
 })
 
-router.post("/charge", (req, res) => {
-    console.log(req.body)
-    console.log("here is the charge req :>")
-    let {
-		receiverName,
-		phoneNo,
-		country,
-		state,
-		city,
-		blockNo,
-		street,
-		unitNo,
-		postcode,
-    } = req.body;
-    let userId = req.user.id;
+let innerReturnFunction = ({sum, cartItems}) => {
+    /* this works */
+    return {sum, cartItems}; // return an object
+}
 
-    DeliveryInfo.findOne({
-        where: {
-            userId: userId,
-            receiverName: receiverName,
-            postcode: postcode
-        }
-    }).then(deliveryObj => {
-        console.log("Delivery Obj here")
-        console.log(deliveryObj)
-        if (deliveryObj == null) {
-            DeliveryInfo.create({
-                country,
-                city,
-                street,
-                unitNo,
-                postcode,
-                state,
-                blockNo,
-                phoneNo,
-                receiverName,
-                userId,
-            })        
-        }
-    }).then(DeliveryInfoObj =>
-        stripe.customers.update(
-            req.user.stripeId,
-            {source: req.body.stripeToken}
-        )).then(customer => {
+router.post("/charge", ensureAuthenticated, (req, res) => {
+    stripe.customers.update(
+        req.user.stripeId,
+        {source: req.body.stripeToken}
+    ).then(customer => {
+        console.log("Finding Cart Items for Charge")
         CartItem.findAll({
-            where: {
-                userId: req.user.id,
-            },
-        }).then((cartItems) => {
-            var items = []
+            where: {userId: req.user.id}
+        }).then(cartItems => {
             var sum = 0
 
             Array.prototype.forEach.call(cartItems, item => {
                 var quantity = item.itemNum
                 var price = item.price
                 
-                var totalprice = price * quantity;
-                sum += totalprice;
-
-                items.push({
-                    item
-                })
+                var totalprice = price * quantity
+                sum += totalprice
             })
-            return sum
-        }).then((sum) => {
-            console.log(sum);
-            var amount = sum * 100  // 1 dollar in stripe is 100
+            console.log({sum, cartItems})
+            console.log("Sum and CartItems return")
+            return innerReturnFunction({sum, cartItems})
+        }).then(function({sum, cartItems}) {
+            console.log(sum)
+            console.log(cartItems)
+            var amount = sum * 100
 
             stripe.charges.create({
                 amount,
                 description: "DenoShop",
                 currency: "sgd",
-                customer: req.user.stripeId,
+                customer: req.user.stripeId
             }).then(charge => {
-                console.log(charge)
-                var chargeId = charge.id;
-
-                CartItem.findAll({
+                let {
+                    receiverName,
+                    phoneNo,
+                    country,
+                    state,
+                    city,
+                    blockNo,
+                    street,
+                    unitNo,
+                    postcode,
+                } = req.body;
+                let userId = req.user.id;
+    
+                DeliveryInfo.findOne({
                     where: {
-                        userId: req.user.id,
-                    },
-                }).then((cartItems) => {
-                    Array.prototype.forEach.call(cartItems, item => {
-                        var itemNum = item.itemNum
-                        var title = item.title
-                        var dateAdded = moment().format("YYYY-MM-DD")
-                        var review = ""
-                        var rating = 0
-                        PurchaseRecord.create({
-                            title,
-                            itemNum,
-                            dateAdded,
-                            review,
-                            rating,
-                            chargeId
-                        })    
-                    })
-                }).then(purchaserecord => {
-                    CartItem.destroy({
-                        where: {
-                            userId: req.user.id,
-                        }
-                    })
+                        country: country,
+                        city: city,
+                        street: street,
+                        unitNo: unitNo,
+                        postcode: postcode,
+                        state: state,
+                        blockNo: blockNo,
+                        phoneNo: phoneNo,
+                        receiverName: receiverName,
+                        userId: userId,
+                    }
+                }).then(deliveryObj => {
+                    var userId = req.user.id
+                    if (deliveryObj == null) {
+                        console.log("No deliveryObj found in database")
+                        DeliveryInfo.create({
+                            country,
+                            city,
+                            street,
+                            unitNo,
+                            postcode,
+                            state,
+                            blockNo,
+                            phoneNo,
+                            receiverName,
+                            userId,
+                        }).then(deliveryInfoObj => {
+                            var deliveryInfoId = deliveryInfoObj.id
+                            var deliveryDate = moment().format(req.body.DeliveryDate, "YYYY-MM-DD")
+                            var deliveryTime = req.body.DeliveryTime
+                            var chargeId = charge.id
+                            Order.create({
+                                chargeId,
+                                deliveryDate,
+                                deliveryTime,
+                                userId,
+                                deliveryInfoId,
+                            }).then(orderObj => {
+                                var orderId = orderObj.id
+                                var userId = req.user.id
 
-                    DeliveryInfo.findOne({
-                        where: {
-                            userId: req.user.id,
-                            receiverName: receiverName,
-                            postcode: postcode
-                        }
-                    }).then(deliveryInfoObject => {
-                        console.log(deliveryInfoObject)
-                        console.log("DeliveryInfo Object")
+                                Array.prototype.forEach.call(cartItems, item => {
+                                    var itemNum = item.itemNum
+                                    var title = item.title
+                                    var dateAdded = moment().format("YYYY-MM-DD")
+                                    PurchaseRecord.create({
+                                        title,
+                                        itemNum,
+                                        dateAdded,
+                                        orderId
+                                    })
+                                })
+                                console.log(orderId)
+                                return innerReturnFunction({sum: userId, cartItems: orderId})
+                            }).then(function({sum, cartItems}) {
+                                CartItem.destroy({
+                                    where: {
+                                        userId: req.user.id,
+                                    }
+                                })
 
-                        var deliveryInfoId = deliveryInfoObject.id
-                        var deliveryDate = moment().format(req.body.deliveryDate, "YYYY-MM-DD");
-                        console.log(deliveryDate)
-                        var deliveryTime = req.body.DeliveryTime;
-                        userId = req.user.id
+                                return innerReturnFunction({sum:sum, cartItems:cartItems})    
+                            }).then(function({sum, cartItems}) {
+                                res.redirect("/payment/orderplaced/" + cartItems)
+                            })
+                        })
+                    } else {
+                        var deliveryInfoId = deliveryObj.id
+                        var deliveryDate = moment().format(req.body.DeliveryDate, "YYYY-MM-DD")
+                        var deliveryTime = req.body.DeliveryTime
+                        var chargeId = charge.id
+
                         Order.create({
                             chargeId,
                             deliveryDate,
                             deliveryTime,
                             userId,
-                            deliveryInfoId
+                            deliveryInfoId,
                         }).then(orderObj => {
-                            var id = orderObj.id
+                            var orderId = orderObj.id
+                            var userId = req.user.id
 
-                            res.redirect("/payment/orderplaced/" + id)
+                            Array.prototype.forEach.call(cartItems, item => {
+                                var itemNum = item.itemNum
+                                var title = item.title
+                                var dateAdded = moment().format("YYYY-MM-DD")
+                                PurchaseRecord.create({
+                                    title,
+                                    itemNum,
+                                    dateAdded,
+                                    orderId
+                                })
+                            })
+                            console.log(innerReturnFunction({sum: userId, cartItems: orderId}))
+                            return innerReturnFunction({sum: userId, cartItems: orderId})
+                        }).then(function({sum, cartItems}) {
+                            CartItem.destroy({
+                                where: {
+                                    userId: req.user.id,
+                                }
+                            })
+
+                            return innerReturnFunction({sum:sum, cartItems:cartItems})    
+                        }).then(function({sum, cartItems}) {
+                            res.redirect("/payment/orderplaced/" + cartItems)
                         })
-                    })
+                    }                    
                 })
             })
         })
     })
 })
+
+const denoShopDB = require("../config/DBConnection");
+
+router.get("/reset", (res, req) => {
+    denoShopDB.setUpDB(true)
+});
 
 module.exports = router;
