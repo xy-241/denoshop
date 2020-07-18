@@ -130,11 +130,6 @@ router.get("/orderplaced/:orderId", (req, res) => {
     })    
 })
 
-let innerReturnFunction = ({sum, cartItems}) => {
-    /* this works */
-    return {sum, cartItems}; // return an object
-}
-
 router.post("/charge", ensureAuthenticated, (req, res) => {
     stripe.customers.update(
         req.user.stripeId,
@@ -155,11 +150,11 @@ router.post("/charge", ensureAuthenticated, (req, res) => {
             })
             console.log({sum, cartItems})
             console.log("Sum and CartItems return")
-            return innerReturnFunction({sum, cartItems})
-        }).then(function({sum, cartItems}) {
-            console.log(sum)
-            console.log(cartItems)
-            var amount = sum * 100
+            return {sum: sum, cartItems: cartItems}
+        }).then(data => {
+            console.log(data.sum)
+            console.log(data.cartItems)
+            var amount = data.sum * 100
 
             stripe.charges.create({
                 amount,
@@ -221,9 +216,8 @@ router.post("/charge", ensureAuthenticated, (req, res) => {
                                 deliveryInfoId,
                             }).then(orderObj => {
                                 var orderId = orderObj.id
-                                var userId = req.user.id
 
-                                Array.prototype.forEach.call(cartItems, item => {
+                                Array.prototype.forEach.call(data.cartItems, item => {
                                     var itemNum = item.itemNum
                                     var title = item.title
                                     var dateAdded = moment().format("YYYY-MM-DD")
@@ -235,17 +229,17 @@ router.post("/charge", ensureAuthenticated, (req, res) => {
                                     })
                                 })
                                 console.log(orderId)
-                                return innerReturnFunction({sum: userId, cartItems: orderId})
-                            }).then(function({sum, cartItems}) {
+                                return {orderId: orderId}
+                            }).then(orderIddata => {
                                 CartItem.destroy({
                                     where: {
                                         userId: req.user.id,
                                     }
                                 })
 
-                                return innerReturnFunction({sum:sum, cartItems:cartItems})    
-                            }).then(function({sum, cartItems}) {
-                                res.redirect("/payment/orderplaced/" + cartItems)
+                                return {orderId: orderIddata.orderId}
+                            }).then(orderIddata => {
+                                res.redirect("/payment/orderplaced/" + orderIddata.orderId)
                             })
                         })
                     } else {
@@ -262,9 +256,8 @@ router.post("/charge", ensureAuthenticated, (req, res) => {
                             deliveryInfoId,
                         }).then(orderObj => {
                             var orderId = orderObj.id
-                            var userId = req.user.id
 
-                            Array.prototype.forEach.call(cartItems, item => {
+                            Array.prototype.forEach.call(data.cartItems, item => {
                                 var itemNum = item.itemNum
                                 var title = item.title
                                 var dateAdded = moment().format("YYYY-MM-DD")
@@ -275,18 +268,17 @@ router.post("/charge", ensureAuthenticated, (req, res) => {
                                     orderId
                                 })
                             })
-                            console.log(innerReturnFunction({sum: userId, cartItems: orderId}))
-                            return innerReturnFunction({sum: userId, cartItems: orderId})
-                        }).then(function({sum, cartItems}) {
+                            return {orderId: orderId}
+                        }).then(orderIddata => {
                             CartItem.destroy({
                                 where: {
                                     userId: req.user.id,
                                 }
                             })
 
-                            return innerReturnFunction({sum:sum, cartItems:cartItems})    
-                        }).then(function({sum, cartItems}) {
-                            res.redirect("/payment/orderplaced/" + cartItems)
+                            return {orderId: orderIddata.orderId}    
+                        }).then(orderIddata => {
+                            res.redirect("/payment/orderplaced/" + orderIddata.orderId)
                         })
                     }                    
                 })
