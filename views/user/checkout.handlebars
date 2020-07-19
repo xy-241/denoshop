@@ -133,7 +133,7 @@
 
                                                     <i class="far fa-address-card deliveryInfoLogo mt-1"></i>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <div class="row">
                                                         <p id="deliveryInfoName">
                                                             {{this.receiverName}}
@@ -151,9 +151,12 @@
                                                             data-whatever="{{this.receiverName}},{{this.phoneNo}},{{this.country}},{{this.state}},{{this.city}},{{this.blockNo}},{{this.street}},{{this.unitNo}},{{this.postcode}},{{this.id}}"></i>
                                                         <i type="button" class="far fa-trash-alt" data-toggle="modal" data-target="#exampleModalDelete"
                                                             data-whatever="{{this.id}}"></i>
-
-
                                                     </div>
+                                                </div>
+                                                <div class="col-2">
+                                                    <a id="selectAddr" data-id="{{this.id}}" tabindex="-1" class="btn" style="color:white;">
+                                                        Select
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -291,12 +294,42 @@
 </div>
 
 <script>
-		$('#datepicker').datepicker({
-			format: 'dd/mm/yyyy',
-			value: new Date().toLocaleDateString(),
-			uiLibrary: 'bootstrap4',
-			todayHighlight: true,
-		});
+    $('#datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        value: new Date().toLocaleDateString(),
+        uiLibrary: 'bootstrap4',
+        todayHighlight: true,
+    });
+    $("#selectAddr").on("click",function(){
+        let addrId = $("#selectAddr").attr('data-id');
+        fetch(
+            '/payment/retrieve/'+ addrId
+        ).then(data => {
+            return data.json()
+        }).then(data => {
+            console.log(data)
+
+            const receiverName = document.getElementById("receiverName");
+            const phoneNo = document.getElementById("phoneNum");
+            const country = document.getElementById("country");
+            const state = document.getElementById("administrative_area_level_1");
+            const city = document.getElementById("locality");
+            const blockNo = document.getElementById("street_number");
+            const street = document.getElementById("route");
+            const unitNo = document.getElementById("unitNo");
+            const postcode = document.getElementById("postal_code");
+
+            receiverName.value = data.receiverName
+            phoneNo.value = data.phoneNo
+            country.value = data.country
+            state.value = data.state
+            city.value = data.city
+            blockNo.value = data.blockNo
+            street.value = data.street
+            unitNo.value = data.unitNo
+            postcode.value = data.postcode
+        })
+    });
 </script>
 
 <!-- JS Section -->
