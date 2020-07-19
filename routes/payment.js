@@ -206,6 +206,7 @@ router.post("/charge", ensureAuthenticated, (req, res) => {
                         }).then(deliveryInfoObj => {
                             var deliveryInfoId = deliveryInfoObj.id
                             var deliveryDate = moment().format(req.body.DeliveryDate, "YYYY-MM-DD")
+                            console.log(deliveryDate)
                             var deliveryTime = req.body.DeliveryTime
                             var chargeId = charge.id
                             Order.create({
@@ -244,7 +245,8 @@ router.post("/charge", ensureAuthenticated, (req, res) => {
                         })
                     } else {
                         var deliveryInfoId = deliveryObj.id
-                        var deliveryDate = moment().format(req.body.DeliveryDate, "YYYY-MM-DD")
+                        var deliveryDate = moment(req.body.DeliveryDate, "DD/MM/YYYY").format("YYYY-MM-DD")
+                        console.log(deliveryDate)
                         var deliveryTime = req.body.DeliveryTime
                         var chargeId = charge.id
 
@@ -284,6 +286,19 @@ router.post("/charge", ensureAuthenticated, (req, res) => {
                 })
             })
         })
+    })
+})
+
+router.get("/retrieve/:addrId", ensureAuthenticated, (req, res) => {
+    DeliveryInfo.findOne({
+        where: {
+            id: req.params.addrId,
+            userId: req.user.id
+        }
+    }).then(deliveryAddr => {
+        console.log(deliveryAddr)
+        res.json(deliveryAddr)
+
     })
 })
 
