@@ -289,4 +289,17 @@ router.post("/charge", ensureAuthenticated, (req, res) => {
     })
 })
 
+router.get("/retrieve/:addrId", ensureAuthenticated, (req, res) => {
+    DeliveryInfo.findOne({
+        where: {
+            id: req.params.addrId,
+            userId: req.user.id
+        }
+    }).then(deliveryAddr => {
+        console.log(deliveryAddr)
+        res.json(deliveryAddr)
+
+    })
+})
+
 module.exports = router;
