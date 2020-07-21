@@ -7,6 +7,7 @@ const ensureAuthenticated = require("../helpers/auth");
 const DeliveryInfo = require("../models/DeliveryInfo");
 const HackingProduct = require("../models/HackingProduct");
 const CartItem = require("../models/CartItem");
+const Order = require("../models/Order")
 
 const Sequelize = require("sequelize");
 
@@ -45,19 +46,26 @@ router.get("/logout", (req, res) => {
 	res.redirect("/");
 });
 
-router.get("/account", ensureAuthenticated, (req, res) => {
-	DeliveryInfo.findAll({ where: { userId: req.user.id } }).then(
-		(deliveryAddrs) => {
-			res.render("user/account", {
-				style: {
-					text: "user/management/account.css",
-					text1: "user/management/accountAddress.css",
-				},
-				title: "My Account",
-				deliveryAddrs,
-			});
-		}
-	);
+router.get("/account", ensureAuthenticated, async (req, res) => {
+
+	let deliveryAddrs = await DeliveryInfo.findAll({ where: { userId: req.user.id } })
+		.then((deliveryAddrs) => {
+			return deliveryAddrs
+		});
+
+	let orders = await Order.findAll({ where: { userId: req.user.id} })
+		.then((order) => {
+			return order
+		});
+	res.render("user/account", {
+		style: {
+			text: "user/management/account.css",
+			text1: "user/management/accountAddress.css",
+		},
+		title: "My Account",
+		deliveryAddrs,
+		orders
+	});
 });
 
 router.get("/cart", ensureAuthenticated, (req, res) => {
