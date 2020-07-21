@@ -206,6 +206,7 @@ router.post("/charge", ensureAuthenticated, (req, res) => {
                         }).then(deliveryInfoObj => {
                             var deliveryInfoId = deliveryInfoObj.id
                             var deliveryDate = moment().format(req.body.DeliveryDate, "YYYY-MM-DD")
+                            var orderDescription  = req.body.orderDescription
                             console.log(deliveryDate)
                             var deliveryTime = req.body.DeliveryTime
                             var chargeId = charge.id
@@ -213,6 +214,7 @@ router.post("/charge", ensureAuthenticated, (req, res) => {
                                 chargeId,
                                 deliveryDate,
                                 deliveryTime,
+                                orderDescription,
                                 userId,
                                 deliveryInfoId,
                             }).then(orderObj => {
