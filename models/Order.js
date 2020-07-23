@@ -16,6 +16,9 @@ const Order = db.define("order", {
     },
     orderStatus: {
         type: Sequelize.STRING,
+    },
+    orderSum: {
+        type: Sequelize.FLOAT,
     }
 })
 
