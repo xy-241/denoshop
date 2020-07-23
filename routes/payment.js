@@ -206,13 +206,19 @@ router.post("/charge", ensureAuthenticated, (req, res) => {
                         }).then(deliveryInfoObj => {
                             var deliveryInfoId = deliveryInfoObj.id
                             var deliveryDate = moment().format(req.body.DeliveryDate, "YYYY-MM-DD")
+                            var orderDescription  = req.body.orderDescription
                             console.log(deliveryDate)
                             var deliveryTime = req.body.DeliveryTime
                             var chargeId = charge.id
+                            var orderSum = charge.amount / 100
+                            var orderStatus = "placed"
                             Order.create({
                                 chargeId,
                                 deliveryDate,
                                 deliveryTime,
+                                orderDescription,
+                                orderStatus,
+                                orderSum,
                                 userId,
                                 deliveryInfoId,
                             }).then(orderObj => {

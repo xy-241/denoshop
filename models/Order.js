@@ -11,6 +11,15 @@ const Order = db.define("order", {
     deliveryTime: {
         type: Sequelize.STRING,
     },
+    orderDescription: {
+        type: Sequelize.STRING,
+    },
+    orderStatus: {
+        type: Sequelize.STRING,
+    },
+    orderSum: {
+        type: Sequelize.FLOAT,
+    }
 })
 
 module.exports = Order;

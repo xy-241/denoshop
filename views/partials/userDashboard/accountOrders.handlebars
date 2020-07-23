@@ -1,3 +1,82 @@
 <div class="border-bottom userDashboardHeader">
     <i class="fa fa-archive" aria-hidden="true"></i> My Orders
 </div>
+
+<!-- List Orders -->
+{{#if orders}}
+	{{#each orders}}
+	<div class="cartItems ">
+		<div class="cartItem container pt-3">
+			<div class="row">
+				<div class="col-2 " align="center">
+
+					<i class="fa fa-box deliveryInfoLogo mt-1"></i>
+				</div>
+				<div class="col-10">
+					<div class="row">
+						<p id="deliveryInfoName">
+							{{this.orderDescription}}
+							
+							<span id="deliveryInfoCell" class="ml-3 pt-0">{{this.deliveryDate}}, {{this.deliveryTime}}</span>
+						</p>
+
+					</div>
+					<div class="row">
+						<p id="deliveryInfoAddr">{{this.deliveryInfo.street}} Block {{this.deliveryInfo.blockNo}} {{this.deliveryInfo.unitNo}}, {{this.deliveryInfo.country}}
+							{{this.deliveryInfo.state}}, {{this.deliveryInfo.country}} {{this.deliveryInfo.postcode}}</p>
+					</div>
+				</div>
+			</div>
+
+			<hr>
+			{{!-- Order Status --}}
+			<div class="row">								
+				<div class="col-12">
+					<p style="font-size: 1.2em;">
+						Order Status: 
+						{{#if (equal this.orderStatus "placed")}}
+							Order {{this.orderStatus}}
+						{{else if (equal this.orderStatus "picked up")}}
+							Order {{this.orderStatus}} by Courier
+						{{else if (equal this.orderStatus "on the way")}}
+							Order {{this.orderStatus}}
+						{{else if (equal this.orderStatus "arrived")}}
+							Order has {{this.orderStatus}}
+						{{else}}
+							Order completed
+						{{/if}}
+						</p>
+					<div class="row">
+						<div class="col-12">
+							{{#if (equal this.orderStatus "placed")}}
+							<img class="orderStatus" src="img/orderStatus1.png" alt="">
+							{{else if (equal this.orderStatus "picked up")}}
+							<img class="orderStatus" src="img/orderStatus2.png" alt="">
+							{{else if (equal this.orderStatus "on the way")}}
+							<img class="orderStatus" src="img/orderStatus3.png" alt="">
+							{{else if (equal this.orderStatus "arrived")}}
+							<img class="orderStatus" src="img/orderStatus4.png" alt="">
+							{{else}}
+							{{/if}}
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-6">
+							<p style="font-size: 1.2em;">Total Sum: ${{this.orderSum}}</p>
+						</div>
+						<div class="col-6">
+							<button type="button" class="viewItems"><i class="fa fa-list-alt"></i> View Items</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	{{/each}}
+	<!-- List Orders -->
+{{else}}
+<p id="no-order">No Orders Placed</p>
+{{/if}}
+<script src="/js/user/orderInfo.js"></script>
