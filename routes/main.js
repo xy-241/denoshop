@@ -53,14 +53,20 @@ router.get("/account", ensureAuthenticated, async (req, res) => {
 			return deliveryAddrs
 		});
 
-	let orders = await Order.findAll({ where: { userId: req.user.id} })
-		.then((order) => {
-			return order
-		});
+	let orders = await Order.findAll({
+		where: {
+				userId: req.user.id
+			},
+		include: [DeliveryInfo]
+	}).then((order) => {
+		console.log(order)
+		return order
+	});
 	res.render("user/account", {
 		style: {
 			text: "user/management/account.css",
 			text1: "user/management/accountAddress.css",
+			text2: "user/management/accountOrder.css",
 		},
 		title: "My Account",
 		deliveryAddrs,
