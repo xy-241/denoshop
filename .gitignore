@@ -112,4 +112,4 @@ views/user/oldcheckout.handlebars
 public/js/useInterface/oldpurchase.js
 
 # account file for paypal
-accounnt.txt
+account.txt
