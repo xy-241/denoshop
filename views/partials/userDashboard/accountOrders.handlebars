@@ -48,6 +48,16 @@
 						</p>
 					<div class="row">
 						<div class="col-12">
+							<div class="track">
+								<div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
+								<div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Picked by courier</span> </div>
+								<div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
+								<div class="step"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Ready for pickup</span> </div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
 							{{#if (equal this.orderStatus "placed")}}
 							<img class="orderStatus" src="img/orderStatus1.png" alt="">
 							{{else if (equal this.orderStatus "picked up")}}
@@ -79,4 +89,4 @@
 {{else}}
 <p id="no-order">No Orders Placed</p>
 {{/if}}
-<script src="/js/user/orderInfo.js"></script>
+{{!-- <script src="/js/user/orderInfo.js"></script> --}}
