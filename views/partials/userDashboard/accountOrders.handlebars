@@ -49,14 +49,14 @@
 					<div class="row">
 						<div class="col-12">
 							<div class="track">
-								<div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
-								<div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Picked by courier</span> </div>
-								<div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
-								<div class="step"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Ready for pickup</span> </div>
+								<div class="step" id="orderStatus1"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
+								<div class="step" id="orderStatus2"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Picked by courier</span> </div>
+								<div class="step" id="orderStatus3"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
+								<div class="step" id="orderStatus4"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Ready for pickup</span> </div>
 							</div>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row" style="display: none;">
 						<div class="col-12">
 							{{#if (equal this.orderStatus "placed")}}
 							<img class="orderStatus" src="img/orderStatus1.png" alt="">
@@ -76,7 +76,7 @@
 							<p style="font-size: 1.2em;">Total Sum: ${{this.orderSum}}</p>
 						</div>
 						<div class="col-6">
-							<button type="button" class="viewItems"><i class="fa fa-list-alt"></i> View Items</button>
+							<button type="button" class="viewItems" onclick="changeCol(1)"><i class="fa fa-list-alt"></i> View Items</button>
 						</div>
 					</div>
 				</div>
@@ -90,3 +90,12 @@
 <p id="no-order">No Orders Placed</p>
 {{/if}}
 {{!-- <script src="/js/user/orderInfo.js"></script> --}}
+
+<script>
+    function changeCol(id) {
+        for (let i = 1; i < (id+1); i++) {
+            document.getElementById(`orderStatus${i}`).classList.add("active");
+			console.log(i)
+        }
+    }
+</script>
