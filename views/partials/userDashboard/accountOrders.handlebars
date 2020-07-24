@@ -5,7 +5,7 @@
 <!-- List Orders -->
 {{#if orders}}
 	{{#each orders}}
-	<div class="cartItems ">
+	<div class="cartItems">
 		<div class="cartItem container pt-3">
 			<div class="row">
 				<div class="col-2 " align="center">
@@ -32,42 +32,28 @@
 			{{!-- Order Status --}}
 			<div class="row">								
 				<div class="col-12">
-					<p style="font-size: 1.2em;">
+					<p style="font-size: 1.2em;" class = "orderStatus" id = "orderStatus" data-orderStatus={{this.orderStatus}}>
 						Order Status: 
-						{{#if (equal this.orderStatus "placed")}}
-							Order {{this.orderStatus}}
-						{{else if (equal this.orderStatus "picked up")}}
-							Order {{this.orderStatus}} by Courier
-						{{else if (equal this.orderStatus "on the way")}}
-							Order {{this.orderStatus}}
-						{{else if (equal this.orderStatus "arrived")}}
-							Order has {{this.orderStatus}}
+						{{#if (equal this.orderStatus 1)}}
+							Order Placed
+						{{else if (equal this.orderStatus 2)}}
+							Order picked up by Courier
+						{{else if (equal this.orderStatus 3)}}
+							Order on the way
+						{{else if (equal this.orderStatus 4)}}
+							Order has arrived
 						{{else}}
 							Order completed
 						{{/if}}
 						</p>
 					<div class="row">
 						<div class="col-12">
-							<div class="track">
-								<div class="step" id="orderStatus1"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
-								<div class="step" id="orderStatus2"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Picked by courier</span> </div>
-								<div class="step" id="orderStatus3"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
-								<div class="step" id="orderStatus4"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Ready for pickup</span> </div>
+							<div class="track" id="track">
+								<div class="step" id="{{@index}}orderStatus1"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
+								<div class="step" id="{{@index}}orderStatus2"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Picked by courier</span> </div>
+								<div class="step" id="{{@index}}orderStatus3"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
+								<div class="step" id="{{@index}}orderStatus4"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Ready for pickup</span> </div>
 							</div>
-						</div>
-					</div>
-					<div class="row" style="display: none;">
-						<div class="col-12">
-							{{#if (equal this.orderStatus "placed")}}
-							<img class="orderStatus" src="img/orderStatus1.png" alt="">
-							{{else if (equal this.orderStatus "picked up")}}
-							<img class="orderStatus" src="img/orderStatus2.png" alt="">
-							{{else if (equal this.orderStatus "on the way")}}
-							<img class="orderStatus" src="img/orderStatus3.png" alt="">
-							{{else if (equal this.orderStatus "arrived")}}
-							<img class="orderStatus" src="img/orderStatus4.png" alt="">
-							{{else}}
-							{{/if}}
 						</div>
 					</div>
 					<hr>
@@ -76,7 +62,7 @@
 							<p style="font-size: 1.2em;">Total Sum: ${{this.orderSum}}</p>
 						</div>
 						<div class="col-6">
-							<button type="button" class="viewItems" onclick="changeCol(1)"><i class="fa fa-list-alt"></i> View Items</button>
+							<button type="button" class="viewItems"><i class="fa fa-list-alt"></i> View Items</button>
 						</div>
 					</div>
 				</div>
@@ -92,10 +78,14 @@
 {{!-- <script src="/js/user/orderInfo.js"></script> --}}
 
 <script>
-    function changeCol(id) {
-        for (let i = 1; i < (id+1); i++) {
-            document.getElementById(`orderStatus${i}`).classList.add("active");
-			console.log(i)
-        }
-    }
+	$("#v-pills-profile-tab").on("click", function(){
+		let elems = document.getElementsByClassName("orderStatus");
+		for (let i = 0; i < elems.length; i++) {
+			let statusId = parseInt(elems[i].attributes["data-orderStatus"]["value"])
+			for (let id = 1; id < (statusId+1); id++) {
+				document.getElementById(`${i}orderStatus${id}`).classList.add("active");
+			}
+		}
+
+	})
 </script>
