@@ -110,3 +110,6 @@ package-lock.json
 config/db.js
 views/user/oldcheckout.handlebars
 public/js/useInterface/oldpurchase.js
+
+# account file for paypal
+accounnt.txt
