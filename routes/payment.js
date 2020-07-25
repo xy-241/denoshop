@@ -5,6 +5,9 @@ if (process.env.NODE_ENV !== 'production'){
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 const stripePublicKey = process.env.STRIPE_PUBLIC_KEY;
 
+const paypalClientId = process.env.PAYPAL_CLIENT_ID;
+const paypalClientSecret = process.env.PAYPAL_CLIENT_SECRET;
+
 const express = require("express");
 const ensureAuthenticated = require('../helpers/auth');
 const router = express.Router();
@@ -19,6 +22,14 @@ const PurchaseRecord = require("../models/PurchaseRecord");
 const Order = require("../models/Order");
 
 const moment = require("moment");
+
+const paypal = require('paypal-rest-sdk');
+
+paypal.configure({
+    'mode': 'sandbox',
+    'client_id': paypalClientId,
+    'client_secret': paypalClientSecret
+});
 
 router.get("/add", (req, res) => {  //Add sample cartItems!!
     var cartItems = []
@@ -130,169 +141,133 @@ router.get("/orderplaced/:orderId", (req, res) => {
     })    
 })
 
-router.post("/charge", ensureAuthenticated, (req, res) => {
-    stripe.customers.update(
-        req.user.stripeId,
-        {source: req.body.stripeToken}
-    ).then(customer => {
-        console.log("Finding Cart Items for Charge")
-        CartItem.findAll({
-            where: {userId: req.user.id}
-        }).then(cartItems => {
-            var sum = 0
+router.post("/charge", ensureAuthenticated, async (req, res) => {
+    let {
+        receiverName,
+        phoneNo,
+        country,
+        state,
+        city,
+        blockNo,
+        street,
+        unitNo,
+        postcode,
+        orderDescription,
+        deliveryTime,
+    } = req.body;
+    let userId = req.user.id;
 
-            Array.prototype.forEach.call(cartItems, item => {
-                var quantity = item.itemNum
-                var price = item.price
-                
-                var totalprice = price * quantity
-                sum += totalprice
-            })
-            console.log({sum, cartItems})
-            console.log("Sum and CartItems return")
-            return {sum: sum, cartItems: cartItems}
-        }).then(data => {
-            console.log(data.sum)
-            console.log(data.cartItems)
-            var amount = data.sum * 100
-
-            stripe.charges.create({
-                amount,
-                description: "DenoShop",
-                currency: "sgd",
-                customer: req.user.stripeId
-            }).then(charge => {
-                let {
-                    receiverName,
-                    phoneNo,
-                    country,
-                    state,
-                    city,
-                    blockNo,
-                    street,
-                    unitNo,
-                    postcode,
-                } = req.body;
-                let userId = req.user.id;
+    const deliveryDate = moment(req.body.DeliveryDate).format("YYYY-MM-DD")
     
-                DeliveryInfo.findOne({
-                    where: {
-                        country: country,
-                        city: city,
-                        street: street,
-                        unitNo: unitNo,
-                        postcode: postcode,
-                        state: state,
-                        blockNo: blockNo,
-                        phoneNo: phoneNo,
-                        receiverName: receiverName,
-                        userId: userId,
-                    }
-                }).then(deliveryObj => {
-                    var userId = req.user.id
-                    if (deliveryObj == null) {
-                        console.log("No deliveryObj found in database")
-                        DeliveryInfo.create({
-                            country,
-                            city,
-                            street,
-                            unitNo,
-                            postcode,
-                            state,
-                            blockNo,
-                            phoneNo,
-                            receiverName,
-                            userId,
-                        }).then(deliveryInfoObj => {
-                            var deliveryInfoId = deliveryInfoObj.id
-                            var deliveryDate = moment().format(req.body.DeliveryDate, "YYYY-MM-DD")
-                            var orderDescription  = req.body.orderDescription
-                            console.log(deliveryDate)
-                            var deliveryTime = req.body.DeliveryTime
-                            var chargeId = charge.id
-                            var orderSum = charge.amount / 100
-                            var orderStatus = "placed"
-                            Order.create({
-                                chargeId,
-                                deliveryDate,
-                                deliveryTime,
-                                orderDescription,
-                                orderStatus,
-                                orderSum,
-                                userId,
-                                deliveryInfoId,
-                            }).then(orderObj => {
-                                var orderId = orderObj.id
+    const customer = await stripe.customers.update(
+                                req.user.stripeId,
+                                {source: req.body.stripeToken}
+                            ).then(customer => {return customer})
+    const cartItems = await CartItem.findAll({
+                            where: {userId: req.user.id}
+                        }).then(cartItems => {return cartItems})
 
-                                Array.prototype.forEach.call(data.cartItems, item => {
-                                    var itemNum = item.itemNum
-                                    var title = item.title
-                                    var dateAdded = moment().format("YYYY-MM-DD")
-                                    PurchaseRecord.create({
-                                        title,
-                                        itemNum,
-                                        dateAdded,
-                                        orderId
-                                    })
-                                })
-                                console.log(orderId)
-                                return {orderId: orderId}
-                            }).then(orderIddata => {
-                                CartItem.destroy({
-                                    where: {
-                                        userId: req.user.id,
-                                    }
-                                })
+    let sum = 0
 
-                                return {orderId: orderIddata.orderId}
-                            }).then(orderIddata => {
-                                res.redirect("/payment/orderplaced/" + orderIddata.orderId)
+    Array.prototype.forEach.call(cartItems, item => {
+        var quantity = item.itemNum
+        var price = item.price
+        var totalprice = price * quantity
+        sum += totalprice
+    })
+
+    const amount = sum * 100
+
+    const charge = await stripe.charges.create({
+                                amount,
+                                description: orderDescription,
+                                currency: "sgd",
+                                customer: req.user.stripeId
+                            }).then(charge => {
+                                return charge
+                            }).catch(err => {
+                                console.log(err)
                             })
-                        })
-                    } else {
-                        var deliveryInfoId = deliveryObj.id
-                        var deliveryDate = moment(req.body.DeliveryDate, "DD/MM/YYYY").format("YYYY-MM-DD")
-                        console.log(deliveryDate)
-                        var deliveryTime = req.body.DeliveryTime
-                        var chargeId = charge.id
 
-                        Order.create({
+    let deliveryObj = await DeliveryInfo.findOne({
+                                    where: {
+                                        country: country,
+                                        city: city,
+                                        street: street,
+                                        unitNo: unitNo,
+                                        postcode: postcode,
+                                        state: state,
+                                        blockNo: blockNo,
+                                        phoneNo: phoneNo,
+                                        receiverName: receiverName,
+                                        userId: userId,
+                                    }
+                                }).then(deliveryObj => {
+                                    return deliveryObj
+                                }).catch(err => {
+                                    console.log(err)
+                                })
+
+    if (deliveryObj == null) {
+        const newDeliveryObj = await DeliveryInfo.create({
+                                            country,
+                                            city,
+                                            street,
+                                            unitNo,
+                                            postcode,
+                                            state,
+                                            blockNo,
+                                            phoneNo,
+                                            receiverName,
+                                            userId,
+                                        }).then(newDeliveryObj => {
+                                            return newDeliveryObj
+                                        }).catch(err => {
+                                            console.log(err)
+                                        })
+        deliveryObj = newDeliveryObj
+    }
+    
+    let deliveryInfoId = deliveryObj.id
+    let chargeId = charge.id
+    var orderStatus = 1
+
+    console.log(deliveryDate)
+    const order = await Order.create({
                             chargeId,
                             deliveryDate,
                             deliveryTime,
+                            orderDescription,
+                            orderStatus,
+                            orderSum: sum,
                             userId,
-                            deliveryInfoId,
+                            deliveryInfoId
                         }).then(orderObj => {
-                            var orderId = orderObj.id
-
-                            Array.prototype.forEach.call(data.cartItems, item => {
-                                var itemNum = item.itemNum
-                                var title = item.title
-                                var dateAdded = moment().format("YYYY-MM-DD")
-                                PurchaseRecord.create({
-                                    title,
-                                    itemNum,
-                                    dateAdded,
-                                    orderId
-                                })
-                            })
-                            return {orderId: orderId}
-                        }).then(orderIddata => {
-                            CartItem.destroy({
-                                where: {
-                                    userId: req.user.id,
-                                }
-                            })
-
-                            return {orderId: orderIddata.orderId}    
-                        }).then(orderIddata => {
-                            res.redirect("/payment/orderplaced/" + orderIddata.orderId)
+                            return orderObj
+                        }).catch(err => {
+                            console.log(err)
                         })
-                    }                    
-                })
-            })
+    
+    let orderId = order.id
+    Array.prototype.forEach.call(cartItems, item => {
+        var itemNum = item.itemNum
+        var title = item.title
+        var dateAdded = moment().format("YYYY-MM-DD")
+        PurchaseRecord.create({
+            title,
+            itemNum,
+            dateAdded,
+            orderId
         })
     })
+    CartItem.destroy({
+        where: {
+            userId: req.user.id,
+        }
+    }).catch(err => {
+        console.log(err)
+    })
+    res.redirect("/payment/orderplaced/" + orderId)
 })
 
 router.get("/retrieve/:addrId", ensureAuthenticated, (req, res) => {
