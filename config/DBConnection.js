@@ -16,6 +16,7 @@ const promodecode = require("../models/PromoCode");
 const productStats = require("../models/ProductStats");
 const productRating = require("../models/ProductRatings");
 const userRating = require("../models/UserRating");
+const wishlist = require("../models/WishList");
 
 // DB Sync
 
@@ -49,7 +50,13 @@ const setUpDB = (drop) => {
 			order.belongsTo(deliveryInfo, {foreignKey: 'deliveryInfoId'});
 
 			// First dbSync
-			category.hasMany(hackingProduct);
+
+			//Category - Product ReLation
+			category.hasMany(hackingProduct, {foreignKey:'category'});
+
+			//Wishlist relation
+			hackingProduct.hasMany(wishlist);
+			user.hasMany(wishlist);
 
 			// Product-Stats Relation
 			hackingProduct.hasMany(productStats);
