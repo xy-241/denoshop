@@ -1,3 +1,9 @@
+USE denoshop;
+
+INSERT INTO `denoshop`.`categories` (`id`, `category`) VALUES ('1', 'outfits');
+INSERT INTO `denoshop`.`categories` (`id`, `category`) VALUES ('2', 'tools');
+
+
 INSERT INTO `denoshop`.`hackingProducts` (`id`, `price`, `imageFile`, `dateAdded`, `title`, `description`, `category`, `quantity`) 
 VALUES ('1', '10', 'https://res.cloudinary.com/dchpyunul/image/upload/v1595087406/denoshop/hackingProducts/outfits/300-300-max_fuhw8x.jpg', '2020-07-05 05:15:49', 'Deno Cap', 'Elegant and simple cap empower your imagination.', 'outfits', '20');
 
