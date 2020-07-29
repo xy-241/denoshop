@@ -37,10 +37,8 @@
 						{{#if (equal this.orderStatus 1)}}
 							Order Placed
 						{{else if (equal this.orderStatus 2)}}
-							Order picked up by Courier
-						{{else if (equal this.orderStatus 3)}}
 							Order on the way
-						{{else if (equal this.orderStatus 4)}}
+						{{else if (equal this.orderStatus 3)}}
 							Order has arrived
 						{{else}}
 							Order completed
@@ -50,9 +48,8 @@
 						<div class="col-12">
 							<div class="track" id="track">
 								<div class="step" id="{{@index}}orderStatus1"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
-								<div class="step" id="{{@index}}orderStatus2"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Picked by courier</span> </div>
-								<div class="step" id="{{@index}}orderStatus3"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
-								<div class="step" id="{{@index}}orderStatus4"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Ready for pickup</span> </div>
+								<div class="step" id="{{@index}}orderStatus2"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
+								<div class="step" id="{{@index}}orderStatus3"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Ready for pickup</span> </div>
 							</div>
 						</div>
 					</div>
