@@ -5,6 +5,9 @@ const Order = db.define("order", {
     chargeId: {
         type: Sequelize.STRING,
     },
+    paypalId: {
+        type: Sequelize.STRING,
+    },
     deliveryDate: {
         type: Sequelize.DATEONLY,
     },

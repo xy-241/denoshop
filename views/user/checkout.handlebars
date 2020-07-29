@@ -219,7 +219,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label">Order Description</label>
-                                <input class="form-control" name="orderDescription" required>
+                                <input class="form-control" id="orderDescription" name="orderDescription" required>
                             </div>
                             <a class="next-btn collapsed" role="button" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseThree31" aria-expanded="false">Next</a>
                         </div>
@@ -242,7 +242,76 @@
                     <div id="collapseThree31" class="collapse" role="tabpanel" aria-labelledby="headingThree31" data-parent="#accordionEx1">
                         <div class="card-body">
                             {{!-- Paypal --}}
-                            <button >
+                            {{!-- <button formaction="/payment/paypal" class="btn btn-outline-dark text-white btn-lg" id="paypal-button" type="submit"><i>Pay</i><i>pal</i></button> --}}
+
+                            <div id="paypal-button-container"></div>
+                            <script src="https://www.paypal.com/sdk/js?client-id={{paypalClientId}}&currency=SGD" data-sdk-integration-source="button-factory"></script>
+                            <script>
+                                paypal.Buttons({
+                                    style: {
+                                        shape: 'rect',
+                                        color: 'gold',
+                                        layout: 'horizontal',
+                                        label: 'paypal',
+                                        tagline: false,
+                                    },
+                                    createOrder: function(data, actions) {
+                                        return actions.order.create({
+                                            purchase_units: [{
+                                                amount: {
+                                                    value: {{sum}}
+                                                }
+                                            }]
+                                        });
+                                    },
+                                    onApprove: function(data, actions) {
+                                        return actions.order.capture().then(async function(details) {
+                                            console.log(details)
+                                            let receiverName = document.getElementById("receiverName").value
+                                            let phoneNo = document.getElementById("phoneNum").value
+                                            let country = document.getElementById("country").value
+                                            let state = document.getElementById("administrative_area_level_1").value// === null ? '' : document.getElementById("administrative_area_level_1").value
+                                            let city = document.getElementById("locality").value
+                                            let blockNo = document.getElementById("street_number").value
+                                            let street = document.getElementById("route").value
+                                            let unitNo = document.getElementById("unitNo").value
+                                            let postcode = document.getElementById("postal_code").value
+                                            let orderDescription = document.getElementById("orderDescription").value
+                                            let deliveryTimeArray = document.getElementsByName("deliveryTime")
+
+                                            let deliveryTime = ""
+                                            for (var i = 0, l = deliveryTimeArray.length; i < l; i++){
+                                                if (deliveryTimeArray[i].checked){
+                                                    deliveryTime = deliveryTimeArray[i].value;
+                                                }
+                                            }
+                                            let orderId = await fetch(`/payment/paypal/${details.id}`, {
+                                                                        method: "POST",
+                                                                        headers: {
+                                                                            receiverName,
+                                                                            phoneNo,
+                                                                            country,
+                                                                            state,
+                                                                            city,
+                                                                            blockNo,
+                                                                            street,
+                                                                            unitNo,
+                                                                            postcode,
+                                                                            orderDescription,
+                                                                            deliveryTime
+                                                                        }
+                                                                    }).then(req => {
+                                                                        return req.json()
+                                                                    }).then(data => {
+                                                                        return data
+                                                                    })
+                                            window.location.pathname = `/payment/orderplaced/${orderId.orderID}`
+                                        });
+                                    }
+                                }).render('#paypal-button-container');
+                            </script>
+
+                            {{!-- Paypal --}}
 
                             {{!-- Stripe --}}
                             <script
@@ -258,7 +327,7 @@
                                 // Hide default stripe button
                                 document.getElementsByClassName('stripe-button-el')[0].style.display = 'none';
                             </script>
-                            <button type="submit" class="btn btn-outline-dark text-white btn-lg">Credit/Debit Card</button>
+                            <button formaction="/payment/charge" type="submit" class="btn btn-outline-dark text-white btn-lg">Credit/Debit Card</button>
 
                         </div>
                     </div>
@@ -280,6 +349,7 @@
     });
     $("#selectAddr").on("click",function(){
         let addrId = $("#selectAddr").attr('data-id');
+        console.log(addrId)
         fetch(
             '/payment/retrieve/'+ addrId
         ).then(data => {
