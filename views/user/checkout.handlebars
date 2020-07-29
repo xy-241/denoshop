@@ -41,7 +41,7 @@
     </div>
 
     <div class="col-75">
-        <form method="POST">
+        <form method="POST" action="/payment/charge">
             {{!-- Accordion Wrapper --}}
             <div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
                 {{!-- Accordion Card / Container --}}
@@ -300,11 +300,12 @@
                                                                             orderDescription,
                                                                             deliveryTime
                                                                         }
-                                                                    }).then(data => {data.json()
-                                                                    }).then(data => {return data})
-                                            console.log(orderId)
-                                            alert('Transaction completed by ' + details.payer.name.given_name + '!');
-                                            //window.location = "https://127.0.0.1:5000/payment/orderplaced/1"
+                                                                    }).then(req => {
+                                                                        return req.json()
+                                                                    }).then(data => {
+                                                                        return data
+                                                                    })
+                                            window.location.pathname = `/payment/orderplaced/${orderId.orderID}`
                                         });
                                     }
                                 }).render('#paypal-button-container');
@@ -348,6 +349,7 @@
     });
     $("#selectAddr").on("click",function(){
         let addrId = $("#selectAddr").attr('data-id');
+        console.log(addrId)
         fetch(
             '/payment/retrieve/'+ addrId
         ).then(data => {

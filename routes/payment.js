@@ -285,8 +285,6 @@ router.get("/retrieve/:addrId", ensureAuthenticated, (req, res) => {
 })
 
 router.post("/paypal/:paypalId", ensureAuthenticated, async (req, res) => {
-    console.log("it rch here")
-    console.log(req)
     let {
         receivername,
         phoneno,
@@ -300,8 +298,6 @@ router.post("/paypal/:paypalId", ensureAuthenticated, async (req, res) => {
         orderdescription,
         deliverytime,
     } = req.headers;
-    console.log(receivername)
-    console.log(req.headers)
     let userId = req.user.id;
 
     const deliveryDate = moment(req.headers.DeliveryDate).format("YYYY-MM-DD")
@@ -320,8 +316,6 @@ router.post("/paypal/:paypalId", ensureAuthenticated, async (req, res) => {
         sum += totalprice
     })
 
-    console.log(unitno)
-    console.log("here")
     let deliveryObj = await DeliveryInfo.findOne({
         where: {
             country: country,
@@ -365,7 +359,6 @@ router.post("/paypal/:paypalId", ensureAuthenticated, async (req, res) => {
     let paypalId = req.params.paypalId
     var orderStatus = 1
 
-    console.log(deliveryDate)
     const order = await Order.create({
                             paypalId,
                             deliveryDate,
@@ -376,29 +369,34 @@ router.post("/paypal/:paypalId", ensureAuthenticated, async (req, res) => {
                             userId,
                             deliveryInfoId
                         }).then(orderObj => {
-                            return orderObj
+                            let orderId = orderObj.id
+                            Array.prototype.forEach.call(cartItems, item => {
+                                var itemNum = item.itemNum
+                                var title = item.title
+                                var dateAdded = moment().format("YYYY-MM-DD")
+                                PurchaseRecord.create({
+                                    title,
+                                    itemNum,
+                                    dateAdded,
+                                    orderId
+                                })
+                            })
+                            return {orderId: orderId}
+                        }).then((orderId) => {
+                            CartItem.destroy({
+                                where: {
+                                    userId: req.user.id,
+                                }
+                            })
+                            return {orderId: orderId}
+                        }).then((orderId) => {
+                            let orderID = orderId.orderId.orderId
+                            console.log(orderID)
+                            res.json({orderID: orderID})
+                            console.log("res.json")
                         }).catch(err => {
                             console.log(err)
                         })
-
-    let orderId = order.id
-    Array.prototype.forEach.call(cartItems, item => {
-        var itemNum = item.itemNum
-        var title = item.title
-        var dateAdded = moment().format("YYYY-MM-DD")
-        PurchaseRecord.create({
-            title,
-            itemNum,
-            dateAdded,
-            orderId
-        })
-    })
-    CartItem.destroy({
-        where: {
-            userId: req.user.id,
-        }
-    })
-    return {orderId: order.id}
 })
 
 module.exports = router;
