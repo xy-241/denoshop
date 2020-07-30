@@ -1,4 +1,3 @@
-
 <div class="banner">
 	<img src="img/hacking2.jpg" alt="" />
 	<div class="background"></div>
@@ -6,6 +5,8 @@
 		Deno Shop
 	</h2>
 </div>
+
+
 
 <script src="js/useInterface/home.js"></script>
 <!--Tabs-->
@@ -28,25 +29,25 @@
 		</h3>
 		<div class="shopItems">
 			{{#each hackingProducts}}
-				{{#if (equal this.category "outfits")}}
-					<div class="shopItem item1">
-						<span class="itemName">
-							{{this.title}}
-						</span>
-						<img src="{{this.imageFile}}" alt="{{this.title}}" />
-						<div class="shopItemDetails">
-							<span class="itemPrice">
-								S$
-								{{this.price}}
-							</span>
-							{{#if (noEqual user)}} 
-							<button type="button" class="addToCartN" >Add To Cart</button>
-							{{else}}
-							<button type="button" class="addToCartN" disabled>Add To Cart</button>
-                            {{/if}}
-						</div>
-					</div>
-				{{/if}}
+			{{#if (equal this.category "outfits")}}
+			<div class="shopItem item1">
+				<span class="itemName">
+					{{this.title}}
+				</span>
+				<img src="{{this.imageFile}}" alt="{{this.title}}" />
+				<div class="shopItemDetails">
+					<span class="itemPrice">
+						S$
+						{{this.price}}
+					</span>
+					{{#if (noEqual user)}}
+					<button type="button" class="addToCartN">Add To Cart</button>
+					{{else}}
+					<button type="button" class="addToCartN" disabled>Add To Cart</button>
+					{{/if}}
+				</div>
+			</div>
+			{{/if}}
 			{{/each}}
 		</div>
 	</div>
@@ -57,25 +58,25 @@
 		</h3>
 		<div class="shopItems">
 			{{#each hackingProducts}}
-				{{#if (equal this.category "tools")}}
-					<div class="shopItem item1">
-						<span class="itemName">
-							{{this.title}}
-						</span>
-						<img src="{{this.imageFile}}" alt="{{this.title}}" />
-						<div class="shopItemDetails">
-							<span class="itemPrice">
-								S$
-								{{this.price}}
-							</span>
-							{{#if (noEqual user)}} 
-							<button type="button" class="addToCartN" >Add To Cart</button>
-							{{else}}
-							<button type="button" class="addToCartN" disabled>Add To Cart</button>
-                            {{/if}}
-						</div>
-					</div>
-				{{/if}}
+			{{#if (equal this.category "tools")}}
+			<div class="shopItem item1">
+				<span class="itemName">
+					{{this.title}}
+				</span>
+				<img src="{{this.imageFile}}" alt="{{this.title}}" />
+				<div class="shopItemDetails">
+					<span class="itemPrice">
+						S$
+						{{this.price}}
+					</span>
+					{{#if (noEqual user)}}
+					<button type="button" class="addToCartN">Add To Cart</button>
+					{{else}}
+					<button type="button" class="addToCartN" disabled>Add To Cart</button>
+					{{/if}}
+				</div>
+			</div>
+			{{/if}}
 			{{/each}}
 		</div>
 		<!-- End of shopItems page -->
@@ -102,4 +103,4 @@
 </section>
 <!-- Modal -->
 
-<script src="/js/user/addToCart.js" ></script>
+<script src="/js/user/addToCart.js"></script>

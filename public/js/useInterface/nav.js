@@ -41,6 +41,8 @@ var toggleNav = function(){
 
   var getBody = document.querySelector("body"); //body
 
+  let getSearchBtn = document.querySelector(".searchButtonTGT")
+
   if(toggleNavStatus == false){
     getSideNavUl.style.visibility = "visible";
 
@@ -56,6 +58,8 @@ var toggleNav = function(){
 
     getSection.style.display ="none"; //Content
     getFooter.style.display = "none";
+    getSearchBtn.style.display = "none";
+
     toggleNavStatus = true;
   }
   else if (toggleNavStatus == true){
@@ -73,6 +77,8 @@ var toggleNav = function(){
     getSection.style.display ="block"; //Content
     getFooter.style.display = "block";
     getBody.style.backgroundColor = "white"; //testing
+
+    getSearchBtn.style.display = "block";
     toggleNavStatus = false;
   }
 }
