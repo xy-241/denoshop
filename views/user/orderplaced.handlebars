@@ -11,7 +11,7 @@
                                                             {{deliveryAddress.state}}, {{deliveryAddress.country}} {{deliveryAddress.postcode}}</span></p></li>
                 <li><p><i class="fa fa-phone-alt"></i> Phone Number: <span>{{deliveryAddress.phoneNo}}</span></p></li>
                 {{!-- <li><p><i class="fa fa-envelope"></i> Email Address: <span>{{DeliveryEmail}}</span></p></li> --}}
-                {{!-- <li><p><i class="fa fa-credit-card"></i> Payment Method: <span>Cash on Delivery</span></p></li> --}}
+                <li><p><i class="fa fa-credit-card"></i> Payment Method: {{#if order.chargeId}}<span>Stripe Debit/Credit Card</span>{{else}}<span>Paypal</span>{{/if}}</p></li>
             </ul>
             <div class="stay-invoice">
                 <div class="st-hm">Stay Home <i class="far fa-smile"></i></div>
