@@ -17,7 +17,7 @@ module.exports = function (passport) {
 				proxy: true,
 			},
 			(accessToken, refreshToken, profile, done) => {
-        console.log("Hello",accessToken)
+        console.log("Hello",profile.emails[0].value)
 				try {
 					User.findOne({ where: { googleId: profile.id } }).then(
 						(user) => {
@@ -70,6 +70,7 @@ module.exports = function (passport) {
 											username: profile.displayName,
 											imageFile: processedImage,
 											dateJoined,
+											email: profile.emails[0].value
 										};
 
 										User.create(newUser)

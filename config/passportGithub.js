@@ -14,11 +14,10 @@ module.exports = function (passport) {
 				clientID: process.env.GITHUB_CLIENT_ID,
 				clientSecret: process.env.GITHUB_CLIENT_SECRET,
 				callbackURL: "/auth/github/callback",
+				scope: 'user:email',
 				proxy: true,
 			},
 			(accessToken, refreshToken, profile, done) => {
-                console.log(accessToken);
-                console.log(refreshToken)
 				try {
 					User.findOne({ where: { githubId: profile.id } }).then(
 						(user) => {
@@ -72,6 +71,7 @@ module.exports = function (passport) {
 
 											imageFile: processedImage,
 											dateJoined,
+											email: profile.emails[1].value
 										};
 
 										User.create(newUser)
