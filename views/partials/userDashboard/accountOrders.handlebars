@@ -55,11 +55,12 @@
 					</div>
 					<hr>
 					<div class="row">
-						<div class="col-6">
+						<div class="col-8">
+							<p>Payment Method: {{#if this.chargeId}}Stripe Credit/Debit Card{{else}}Paypal{{/if}}</p>
 							<p style="font-size: 1.2em;">Total Sum: ${{this.orderSum}}</p>
 						</div>
-						<div class="col-6">
-							<button type="button" class="viewItems"><i class="fa fa-list-alt"></i> View Items</button>
+						<div class="col-4">
+							<button type="button" class="viewItems" onclick="viewOrder({{this.id}})"><i class="fa fa-list-alt"></i> View Items</button>
 						</div>
 					</div>
 				</div>
@@ -68,11 +69,34 @@
 
 	</div>
 	{{/each}}
-	<!-- List Orders -->
 {{else}}
 <p id="no-order">No Orders Placed</p>
 {{/if}}
-{{!-- <script src="/js/user/orderInfo.js"></script> --}}
+<!-- List Orders -->
+
+{{!-- Single Order --}}
+<div id="overlayOrder">
+	<a href="javascript:void(0)" class="closebtn" id="closeOrder">&times;</a>
+	<div id="overlay-content" class="cartItem containerOrder pt-3">
+		<div class="row">
+			<div class="col-2" align="center">
+				<i class="fa fa-box deliveryInfoLogo mt-1"></i>
+			</div>
+			<div class="col-10">
+				<p id="deliveryInfoName">
+					<span id="orderName"></span>
+					<span id="orderDateTime" class="ml-3 pt-0"></span>
+				</p>
+			</div>
+		</div>
+		<ul class="row" id="orderList">
+		</ul>
+	</div>
+</div>
+{{!-- Single Order --}}
+
+<script src="/js/user/orderInfo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 
 <script>
 	$("#v-pills-profile-tab").on("click", function(){

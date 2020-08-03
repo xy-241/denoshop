@@ -59,7 +59,6 @@ router.get("/account", ensureAuthenticated, async (req, res) => {
 			},
 		include: [DeliveryInfo]
 	}).then((order) => {
-		console.log(order)
 		return order
 	});
 	res.render("user/account", {
