@@ -2,7 +2,7 @@ require("dotenv").config();
 const User = require("../models/User"); // Load the user model
 
 const passport = require("passport");
-const GithubStrategy = require("passport-github").Strategy;
+const GithubStrategy = require("passport-github2").Strategy;
 const moment = require("moment");
 
 const cloudinary = require("./cloudinaryConfig"); // Config object of cloudinary
@@ -18,6 +18,7 @@ module.exports = function (passport) {
 				proxy: true,
 			},
 			(accessToken, refreshToken, profile, done) => {
+				console.log("Hello", profile.emails[0].value)
 				try {
 					User.findOne({ where: { githubId: profile.id } }).then(
 						(user) => {
@@ -71,7 +72,7 @@ module.exports = function (passport) {
 
 											imageFile: processedImage,
 											dateJoined,
-											email: profile.emails[1].value
+											email: profile.emails[0].value
 										};
 
 										User.create(newUser)
