@@ -1,6 +1,9 @@
 require("dotenv").config();
 const User = require("../models/User"); // Load the user model
 
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+const stripe = require("stripe")(stripeSecretKey);
+
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const moment = require("moment");
@@ -31,7 +34,7 @@ module.exports = function (passport) {
 										folder:
 											"/denoshop/userProfileImage/google",
 									},
-									function (err, image) {
+									async function (err, image) {
 										// Upload image to cloudinary + get the URL of processed image
 										console.log();
 										console.log("** File Upload");
@@ -65,12 +68,18 @@ module.exports = function (passport) {
 											rawDate,
 											"DD/MM/YYYY"
 										);
+										
+										var stripeId = await stripe.customers.create({
+											email: profile.emails[0].value,
+										}).then(customer => {return customer.id})
+
 										const newUser = {
 											googleId: profile.id,
 											username: profile.displayName,
 											imageFile: processedImage,
 											dateJoined,
-											email: profile.emails[0].value
+											email: profile.emails[0].value,
+											stripeId
 										};
 
 										User.create(newUser)
