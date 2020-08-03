@@ -43,6 +43,7 @@ const paymentRoute = require("./routes/payment");
 const deliveryRoute = require("./routes/delivery");
 const authRoute = require("./routes/auth")
 const deliveryInfoRoute = require('./routes/userAccount/deliveryInfo');
+const orderInfoRoute = require('./routes/userAccount/orderInfo');
 const cartRoute = require('./routes/cart/cartItem');
 const chatRoute = require("./routes/chat");
 // const videoRoute = require("./routes/video");
@@ -163,7 +164,8 @@ app.use("/user", userRoute);
 app.use("/payment", paymentRoute);
 app.use("/delivery", deliveryRoute);
 app.use("/auth", authRoute);
-app.use('/deliveryInfo', deliveryInfoRoute)
+app.use('/deliveryInfo', deliveryInfoRoute);
+app.use("/orderInfo", orderInfoRoute);
 app.use('/cart', cartRoute);
 app.use("/chat",chatRoute);
 // app.use("/video", videoRoute);
