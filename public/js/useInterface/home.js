@@ -34,3 +34,5 @@ function displayItems(event){
   document.getElementsByClassName(subPageName)[0].style.display = "block"; //Display the page that is required
   //Making sure only one subPage is displayed
 }
+
+

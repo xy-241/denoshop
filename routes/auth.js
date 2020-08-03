@@ -12,21 +12,34 @@ const bcrypt = require("bcryptjs"); // Salting
 const passport = require("passport"); // For authentication
 
 // Auth with Google, Get /auth/google
-router.get('/google', passport.authenticate('google', {scope:['profile']}))
+router.get(
+	"/google",
+	passport.authenticate("google", {
+		scope: [
+			"https://www.googleapis.com/auth/userinfo.profile",
+			"https://www.googleapis.com/auth/userinfo.email",
+		],
+	})
+);
 
 // Google callback
-router.get("/google/callback", passport.authenticate('google', { failureRedirect: '/login'}), (req, res) => {
-    res.redirect('/account')
-})
+router.get(
+	"/google/callback",
+	passport.authenticate("google", { failureRedirect: "/login" }),
+	(req, res) => {
+		res.redirect("/account");
+	}
+);
 
 // Auth with Github, Get /auth/github
-router.get('/github',
-    passport.authenticate('github'));
+router.get("/github", passport.authenticate("github"));
 // Github Callback
-router.get('/github/callback', 
-    passport.authenticate('github', { failureRedirect: '/login' }),
-    (req, res) =>  {
-        // Successful authentication, redirect /account.
-        res.redirect('/account')
-});
+router.get(
+	"/github/callback",
+	passport.authenticate("github", { failureRedirect: "/login" }),
+	(req, res) => {
+		// Successful authentication, redirect /account.
+		res.redirect("/account");
+	}
+);
 module.exports = router;
