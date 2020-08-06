@@ -1,11 +1,11 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
 
 <div class="content-section">
 
 	{{>  flashMsg/simpleFlashMsg}}
-    {{> flashMsg/flashmsg}}
+	{{> flashMsg/flashmsg}}
 	<form action="/user/login" method="POST">
-    
+
 		<fieldset class="form-group">
 			<legend class="border-bottom mb-4 shopFontTitle">
 				Log In
@@ -14,79 +14,72 @@
 				<label class="form-control-label" for="email">
 					Email
 				</label>
-				<input
-					class="form-control form-control-lg"
-					id="email"
-					name="email"
-					required
-					type="text"
-					value=""
-				/>
+				<input class="form-control form-control-lg" id="email" name="email" required type="text" value="" />
 			</div>
 			<div class="form-group">
 				<label class="form-control-label" for="password">
 					Password
 				</label>
-				<input
-					class="form-control form-control-lg"
-					id="password"
-					name="password"
-					required
-					type="password"
-					value=""
-					pattern=".{8,}"
-					title="8 characters minimum"
-				/>
+				<input class="form-control form-control-lg" id="password" name="password" required type="password"
+					value="" pattern=".{8,}" title="8 characters minimum" />
+				<small class="text-muted">
+					<a class="text-primary" href="#reset_request">
+						Forgot Password?
+					</a>
+				</small>
 			</div>
-			<div class="form-check">
-				<input
-					class="form-check-input"
-					id="remember"
-					name="remember"
-					type="checkbox"
-					value="y"
-				/>
+			{{!-- <div class="form-check">
+				<input class="form-check-input" id="remember" name="remember" type="checkbox" value="y" />
 				<label class="form-check-label" for="remember">
 					Remember Me
 				</label>
-			</div>
+			</div> --}}
+
 		</fieldset>
+
 		<div class="form-group">
-			<input
-				class="btn btn-outline-info"
-				id="submit"
-				name="submit"
-				type="submit"
-				value="Login"
-			/>
+			<input class="btn btn-primary" id="submit" name="submit" type="submit" value="Login" />
 		</div>
 
-		
-	
-		<small class="text-muted">
-			<a class="text-primary" href="#reset_request">
-				Forgot Password?
-			</a>
-		</small>
+
+
+
 		<div class="divider mt-4">
 		</div>
-		<div class="section">
-				<a href="/auth/google" class="btn red darken-1">
-					<i class="fab fa-google left"></i>Log In With Google
-				</a>
+		{{!-- <div class="section">
+			<a href="/auth/google" class="btn red darken-1">
+				<i class="fab fa-google left"></i>Log In With Google
+			</a>
 		</div>
 		<div>
 			<a href="/auth/github" class="btn blue-grey darken-1">
-					<i class="fab fa-github left"></i>Log In With Github
-				</a>
+				<i class="fab fa-github left"></i>Log In With Github
+			</a>
+		</div> --}}
+		<hr class="hr-text" data-content="OR">
+
+		<div id="layout">
+			<a id="googleButton" class="loginButton" href="/auth/google">
+				<span class="googleIcon"></span>
+				<span class="buttonText">Login with Google</span>
+			</a>
+			<a id="githubButton" class="loginButton" href="/auth/github">
+				<span class="githubIcon"></span>
+				<span class="buttonText">Login with Github</span>
+			</a>
 		</div>
+
+
+		<div id="signUp">
+			<small class="text-muted m-5">
+				Need An Account?
+				<a class="ml-2 text-primary" href="/register">
+					Sign Up Now
+				</a>
+			</small>
+		</div>
+
+
 	</form>
-</div>
-<div class="m-3">
-	<small class="text-muted m-5">
-		Need An Account?
-		<a class="ml-2 text-primary" href="/register">
-			Sign Up Now
-		</a>
-	</small>
+
 </div>
