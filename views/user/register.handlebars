@@ -1,7 +1,13 @@
+<video autoplay muted loop id="myVideo">
+  <source src="https://res.cloudinary.com/dchpyunul/video/upload/v1596865467/denoshop/Video/background_imdaje.mp4"
+    type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+
 <div class="content-section">
-    
-    {{>  flashMsg/simpleFlashMsg}}
-    {{> flashMsg/flashmsg}}
+
+  {{>  flashMsg/simpleFlashMsg}}
+  {{> flashMsg/flashmsg}}
   <form action="/user/register" method="POST">
     <fieldset class="form-group">
       <legend class="border-bottom mb-4 shopFontTitle">
@@ -11,78 +17,40 @@
         <label class="form-control-label" for="username">
           Username
         </label>
-        <input
-          class="form-control form-control-lg"
-          id="username"
-          name="username"
-          required
-          type="text"
-          value="{{username}}"
-          pattern=".{3,}"
-					title="3 characters minimum"
-        />
+        <input class="form-control form-control-lg" id="username" name="username" required type="text"
+          value="{{username}}" pattern=".{3,}" title="3 characters minimum" />
       </div>
       <div class="form-group">
         <label class="form-control-label" for="email">
           Email
         </label>
-        <input
-          class="form-control form-control-lg"
-          id="email"
-          name="email"
-          required
-          type="email"
-          value="{{email}}"
-        />
+        <input class="form-control form-control-lg" id="email" name="email" required type="email" value="{{email}}" />
       </div>
       <div class="form-group">
-        <label class="form-control-label" for="password" >
+        <label class="form-control-label" for="password">
           Password
         </label>
-        <input
-          class="form-control form-control-lg"
-          id="password"
-          name="password"
-          required
-          type="password"
-          value="{{password}}"
-          pattern=".{8,}"
-          title="8 characters minimum"
-        />
+        <input class="form-control form-control-lg" id="password" name="password" required type="password"
+          value="{{password}}" pattern=".{8,}" title="8 characters minimum" />
       </div>
       <div class="form-group">
         <label class="form-control-label" for="confirm_password">
           Confirm Password
         </label>
-        <input
-          class="form-control form-control-lg"
-          id="confirm_password"
-          name="confirm_password"
-          required
-          type="password"
-          value="{{confirm_password}}"
-          pattern=".{8,}"
-          title="8 characters minimum"
-        />
+        <input class="form-control form-control-lg" id="confirm_password" name="confirm_password" required
+          type="password" value="{{confirm_password}}" pattern=".{8,}" title="8 characters minimum" />
       </div>
     </fieldset>
     <div class="form-group">
-      <input
-        class="btn btn-primary"
-        id="submit"
-        name="submit"
-        type="submit"
-        value="Sign Up"
-      />
+      <input class="btn btn-primary" id="submit" name="submit" type="submit" value="Sign Up" />
     </div>
   </form>
   <div class="mt-3 mb-2">
-  <small class="text-muted m-5">
-    Already Have An Account?
-    <a class="ml-2 text-primary" href="login">
-      Sign In
-    </a>
-  </small>
+    <div class="text-muted redirectText">
+      Already Have An Account?
+      <a class="ml-2 text-primary" href="login">
+        Sign In
+      </a>
+    </div>
+  </div>
 </div>
-</div>
-

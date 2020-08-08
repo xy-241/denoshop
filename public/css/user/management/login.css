@@ -109,8 +109,17 @@ span.buttonText {
     background-color: #fcfcfa;
   }
 
-#signUp{
+.redirectText{
+  font-size: small;
   text-align: center;
+}
+
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
 }
 @media only screen and (min-width: 400px) {
   .workContent{
