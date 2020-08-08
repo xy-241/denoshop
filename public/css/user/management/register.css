@@ -1,4 +1,37 @@
+a:hover{
+  text-decoration: none;
+  color:black;
+}
 .workContent{
   padding-top: 90px;
+  padding-left: 10px;
+  padding-right: 10px;
   margin-bottom: 113px;
+}
+.preventFloat{
+  position: None;
+}
+
+.content-section{
+  position: relative;
+  margin:auto;
+
+
+}
+.btn {
+  width: 100%;
+}
+
+@media only screen and (min-width: 400px) {
+  .workContent{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.content-section{
+  position: relative;
+  margin:auto;
+  width:380px;
+
+}
+
 }
