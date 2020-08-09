@@ -1,8 +1,8 @@
-const tracer = require('dd-trace').init()
-tracer.init({
-analytics: true,
-profiling: true
-})
+// const tracer = require('dd-trace').init()
+// tracer.init({
+// analytics: true,
+// profiling: true
+// })
 require('newrelic');
 /*
  * 'require' is similar to import used in Java and Python. It brings in the libraries required to be used
