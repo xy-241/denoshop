@@ -7,9 +7,9 @@
                 <h4><i class="fa fa-paper-plane"></i> Your order will be sent to this address</h4>
             </div>
             <ul class="address-placed-dt1">
-                <li><p><i class="fa fa-map-marker-alt"></i> Address: <span>{{deliveryAddress.street}} Block {{deliveryAddress.blockNo}} {{deliveryAddress.unitNo}}, {{deliveryAddress.country}}
+                <li><p><i class="fas fa-map-marker-alt"></i> Address: <span>{{deliveryAddress.street}} Block {{deliveryAddress.blockNo}} {{deliveryAddress.unitNo}}, {{deliveryAddress.country}}
                                                             {{deliveryAddress.state}}, {{deliveryAddress.country}} {{deliveryAddress.postcode}}</span></p></li>
-                <li><p><i class="fa fa-phone-alt"></i> Phone Number: <span>{{deliveryAddress.phoneNo}}</span></p></li>
+                <li><p><i class="fas fa-phone-alt"></i> Phone Number: <span>{{deliveryAddress.phoneNo}}</span></p></li>
                 {{!-- <li><p><i class="fa fa-envelope"></i> Email Address: <span>{{DeliveryEmail}}</span></p></li> --}}
                 <li><p><i class="fa fa-credit-card"></i> Payment Method: {{#if order.chargeId}}<span>Stripe Debit/Credit Card</span>{{else}}<span>Paypal</span>{{/if}}</p></li>
             </ul>
