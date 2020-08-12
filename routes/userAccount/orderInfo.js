@@ -41,6 +41,7 @@ router.get("/retrieve/:id", ensureAuthenticated, (req, res) => {
 			var recordFound = prodDetails.filter(function(item) { return item.title === recordTitle})
 			record["dataValues"]["imageFile"] = recordFound[0].imageFile
 			record["dataValues"]["price"] = recordFound[0].price
+			record["dataValues"]["id"] = recordFound[0].id
 		}
 		return res.json({order: order})
 	})
