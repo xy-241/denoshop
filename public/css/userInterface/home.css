@@ -303,7 +303,7 @@
 /* Product Page styling */
 .aLink {
 	font-family: shopFont2;
-	font-size: 2em;
+	/* font-size: 2em; */
 	color: black;
 
 	display: block;
