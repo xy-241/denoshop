@@ -8,6 +8,9 @@ const UserRating = db.define("UserRating", {
 	comment: {
 		type: Sequelize.STRING(2000),
 	},
+	deltaContent: {
+		type: Sequelize.TEXT
+	},
 	rating: {
 		type: Sequelize.FLOAT,
 	},
