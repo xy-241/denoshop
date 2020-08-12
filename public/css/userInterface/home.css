@@ -294,7 +294,7 @@
 }
 .itemName {
 	font-family: shopFont2;
-	font-size: 2em;
+	/* font-size: 2em; */
 
 	display: block;
 	margin-bottom: 5px;
