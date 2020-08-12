@@ -25,12 +25,15 @@ function viewOrder(addrId){
         var purchaseRecords = data.order.purchaseRecords
         Array.prototype.forEach.call(purchaseRecords, record => {
             var li = document.createElement("li");
-            li.innerHTML= `<figure class="itemside mb-3">
-            <div class="aside"><img src="${record.imageFile}" class="img-sm border"></div>
+            li.innerHTML= `<a class="aLink" href="/product/${record.id}">
+            <figure class="itemside mb-3">
+            <div class="aside">
+            <img src="${record.imageFile}" class="img-sm border">
+            </div>
             <figcaption class="info align-self-center">
             <p class="title">${record.title}<br> Quantity: ${record.itemNum}</p> <span class="text-muted">$${record.price} </span>
             </figcaption>
-        </figure>`
+        </figure></a>`
             li.setAttribute("class", "col-md-4 col-lg-3")
             orderList.appendChild(li);
         });
