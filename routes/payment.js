@@ -20,6 +20,7 @@ const DeliveryInfo = require("../models/DeliveryInfo");
 const CartItem = require("../models/CartItem");
 const PurchaseRecord = require("../models/PurchaseRecord");
 const Order = require("../models/Order");
+const HackingProduct = require("../models/HackingProduct");
 
 const moment = require("moment");
 
@@ -260,6 +261,19 @@ router.post("/charge", ensureAuthenticated, async (req, res) => {
             dateAdded,
             orderId
         })
+        HackingProduct.findOne({
+            where:{
+                title: title
+            }
+        }).then(product => {
+            var prodQuantity = product.quantity - itemNum
+            HackingProduct.update(
+                {quantity: prodQuantity},
+                {where: {
+                    title: title
+                }}
+            )
+        })
     })
     CartItem.destroy({
         where: {
@@ -379,6 +393,19 @@ router.post("/paypal/:paypalId", ensureAuthenticated, async (req, res) => {
                                     itemNum,
                                     dateAdded,
                                     orderId
+                                })
+                                HackingProduct.findOne({
+                                    where:{
+                                        title: title
+                                    }
+                                }).then(product => {
+                                    var prodQuantity = product.quantity - itemNum
+                                    HackingProduct.update(
+                                        {quantity: prodQuantity},
+                                        {where: {
+                                            title: title
+                                        }}
+                                    )
                                 })
                             })
                             return {orderId: orderId}
