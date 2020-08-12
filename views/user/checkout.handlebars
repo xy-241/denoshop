@@ -256,11 +256,29 @@
                                         tagline: false,
                                     },
                                     createOrder: function(data, actions) {
+                                        let country = document.getElementById("country").value
+                                        let city = document.getElementById("locality").value
+                                        let blockNo = document.getElementById("street_number").value
+                                        let street = document.getElementById("route").value
+                                        let postcode = document.getElementById("postal_code").value
+
+                                        let address = blockNo + " " + street
                                         return actions.order.create({
-                                            purchase_units: [{
+                                            purchase_units: [
+                                            {
                                                 amount: {
                                                     value: {{sum}}
-                                                }
+                                                },
+                                                shipping: {
+                                                    address: {
+                                                        address_line_1: address,
+//                                                        address_line_2: 'Apt 2',
+                                                        admin_area_2: city,
+//                                                        admin_area_1: 'CA',
+                                                        postal_code: postcode,
+                                                        country_code: 'SG'
+                                                    }
+                                                },
                                             }]
                                         });
                                     },
