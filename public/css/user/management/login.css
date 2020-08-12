@@ -1,7 +1,136 @@
+a:hover{
+  text-decoration: none;
+  color:black;
+}
 .workContent{
   padding-top: 90px;
+  padding-left: 10px;
+  padding-right: 10px;
   margin-bottom: 113px;
 }
 .preventFloat{
   position: None;
+}
+
+.content-section{
+  position: relative;
+  margin:auto;
+
+
+}
+.btn {
+  width: 100%;
+}
+#layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.loginButton {
+  display: inline-block;
+  background: white;
+  color: #444;
+  width: 100%;
+  border-radius: 5px;
+  border: thin solid #888;
+  box-shadow: 1px 1px 1px grey;
+  white-space: nowrap;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+  margin: 5px;
+}
+
+span.label {
+  font-family: serif;
+  font-weight: normal;
+}
+span.googleIcon {
+  background: url("/img/login/icons8-google.svg") transparent 5px 50% no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+}
+span.githubIcon {
+  background: url("/img/login/icons8-github.svg") transparent 5px 50% no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+}
+span.buttonText {
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+}
+#githubButton:hover {
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(145, 92, 182, 0.4);
+}
+#googleButton:hover {
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(66, 133, 244, 0.4);
+}
+
+.hr-text {
+  line-height: 1em;
+  position: relative;
+  outline: 0;
+  border: 0;
+  color: black;
+  text-align: center;
+  height: 1.5em;
+  opacity: .5;
+  
+  
+}
+.hr-text:before {
+    content: '';
+    background: linear-gradient(to right, transparent, #818078, transparent);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+  }
+.hr-text:after {
+    content: attr(data-content);
+    position: relative;
+    display: inline-block;
+    color: black;
+
+    padding: 0 .5em;
+    line-height: 1.5em;
+
+    color: black;
+    background-color: #fcfcfa;
+  }
+
+.redirectText{
+  font-size: small;
+  text-align: center;
+}
+
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
+}
+@media only screen and (min-width: 400px) {
+  .workContent{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.content-section{
+  position: relative;
+  margin:auto;
+  width:380px;
+
+}
+
 }

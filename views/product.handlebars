@@ -1,0 +1,177 @@
+<div class="container" style="padding-top: 5%; padding-bottom: 10%">
+    <div class="row">
+        <div class="col-9 border rounded shadow-sm p-3" style="background-color: rgba(230, 231, 232, 0.24);">
+            <div class="row">
+                <div class="col-5">
+                    <img class="border rounded shadow-sm" src="{{hackingProduct.imageFile}}"
+                        alt="{{hackingProduct.title}}" />
+                    {{!-- <span>image carousel here if any</span> --}}
+                </div>
+                <div class="col-7">
+                    <div class="row">
+                        <span class="itemName">
+                            {{hackingProduct.title}}
+                        </span>
+                    </div>
+                    <div class="row">
+                        <span>Rating:&nbsp;</span>
+                        <div class="reviewScore">4/5</div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <p>
+                            {{hackingProduct.description}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 border rounded shadow-sm p-3" style="background-color: rgba(230, 231, 232, 0.24);">
+            <span class="itemName">S${{hackingProduct.price}}</span>
+            <button type="button" class="addToCartN btn-block">Add To Cart</button>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col">
+            <div class="row">
+                <span class="itemName">
+                    Reviews
+                </span>
+            </div>
+            <hr>
+            {{#each comments}}
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <h5>{{this.name}}</h5>
+                    </div>
+                    <div class="row">
+                        <span>Rating:&nbsp;</span>
+                        <div class="reviewScore">{{this.rating}}/5</div>
+                    </div>
+                    <br>
+                    {{{this.content}}}
+                </div>
+            </div>
+            <hr>
+            {{/each}}
+            <div class="row">
+                <div class="col">
+                    <div>
+                        {{> flashMsg/flashmsg}}
+                        <h5>How would you rate this product?</h5>
+                    </div>
+                    <div id="toolbar"></div>
+                    <form action="/submit_review/{{ hackingProduct.id }}" method="post">
+                        <input name="quillContent" type="hidden">
+                        <input class="star star-5" id="star-5" type="radio" name="star" value="5"
+                            data-error="Please rate this product" />
+                        <label class="star star-5" for="star-5"></label>
+                        <input class="star star-4" id="star-4" type="radio" name="star" value="4"
+                            data-error="Please rate this product" />
+                        <label class="star star-4" for="star-4"></label>
+                        <input class="star star-3" id="star-3" type="radio" name="star" value="3"
+                            data-error="Please rate this product" />
+                        <label class="star star-3" for="star-3"></label>
+                        <input class="star star-2" id="star-2" type="radio" name="star" value="2"
+                            data-error="Please rate this product" />
+                        <label class="star star-2" for="star-2"></label>
+                        <input class="star star-1" id="star-1" type="radio" name="star" value="1"
+                            data-error="Please rate this product" />
+                        <label class="star star-1" for="star-1"></label>
+                        <div id="editor"></div>
+                        <button class="addToCartN">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    let quill = new Quill('#editor', {
+        modules: {
+            toolbar: [[{ 'color': ['black', 'red', 'blue', 'green'] }, 'bold', 'italic', 'underline', 'strike'],
+            ['link', 'image', 'video']]
+        },
+        placeholder: 'Write a review here...',
+        theme: 'snow',
+    });
+
+    let form = document.querySelector('form');
+    form.onsubmit = () => {
+        // Populate hidden form on submit
+        let quillContent = document.querySelector('input[name=quillContent]');
+        let content = quill.getContents();
+        let text = quill.getText();
+
+        quillContent.value = JSON.stringify({ content, text });
+
+        console.log(quill.getText())
+        console.log(quill.getContents())
+    };
+
+    function selectLocalImage() {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.click();
+
+        // Listen upload local image and save to server
+        input.onchange = () => {
+            const file = input.files[0];
+
+            // file type is only image.
+            if (/^image\//.test(file.type)) {
+                console.log("image file detected!")
+                console.log("image files = ", file);
+                saveToServer(file);
+            } else {
+                console.warn('You could only upload images.');
+            }
+        };
+    }
+
+    function saveToServer(file) {
+        const fd = new FormData();
+        fd.append('image', file);
+
+        fetch('/api/upload-image', { // Your POST endpoint
+            method: 'POST',
+            body: fd // This is your file object
+        }).then(res => res.json()
+        ).then(data => {
+            console.log("res received", data.imageUrl);
+            insertToEditor(data.imageUrl);
+        })
+    }
+    function insertToEditor(url) {
+        // push image url to rich editor.
+        const range = quill.getSelection();
+        console.log('url inserted');
+        quill.insertEmbed(range.index, 'image', url);
+    }
+
+    // quill editor add image handler
+    quill.getModule('toolbar').addHandler('image', () => {
+        selectLocalImage();
+    });
+</script>
+
+
+{{!-- <div class="shopItem item1">
+    <span class="itemName">
+        {{hackingProduct.title}}
+    </span>
+    <img src="{{hackingProduct.imageFile}}" alt="{{hackingProduct.title}}" />
+    <div class="shopItemDetails">
+        <span class="itemPrice">
+            S$
+            {{hackingProduct.price}}
+        </span>
+        {{#if (noEqual user)}}
+        <button type="button" class="addToCartN">Add To Cart</button>
+        {{else}}
+        <button type="button" class="addToCartN" disabled>Add To Cart</button>
+        {{/if}}
+    </div>
+</div> --}}
