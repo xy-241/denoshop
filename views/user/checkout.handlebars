@@ -325,9 +325,13 @@
                             </script>
                             <script>
                                 // Hide default stripe button
-                                document.getElementsByClassName('stripe-button-el')[0].style.display = 'none';
+                                // document.getElementsByClassName('stripe-button-el')[0].style.display = 'none';
+                                var stripeButton = document.getElementsByClassName('stripe-button-el')[0];
+                                stripeButton.formAction = "/payment/charge";
+                                stripeButton.classList.add("stripe-button-el-new");
+                                document.querySelector('button.stripe-button-el span').innerText = "Stripe Credit/Debit Card";
                             </script>
-                            <button formaction="/payment/charge" type="submit" class="btn btn-outline-dark text-white btn-lg">Credit/Debit Card</button>
+                            {{!-- <button formaction="/payment/charge" type="submit" class="btn btn-outline-dark text-white btn-lg">Stripe Credit/Debit Card</button> --}}
 
                         </div>
                     </div>
