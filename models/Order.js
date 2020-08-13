@@ -2,6 +2,10 @@ const Sequelize = require("sequelize");
 const db = require("../config/DBConfig");
 
 const Order = db.define("order", {
+    id: {
+        type: Sequelize.STRING,
+        primaryKey: true,
+    },
     chargeId: {
         type: Sequelize.STRING,
     },

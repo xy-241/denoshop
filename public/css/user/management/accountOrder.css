@@ -1,3 +1,23 @@
+.outer-row {
+   display: inline-block;
+   flex-wrap: wrap;
+   float: right;
+ 
+   margin-bottom: 10px;
+   /* margin-left: 10%;
+   margin-right: 10%; */
+   
+    /* box-shadow: 0 0px 3px 1px rgba(0, 0, 0, 0.2); */
+}
+
+.viewItems:hover{
+   color: #3e3f5e;
+   background: #fff;
+   text-decoration: none;
+   border: 1px solid #3e3f5e;
+   transition: all 0.2s ease-in-out;
+ }
+
 #no-order{
     text-align: center;
     font-size: 1.6em;

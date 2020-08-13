@@ -13,6 +13,8 @@ const ensureAuthenticated = require('../helpers/auth');
 const router = express.Router();
 const stripe = require("stripe")(stripeSecretKey);
 
+const uuid = require("uuid");
+
 // DB Table
 const DeliveryInfo = require("../models/DeliveryInfo");
 // DB Table
@@ -30,39 +32,6 @@ paypal.configure({
     'mode': 'sandbox',
     'client_id': paypalClientId,
     'client_secret': paypalClientSecret
-});
-
-router.get("/add", (req, res) => {  //Add sample cartItems!!
-    var cartItems = []
-
-    var price = 20
-    var imageFile = "http://tinyurl.com/yb2z9wdb"
-    var dateAdded = "2020-07-11"
-    var title = "Arduino"
-    var itemNum = 2
-    var userId = req.user.id
-    CartItem.create({
-        price,
-        imageFile,
-        dateAdded,
-        title,
-        itemNum,
-        userId
-    }).then(cartItem => {
-        cartItems.push(cartItem)
-    })
-
-    CartItem.findAll({
-        where: {
-            userId: req.user.id
-        }
-    }).then(cartItems => {
-        res.render("user/cart", {
-            style: { text: "user/shopping/cart.css"},
-            title: "Cart",
-            cartItems
-        });
-    })
 });
 
 router.get("/checkout", ensureAuthenticated, (req, res) => {
@@ -117,9 +86,6 @@ router.get("/useragreement", (req, res) => {
 });
 
 router.get("/orderplaced/:orderId", (req, res) => {
-    console.log("Orderplaceddddd123");
-    console.log(req);
-
     Order.findOne({
         where: {
             id: req.params.orderId,
@@ -138,9 +104,23 @@ router.get("/orderplaced/:orderId", (req, res) => {
                 title: "Order Success",
                 deliveryAddress,
                 order: orderObj,
+                orderId: req.params.orderId,
             })    
         })
     })    
+})
+
+router.get("/retrieve/:addrId", ensureAuthenticated, (req, res) => {
+    DeliveryInfo.findOne({
+        where: {
+            id: req.params.addrId,
+            userId: req.user.id
+        }
+    }).then(deliveryAddr => {
+        console.log(deliveryAddr)
+        res.json(deliveryAddr)
+
+    })
 })
 
 router.post("/charge", ensureAuthenticated, async (req, res) => {
@@ -234,8 +214,10 @@ router.post("/charge", ensureAuthenticated, async (req, res) => {
     let chargeId = charge.id
     var orderStatus = 1
 
-    console.log(deliveryDate)
+    var orderuuid = uuid.v4()
+
     const order = await Order.create({
+                            id:orderuuid,
                             chargeId,
                             deliveryDate,
                             deliveryTime,
@@ -283,19 +265,6 @@ router.post("/charge", ensureAuthenticated, async (req, res) => {
         console.log(err)
     })
     res.redirect("/payment/orderplaced/" + orderId)
-})
-
-router.get("/retrieve/:addrId", ensureAuthenticated, (req, res) => {
-    DeliveryInfo.findOne({
-        where: {
-            id: req.params.addrId,
-            userId: req.user.id
-        }
-    }).then(deliveryAddr => {
-        console.log(deliveryAddr)
-        res.json(deliveryAddr)
-
-    })
 })
 
 router.post("/paypal/:paypalId", ensureAuthenticated, async (req, res) => {
@@ -373,7 +342,10 @@ router.post("/paypal/:paypalId", ensureAuthenticated, async (req, res) => {
     let paypalId = req.params.paypalId
     var orderStatus = 1
 
+    var orderuuid = uuid.v4()
+
     const order = await Order.create({
+                            id: orderuuid,
                             paypalId,
                             deliveryDate,
                             deliveryTime: deliverytime,
@@ -424,6 +396,52 @@ router.post("/paypal/:paypalId", ensureAuthenticated, async (req, res) => {
                         }).catch(err => {
                             console.log(err)
                         })
+})
+
+router.get("/invoice/:id", ensureAuthenticated, (req, res) => {
+    var orderId = req.params.id
+    var userId = req.user.id
+
+    Order.findOne({
+		where: {
+			id: orderId,
+			userId: userId
+		},
+		include: [PurchaseRecord, DeliveryInfo]
+	}).then(async (order) => {
+        var purchaseRecordArr = order.purchaseRecords
+        var deliveryInfo = order.deliveryInfo
+
+		var titleArr = []
+		for (let i = 0; i < purchaseRecordArr.length; i++) {
+			titleArr.push(purchaseRecordArr[i].title)
+		}
+
+		var prodDetails = await HackingProduct.findAll({
+			where: {
+				title: titleArr,
+			}
+		}).then((data) => {return data})
+
+		for (let i = 0; i < purchaseRecordArr.length; i++) {
+			var record = purchaseRecordArr[i]
+			var recordTitle = purchaseRecordArr[i].title
+            var recordFound = prodDetails.filter(function(item) { return item.title === recordTitle})
+            var number = i + 1
+            record["number"] = number
+			record["description"] = recordFound[0].description
+			record["price"] = recordFound[0].price
+			record["id"] = recordFound[0].id
+        }
+        console.log(order)
+        return res.render("user/invoice", {
+            style: {text: "user/payment/invoice.css"},
+            title: "Invoice",
+            order,
+            purchaseRecords: order.purchaseRecords,
+            deliveryInfo,
+        })
+	})
 })
 
 module.exports = router;
