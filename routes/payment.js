@@ -215,6 +215,7 @@ router.post("/charge", ensureAuthenticated, async (req, res) => {
     var orderStatus = 1
 
     var orderuuid = uuid.v4()
+    var dateAdded = moment().format("YYYY-MM-DD")
 
     const order = await Order.create({
                             id:orderuuid,
@@ -224,6 +225,7 @@ router.post("/charge", ensureAuthenticated, async (req, res) => {
                             orderDescription,
                             orderStatus,
                             orderSum: sum,
+                            orderDate: dateAdded,
                             userId,
                             deliveryInfoId
                         }).then(orderObj => {
@@ -236,7 +238,6 @@ router.post("/charge", ensureAuthenticated, async (req, res) => {
     Array.prototype.forEach.call(cartItems, item => {
         var itemNum = item.itemNum
         var title = item.title
-        var dateAdded = moment().format("YYYY-MM-DD")
         PurchaseRecord.create({
             title,
             itemNum,
@@ -343,6 +344,7 @@ router.post("/paypal/:paypalId", ensureAuthenticated, async (req, res) => {
     var orderStatus = 1
 
     var orderuuid = uuid.v4()
+    var dateAdded = moment().format("YYYY-MM-DD")
 
     const order = await Order.create({
                             id: orderuuid,
@@ -352,6 +354,7 @@ router.post("/paypal/:paypalId", ensureAuthenticated, async (req, res) => {
                             orderDescription: orderdescription,
                             orderStatus,
                             orderSum: sum,
+                            orderDate: dateAdded,
                             userId,
                             deliveryInfoId
                         }).then(orderObj => {

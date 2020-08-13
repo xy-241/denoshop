@@ -26,6 +26,9 @@ const Order = db.define("order", {
     },
     orderSum: {
         type: Sequelize.FLOAT,
+    },
+    orderDate: {
+        type: Sequelize.DATEONLY,
     }
 })
 
