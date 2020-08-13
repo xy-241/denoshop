@@ -117,9 +117,6 @@ router.get("/useragreement", (req, res) => {
 });
 
 router.get("/orderplaced/:orderId", (req, res) => {
-    console.log("Orderplaceddddd123");
-    console.log(req);
-
     Order.findOne({
         where: {
             id: req.params.orderId,
@@ -138,9 +135,23 @@ router.get("/orderplaced/:orderId", (req, res) => {
                 title: "Order Success",
                 deliveryAddress,
                 order: orderObj,
+                orderId: req.params.orderId,
             })    
         })
     })    
+})
+
+router.get("/retrieve/:addrId", ensureAuthenticated, (req, res) => {
+    DeliveryInfo.findOne({
+        where: {
+            id: req.params.addrId,
+            userId: req.user.id
+        }
+    }).then(deliveryAddr => {
+        console.log(deliveryAddr)
+        res.json(deliveryAddr)
+
+    })
 })
 
 router.post("/charge", ensureAuthenticated, async (req, res) => {
@@ -285,19 +296,6 @@ router.post("/charge", ensureAuthenticated, async (req, res) => {
     res.redirect("/payment/orderplaced/" + orderId)
 })
 
-router.get("/retrieve/:addrId", ensureAuthenticated, (req, res) => {
-    DeliveryInfo.findOne({
-        where: {
-            id: req.params.addrId,
-            userId: req.user.id
-        }
-    }).then(deliveryAddr => {
-        console.log(deliveryAddr)
-        res.json(deliveryAddr)
-
-    })
-})
-
 router.post("/paypal/:paypalId", ensureAuthenticated, async (req, res) => {
     let {
         receivername,
@@ -424,6 +422,52 @@ router.post("/paypal/:paypalId", ensureAuthenticated, async (req, res) => {
                         }).catch(err => {
                             console.log(err)
                         })
+})
+
+router.get("/invoice/:id", ensureAuthenticated, (req, res) => {
+    var orderId = req.params.id
+    var userId = req.user.id
+
+    Order.findOne({
+		where: {
+			id: orderId,
+			userId: userId
+		},
+		include: [PurchaseRecord, DeliveryInfo]
+	}).then(async (order) => {
+        var purchaseRecordArr = order.purchaseRecords
+        var deliveryInfo = order.deliveryInfo
+
+		var titleArr = []
+		for (let i = 0; i < purchaseRecordArr.length; i++) {
+			titleArr.push(purchaseRecordArr[i].title)
+		}
+
+		var prodDetails = await HackingProduct.findAll({
+			where: {
+				title: titleArr,
+			}
+		}).then((data) => {return data})
+
+		for (let i = 0; i < purchaseRecordArr.length; i++) {
+			var record = purchaseRecordArr[i]
+			var recordTitle = purchaseRecordArr[i].title
+            var recordFound = prodDetails.filter(function(item) { return item.title === recordTitle})
+            var number = i + 1
+            record["number"] = number
+			record["description"] = recordFound[0].description
+			record["price"] = recordFound[0].price
+			record["id"] = recordFound[0].id
+        }
+        console.log(order)
+        return res.render("user/invoice", {
+            style: {text: "user/payment/invoice.css"},
+            title: "Invoice",
+            order,
+            purchaseRecords: order.purchaseRecords,
+            deliveryInfo,
+        })
+	})
 })
 
 module.exports = router;
