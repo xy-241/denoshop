@@ -13,6 +13,8 @@ const ensureAuthenticated = require('../helpers/auth');
 const router = express.Router();
 const stripe = require("stripe")(stripeSecretKey);
 
+const uuid = require("uuid");
+
 // DB Table
 const DeliveryInfo = require("../models/DeliveryInfo");
 // DB Table
@@ -30,39 +32,6 @@ paypal.configure({
     'mode': 'sandbox',
     'client_id': paypalClientId,
     'client_secret': paypalClientSecret
-});
-
-router.get("/add", (req, res) => {  //Add sample cartItems!!
-    var cartItems = []
-
-    var price = 20
-    var imageFile = "http://tinyurl.com/yb2z9wdb"
-    var dateAdded = "2020-07-11"
-    var title = "Arduino"
-    var itemNum = 2
-    var userId = req.user.id
-    CartItem.create({
-        price,
-        imageFile,
-        dateAdded,
-        title,
-        itemNum,
-        userId
-    }).then(cartItem => {
-        cartItems.push(cartItem)
-    })
-
-    CartItem.findAll({
-        where: {
-            userId: req.user.id
-        }
-    }).then(cartItems => {
-        res.render("user/cart", {
-            style: { text: "user/shopping/cart.css"},
-            title: "Cart",
-            cartItems
-        });
-    })
 });
 
 router.get("/checkout", ensureAuthenticated, (req, res) => {
@@ -245,8 +214,10 @@ router.post("/charge", ensureAuthenticated, async (req, res) => {
     let chargeId = charge.id
     var orderStatus = 1
 
-    console.log(deliveryDate)
+    var orderuuid = uuid.v4()
+
     const order = await Order.create({
+                            id:orderuuid,
                             chargeId,
                             deliveryDate,
                             deliveryTime,
@@ -371,7 +342,10 @@ router.post("/paypal/:paypalId", ensureAuthenticated, async (req, res) => {
     let paypalId = req.params.paypalId
     var orderStatus = 1
 
+    var orderuuid = uuid.v4()
+
     const order = await Order.create({
+                            id: orderuuid,
                             paypalId,
                             deliveryDate,
                             deliveryTime: deliverytime,
