@@ -108,6 +108,9 @@ app.use(express.urlencoded({ extended: false }));
 // Creates static folder for publicly accessible HTML, CSS and Javascript files
 app.use(express.static(path.join(__dirname, "public")));
 
+/* serve node_modules to frontend without using webpack or browserify
+app.use(express.static(path.join(__dirname, 'node_modules'))); */
+
 // Method override middleware to use other HTTP methods such as PUT and DELETE
 app.use(methodOverride("_method"));
 

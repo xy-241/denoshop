@@ -309,10 +309,10 @@
 /* Product Page styling */
 
 .reviewScore {
-    height: 1.9em;
-    width: 1.9em;
+    height: 2em;
+    width: 2em;
     font-size: 1em;
-    line-height: 1.9em;
+    line-height: 2em;
     border-radius: 39%;
     background-color: #000000;
     color: white;
