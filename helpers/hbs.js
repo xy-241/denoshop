@@ -10,6 +10,7 @@ const logicalOperation = {
 			return true;
 		}
 	},
+
 };
 
 module.exports = logicalOperation;
