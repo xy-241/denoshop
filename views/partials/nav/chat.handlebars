@@ -1,13 +1,25 @@
 {{#if (equal title "chat")}}
 	<li>
-		<a href="/chat" class="onNavPage">
-			Support
-		</a>
+		<div class="dropdown">
+			<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    			Support
+  			</a>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color:#2a2b2d;">
+				<a class="dropdown-item" href="/chat/chatForm" style="display: block;">Live Chat</a>
+				<a class="dropdown-item" href="/chat/videoForm" style="display: block;">Video Call</a>
+			</div>
+		</div>
 	</li>
 {{else}}
 	<li>
-		<a href="/chat">
-			Support
-		</a>
+		<div class="dropdown">
+			<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    			Support
+  			</a>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color:#2a2b2d;">
+				<a class="dropdown-item" href="/chat/chatForm" style="display: block;">Live Chat</a>
+				<a class="dropdown-item" href="/chat/videoForm" style="display: block;">Video Call</a>
+			</div>
+		</div>
 	</li>
 {{/if}}

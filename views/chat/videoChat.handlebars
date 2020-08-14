@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<script>
+    const roomName = '{{roomName}}'
+    const username = '{{username}}'
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+<script defer src="/js/chat/videoScript.js"></script>
+<div class="wrapper">
+<div class="container py-5 px-4">
+  <div class="row">
+  <header class="text-center col-11">
+    <h3 style="font-size: 250%;" >Video Chat Live Support</h1>
+  </header>
+  </div>
+    <!-- Chat Box-->
+
+        <p class="small font-italic text-muted" id="messageo">Please wait, an agent will join shortly</p>
+      <!-- Typing area -->
+      <div class="video-container">
+        <video autoplay class="remote-video" id="remote-video"></video>
+        <video autoplay muted class="local-video" id="local-video"></video>
+      </div>
+  </div>
+</div>  
