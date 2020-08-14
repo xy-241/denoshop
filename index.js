@@ -156,6 +156,11 @@ app.use((req, res, next) => {
 	res.locals.error_msg = req.flash("error_msg");
 	res.locals.error = req.flash("error");
 	res.locals.user = req.user || null; // After authenticated, the user object is set into req.user, referring to /config/passport.js
+	if(res.locals.user != null) {
+		res.locals.userid = req.user.id || null; // After authenticated, the user object is set into req.user, referring to /config/passport.js
+	} else {
+		res.locals.userid = null;
+	}
 	next();
 });
 
