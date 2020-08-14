@@ -281,7 +281,7 @@
 .shopItems {
 	display: flex;
 	flex-direction: column;
-
+	flex-wrap: wrap; /*Temporary*/
 	text-align: center;
 	align-items: center;
 }
@@ -411,6 +411,11 @@ button {
 
 /*SubPages*/
 .sellingTools {
+	/*Making the first visible only*/
+	display: none;
+}
+
+.recommendedProducts {
 	/*Making the first visible only*/
 	display: none;
 }
@@ -565,4 +570,18 @@ button {
 	to {
 		opacity: 1;
 	}
+}
+
+.wishlist_btn {
+	width: 60px;
+	height: 50px;
+	background: url("https://res.cloudinary.com/xenonic/image/upload/c_scale,w_1780/v1596214801/heart_muequh.png") no-repeat;
+	cursor: pointer; 
+	transform: translate(35%, -40%);
+}
+
+.active {
+	background-position: -1600px 0;
+	transition: background 1s steps(26);
+	transform: translate(40%, -40%);
 }

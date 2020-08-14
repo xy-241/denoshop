@@ -18,26 +18,68 @@ const QuillDeltaToHtmlConverter = require('quill-delta-to-html').QuillDeltaToHtm
 const upload = require("../config/file-upload");
 
 const Sequelize = require("sequelize");
-
+const WishList = require("../models/WishList");
+const Banner = require("../models/Banner");
+const {rqs, client} = require("../config/recombee");
 const monthNames = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
-router.get(["/", "/home"], (req, res) => {
+
+router.get(["/", "/home"], async (req, res) => {
+	let recomms_id = [];
+
+	if (req.isAuthenticated()){
+		client.send(new rqs.AddUser(req.user.id), callback => console.log('userid added/updated to recombee database!'));
+		let recommendations = await client.send(new rqs.RecommendItemsToUser(req.user.id, 5, { 'scenario': 'homepage' })).then( data => {
+			return data.recomms;
+		})
+		for(let i in recommendations){
+			recomms_id.push(recommendations[i].id)
+		}
+	} else {
+		let recommendations = await client.send(new rqs.RecommendItemsToUser(7777777777777, 5, { 'scenario': 'homepage', 'cascadeCreate': true })).then( data => {
+			return data.recomms;
+		})
+		for(let i in recommendations){
+			recomms_id.push(recommendations[i].id)
+		}
+	}
+
+	recombee_init();
+
 	HackingProduct.findAll()
 		.then((hackingProducts) => {
 			let userLogin = null;
+			let banner_arr = [];
 			if (req.user){
 				userLogin = "in"
 			}
-			// Get the total number in the cart
-			res.render("home", {
-				style: { text: "userInterface/home.css" },
-				title: "Home",
-
-				// Load the hacking products
-				hackingProducts,
-				// Load the hacking products
-				userLogin
-			});
+			
+			Banner.findAll({
+				attributes: ["imageFile"],
+				where: {
+					status: 'Active'
+				}
+			})
+			.then((banner) => {
+				for (var i = 1; i < banner.length; i++) {
+					banner_arr.push(banner[i]);
+				}
+				return banner
+			})
+			.then((banners) => {
+				HackingProduct.findAll({where:{id:recomms_id}})
+				.then(recomm_products =>{
+					res.render("home", {
+						style: { text: "userInterface/home.css", banners: "userInterface/banner_modal.css" },
+						title: "Home",
+						first: banners[0],
+						banner: banners,
+						hackingProducts,
+						recomm_products,
+						userLogin
+					});
+				})
+			})
 		})
 		.catch((err) => console.log(err));
 });
@@ -228,15 +270,21 @@ router.get("/account", ensureAuthenticated, async (req, res) => {
 	}).then((order) => {
 		return order
 	});
+
+	let wishlists = await WishList.findAll({where: {userId: req.user.id}, include: [{model: HackingProduct}]})
+		.then(wishlists => { return wishlists })
+
 	res.render("user/account", {
 		style: {
 			text: "user/management/account.css",
 			text1: "user/management/accountAddress.css",
 			text2: "user/management/accountOrder.css",
+			text3: "user/management/accountWishlist.css",
 		},
 		title: "My Account",
 		deliveryAddrs,
-		orders
+		orders,
+		wishlists
 	});
 });
 
@@ -258,5 +306,32 @@ router.get("/cart", ensureAuthenticated, (req, res) => {
 		})
 		.catch((err) => console.log(err));
 });
+
+function recombee_init(){
+	//Add item property to recombee items db if not exist
+	client.send(new rqs.Batch([
+		new rqs.AddItemProperty('title', 'string'),
+		// new rqs.AddItemProperty('description', 'string'),
+		new rqs.AddItemProperty('imagelink', 'image'),
+		new rqs.AddItemProperty('price', 'double'),
+		new rqs.AddItemProperty('category', 'string')
+	]))
+	.then(_ => {
+		//Add all items to recombee items db if not exist 
+		HackingProduct.findAll().then(hackingProducts => {
+			for(var i in hackingProducts){
+				let a = JSON.parse(hackingProducts[i].imageFile)
+				client.send(new rqs.SetItemValues(hackingProducts[i].id, {
+					title: hackingProducts[i].title,
+					// description: hackingProducts[i].description,
+					imagelink: a[0],
+					price: hackingProducts[i].price,
+					category: hackingProducts[i].category,
+				}, { cascadeCreate: true }))
+			}
+		})
+	})
+	//End
+}
 
 module.exports = router;

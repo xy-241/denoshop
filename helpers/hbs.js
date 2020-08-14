@@ -10,7 +10,9 @@ const logicalOperation = {
 			return true;
 		}
 	},
-
+	imageUrl: function (string, ind) {
+        return JSON.parse(string)[ind];
+	},
 };
 
 module.exports = logicalOperation;
