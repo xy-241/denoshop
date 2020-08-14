@@ -29,7 +29,7 @@ router.get(["/", "/home"], async (req, res) => {
 
 	if (req.isAuthenticated()){
 		client.send(new rqs.AddUser(req.user.id), callback => console.log('userid added/updated to recombee database!'));
-		let recommendations = await client.send(new rqs.RecommendItemsToUser(req.user.id, 5, { 'scenario': 'homepage' })).then( data => {
+		let recommendations = await client.send(new rqs.RecommendItemsToUser(req.user.id, 5, { 'scenario': 'homepage', 'cascadeCreate': true})).then( data => {
 			return data.recomms;
 		})
 		for(let i in recommendations){
