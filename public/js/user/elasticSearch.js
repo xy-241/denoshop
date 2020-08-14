@@ -48,9 +48,11 @@ function getResult() {
 				for (let i = 0; i < resultArray.length; i++) {
 					//console.log(resultArray[i]._source.title);
 
+					let itemId = resultArray[i]._id;
 					let itemTitle = resultArray[i]._source.title;
 					let itemPrice = resultArray[i]._source.price;
 					let itemImage = resultArray[i]._source.imageFile;
+					
 
 					if (resultArray[i].highlight) {
 						highlightTitle = resultArray[i].highlight.title;
@@ -73,17 +75,20 @@ function getResult() {
 						"container pt-3"
 					);
 					let searchItem = `
-							<div class="row">
+							<div class="row mb-1">
 								<div class="col-5 col-sm-4 col-md-3 col-xl-2">
+								<a class="aLink" href="/product/${itemId}">
 									<img src="${itemImage}" alt="" id="searchImage">
 									</img>
-									
+								</a>
 								</div>
 								<div class="col-7 col-sm-8 col-md-9 col-xl-10">
 									<div class="row ml-1">
+									<a class="aLink" href="/product/${itemId}">
 										<p id="deliveryInfoName">
 											${itemTitle}
 										</p>
+									</a>
 									</div>
 									<div class="row mt-3 ml-1">
 										<p id="deliveryInfoAddr">

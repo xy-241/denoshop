@@ -22,6 +22,10 @@ const Sequelize = require("sequelize");
 router.get(["/", "/home"], (req, res) => {
 	HackingProduct.findAll()
 		.then((hackingProducts) => {
+			let userLogin = null;
+			if (req.user){
+				userLogin = "in"
+			}
 			// Get the total number in the cart
 			res.render("home", {
 				style: { text: "userInterface/home.css" },
@@ -30,6 +34,7 @@ router.get(["/", "/home"], (req, res) => {
 				// Load the hacking products
 				hackingProducts,
 				// Load the hacking products
+				userLogin
 			});
 		})
 		.catch((err) => console.log(err));

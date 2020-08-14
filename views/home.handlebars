@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/css/userInterface/homeProduct.css">
 <div class="banner">
 	<img src="img/hacking2.jpg" alt="" />
 	<div class="background"></div>
@@ -27,63 +28,95 @@
 		<h3>
 			Hacker's Outfits
 		</h3>
-		<div class="shopItems">
+		<div class="productContainer ">
+
 			{{#each hackingProducts}}
 			{{#if (equal this.category "outfits")}}
-			<div class="shopItem item1">
-				<a class="aLink" href="/product/{{this.id}}">
-					<span class="itemName">
+			<div class="card m-3" style="width: 18rem;">
+
+				<div class="productPic content">
+
+					<div class="content-overlay"></div>
+					<img class="card-img-top content-image" src="{{this.imageFile}}" alt="{{this.title}}" />
+
+					<div class="content-details fadeIn-bottom">
+						<a href="/product/{{this.id}}" class="btn btn-light content-title">View More</a>
+					</div>
+				</div>
+				<div class="card-body">
+					<h5 class="card-title">
 						{{this.title}}
-					</span>
-					<img src="{{this.imageFile}}" alt="{{this.title}}" />
-				</a>
-				<div class="shopItemDetails">
-					<span class="itemPrice">
-						S$
-						{{this.price}}
-					</span>
-					{{#if (noEqual user)}}
-					<button type="button" class="addToCartN">Add To Cart</button>
-					{{else}}
-					<button type="button" class="addToCartN" disabled>Add To Cart</button>
-					{{/if}}
+					</h5>
+
+
+					<p class="card-text">
+						{{this.description}}
+					</p>
+					<div class="addToCart">
+						<span id="priceTag" class="pt-2">S$
+							{{this.price}}</span>
+						{{#if (noEqual userLogin)}}
+						<button type="button" class="btn btn-outline-primary addToCartN">Add to Cart</button>
+						{{else}}
+						<button type="button" class="btn btn-outline-primary" onclick="askLogin()">Add to
+							Cart</button>
+						{{/if}}
+					</div>
 				</div>
 			</div>
 			{{/if}}
 			{{/each}}
 		</div>
 	</div>
+	</div>
 	<!-- End of sellingOutfits page -->
 	<div class="sellingTools subPage">
 		<h3>
 			Hacker's Tool
 		</h3>
-		<div class="shopItems">
+		<div class="productContainer ">
+
 			{{#each hackingProducts}}
 			{{#if (equal this.category "tools")}}
-			<div class="shopItem item1">
-				<a class="aLink" href="/product/{{this.id}}">
-					<span class="itemName">
-						{{this.title}}
-					</span>
-					<img src="{{this.imageFile}}" alt="{{this.title}}" />
-				</a>
-				<div class="shopItemDetails">
-					<span class="itemPrice">
-						S$
-						{{this.price}}
-					</span>
-					{{#if (noEqual user)}}
-					<button type="button" class="addToCartN">Add To Cart</button>
-					{{else}}
-					<button type="button" class="addToCartN" disabled>Add To Cart</button>
-					{{/if}}
+			<div class="card m-3" style="width: 18rem;">
+
+				<div class="productPic content">
+					<div class="content-overlay"></div>
+					<img class="card-img-top content-image" src="{{this.imageFile}}" alt="{{this.title}}" />
+
+					<div class="content-details fadeIn-bottom">
+						<a href="/product/{{this.id}}" class="btn btn-light content-title">View More</a>
+					</div>
+				</div>
+				<div class="card-body">
+						<h5 class="card-title">
+							{{this.title}}
+						</h5>
+
+
+					<p class="card-text">
+						{{this.description}}
+					</p>
+					<div class="addToCart">
+						<span id="priceTag" class="pt-2">S$
+							{{this.price}}</span>
+						{{#if (noEqual userLogin)}}
+						<h1>{{userLogin}}</h1>
+						<button type="button" class="btn btn-outline-primary addToCartN">Add to Cart</button>
+						{{else}}
+						<button type="button" class="btn btn-outline-primary" onclick="askLogin()">Add to Cart</button>
+						{{/if}}
+					</div>
 				</div>
 			</div>
 			{{/if}}
+
 			{{/each}}
+
+
 		</div>
-		<!-- End of shopItems page -->
+	</div>
+	<!-- End of shopItems page -->
 	</div>
 	<!-- Endo of sellingTools page -->
 </section>

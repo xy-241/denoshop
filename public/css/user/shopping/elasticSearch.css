@@ -1,5 +1,8 @@
 /*Search Icon*/
 /* The search field */
+a{
+	text-decoration: none !important;
+}
 #searchInput {
 	box-sizing: border-box;
 	background-image: url("https://www.w3schools.com/howto/searchicon.png");
@@ -46,6 +49,10 @@
 #searchImage {
 	height: 115px;
 	width: 115px;
+	transition: transform .2s ease-in-out;
+}
+#searchImage:hover{
+	transform: scale(1.07)
 }
 
 .searchGlassPosition {

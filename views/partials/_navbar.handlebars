@@ -21,7 +21,7 @@
 
     {{#if (noEqual user)}}
       {{> nav/account}}
-      {{> nav/about}}
+      {{!-- {{> nav/about}} --}}
       <li>
         <a href="/logout">Logout</a>
       </li>
@@ -30,7 +30,7 @@
     {{else}}
       {{> nav/register}}
       {{> nav/login}}
-      {{> nav/about}}
+      {{!-- {{> nav/about}} --}}
       
     {{/if}}
   </ul>

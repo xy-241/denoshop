@@ -2,6 +2,10 @@ a:hover{
   text-decoration: none;
   color:black;
 }
+.logo{
+  display: block;
+  z-index: 1;
+}
 .workContent{
   padding-top: 90px;
   padding-left: 10px;
@@ -15,7 +19,8 @@ a:hover{
 .content-section{
   position: relative;
   margin:auto;
-
+  opacity: 0.8;
+  box-shadow: 0 0px 9px 0px rgb(255, 255, 255);
 
 }
 .btn {
