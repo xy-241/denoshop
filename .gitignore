@@ -113,3 +113,5 @@ public/js/useInterface/oldpurchase.js
 
 # account file for paypal
 account.txt
+
+DBInfo.txt
