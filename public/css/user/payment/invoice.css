@@ -1,5 +1,6 @@
 .workContent {
-    padding-top: 90px;
+    background-color: white;
+    padding-top: 25px;
     padding-bottom: 40px;
 }
 
@@ -127,6 +128,13 @@ h5 {
     color: #3d405c !important
 }
 
+.breadcrumb-link{
+    color: dodgerblue;
+}
+
+.breadcrumb-link:hover{
+    color: rgba( 30, 144, 255, 0.5);
+}
 
 @media only screen and (min-width: 992px) {
     .container {

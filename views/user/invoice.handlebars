@@ -1,95 +1,104 @@
-<div class="container offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 padding">
-    <div class="card">
-        <div class="card-header p-4">
-            <a class="pt-2 d-inline-block" href="/" id="shopLogo" data-abc="true">Denoshop</a>
-            <div class="float-right" style="width: -webkit-fill-available;">
-                <h3 class="mb-0">Invoice #{{order.id}}</h3>
-                Date: 12 Jun,2019
-            </div>
-        </div>
-        <div class="card-body">
-            <div class="row mb-4">
-                <div class="col-sm-6">
-                    <h5 class="mb-3">From:</h5>
-                    <h3 class="text-dark mb-1">Deno Shop</h3>
-                    <div>Block 180 Ang Mo Kio Avenue 8</div>
-                    <div>Singapore 569830</div>
-                    <div>Email: me@denoshop.com</div>
-                    {{!-- <div>Phone: +91 9897 989 989</div> --}}
-                </div>
-                <div class="col-sm-6 ">
-                    <h5 class="mb-3">To:</h5>
-                    <h3 class="text-dark mb-1">{{deliveryInfo.receiverName}}</h3>
-                    <div>Block {{deliveryInfo.blockNo}} {{deliveryInfo.street}} {{deliveryInfo.unitNo}}</div>
-                    <div>{{deliveryInfo.country}} {{#if deliveryInfo.state}}{{deliveryInfo.state}} {{/if}}{{deliveryInfo.postcode}}</div>
-                    {{!-- <div>Email:</div> --}}
-                    <div>Phone: {{deliveryInfo.phoneNo}}</div>
+<div class="workContent">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a class="breadcrumb-link" href="/account/">My Account</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Invoice #{{order.id}}</li>
+        </ol>
+    </nav>
+
+    <div class="container offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 padding">
+        <div class="card">
+            <div class="card-header p-4">
+                <a class="pt-2 d-inline-block" href="/" id="shopLogo" data-abc="true">Denoshop</a>
+                <div class="float-right" style="width: -webkit-fill-available;">
+                    <h3 class="mb-0">Invoice #{{order.id}}</h3>
+                    Date: {{order.orderDate}}
                 </div>
             </div>
-            <div class="table-responsive-sm">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th class="center">#</th>
-                            <th>Item</th>
-                            <th>Description</th>
-                            <th class="right">Price</th>
-                            <th class="center">Qty</th>
-                            <th class="right">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each purchaseRecords}}
-                        <tr>
-                            <td class="center">{{this.number}}</td>
-                            <td class="left strong">{{this.title}}</td>
-                            <td class="left">{{this.description}}</td>
-                            <td class="right">${{this.price}}</td>
-                            <td class="center">{{this.itemNum}}</td>
-                            <td class="right">${{ multiply this.itemNum this.price}}</td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-sm-5">
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-sm-6">
+                        <h5 class="mb-3">From:</h5>
+                        <h3 class="text-dark mb-1">Deno Shop</h3>
+                        <div>Block 180 Ang Mo Kio Avenue 8</div>
+                        <div>Singapore 569830</div>
+                        <div>Email: me@denoshop.com</div>
+                        {{!-- <div>Phone: +91 9897 989 989</div> --}}
+                    </div>
+                    <div class="col-sm-6 ">
+                        <h5 class="mb-3">To:</h5>
+                        <h3 class="text-dark mb-1">{{deliveryInfo.receiverName}}</h3>
+                        <div>Block {{deliveryInfo.blockNo}} {{deliveryInfo.street}} {{deliveryInfo.unitNo}}</div>
+                        <div>{{deliveryInfo.country}} {{#if deliveryInfo.state}}{{deliveryInfo.state}} {{/if}}{{deliveryInfo.postcode}}</div>
+                        {{!-- <div>Email:</div> --}}
+                        <div>Phone: {{deliveryInfo.phoneNo}}</div>
+                    </div>
                 </div>
-                <div class="col-lg-4 col-sm-5 ml-auto">
-                    <table class="table table-clear">
+                <div class="table-responsive-sm">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="center">#</th>
+                                <th>Item</th>
+                                <th>Description</th>
+                                <th class="right">Price</th>
+                                <th class="center">Qty</th>
+                                <th class="right">Total</th>
+                            </tr>
+                        </thead>
                         <tbody>
+                            {{#each purchaseRecords}}
                             <tr>
-                                <td class="left">
-                                    <strong class="text-dark">Subtotal</strong>
-                                </td>
-                                <td class="right">${{order.orderSum}}</td>
+                                <td class="center">{{this.number}}</td>
+                                <td class="left strong">{{this.title}}</td>
+                                <td class="left">{{this.description}}</td>
+                                <td class="right">${{this.price}}</td>
+                                <td class="center">{{this.itemNum}}</td>
+                                <td class="right">${{ multiply this.itemNum this.price}}</td>
                             </tr>
-                            <tr>
-                                <td class="left">
-                                    <strong class="text-dark">Discount (20%)</strong>
-                                </td>
-                                <td class="right">$discount here</td>
-                            </tr>
-                            {{!-- <tr>
-                                <td class="left">
-                                    <strong class="text-dark">VAT (10%)</strong>
-                                </td>
-                                <td class="right">$2,304,00</td>
-                            </tr> --}}
-                            <tr>
-                                <td class="left">
-                                    <strong class="text-dark">Total</strong> </td>
-                                <td class="right">
-                                    <strong class="text-dark">${{order.orderSum}}</strong>
-                                </td>
-                            </tr>
+                            {{/each}}
                         </tbody>
                     </table>
                 </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-5">
+                    </div>
+                    <div class="col-lg-4 col-sm-5 ml-auto">
+                        <table class="table table-clear">
+                            <tbody>
+                                <tr>
+                                    <td class="left">
+                                        <strong class="text-dark">Subtotal</strong>
+                                    </td>
+                                    <td class="right">${{order.orderSum}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="left">
+                                        <strong class="text-dark">Discount (20%)</strong>
+                                    </td>
+                                    <td class="right">$discount here</td>
+                                </tr>
+                                {{!-- <tr>
+                                    <td class="left">
+                                        <strong class="text-dark">VAT (10%)</strong>
+                                    </td>
+                                    <td class="right">$2,304,00</td>
+                                </tr> --}}
+                                <tr>
+                                    <td class="left">
+                                        <strong class="text-dark">Total</strong> </td>
+                                    <td class="right">
+                                        <strong class="text-dark">${{order.orderSum}}</strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="card-footer bg-white">
-            <p class="mb-0">Denoshop.com, 180 Ang Mo Kio Ave 8 Singapore 569830</p>
+            <div class="card-footer bg-white">
+                <p class="mb-0">denoshop.azurewebsites.net, 180 Ang Mo Kio Ave 8 Singapore 569830</p>
+            </div>
         </div>
     </div>
 </div>
