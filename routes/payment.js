@@ -236,6 +236,7 @@ router.post("/charge", ensureAuthenticated, async (req, res) => {
                         })
     
     let orderId = order.id
+    // mark
     Array.prototype.forEach.call(cartItems, item => {
         var itemNum = item.itemNum
         var title = item.title
@@ -368,6 +369,7 @@ router.post("/paypal/:paypalId", ensureAuthenticated, async (req, res) => {
                             userId,
                             deliveryInfoId
                         }).then(orderObj => {
+                            // mark
                             let orderId = orderObj.id
                             Array.prototype.forEach.call(cartItems, item => {
                                 var itemNum = item.itemNum
