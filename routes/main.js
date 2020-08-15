@@ -20,26 +20,26 @@ const upload = require("../config/file-upload");
 const Sequelize = require("sequelize");
 const WishList = require("../models/WishList");
 const Banner = require("../models/Banner");
-const {rqs, client} = require("../config/recombee");
+const { rqs, client } = require("../config/recombee");
 const monthNames = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
 
 router.get(["/", "/home"], async (req, res) => {
 	let recomms_id = [];
 
-	if (req.isAuthenticated()){
+	if (req.isAuthenticated()) {
 		client.send(new rqs.AddUser(req.user.id), callback => console.log('userid added/updated to recombee database!'));
-		let recommendations = await client.send(new rqs.RecommendItemsToUser(req.user.id, 5, { 'scenario': 'homepage', 'cascadeCreate': true})).then( data => {
+		let recommendations = await client.send(new rqs.RecommendItemsToUser(req.user.id, 5, { 'scenario': 'homepage', 'cascadeCreate': true })).then(data => {
 			return data.recomms;
 		})
-		for(let i in recommendations){
+		for (let i in recommendations) {
 			recomms_id.push(recommendations[i].id)
 		}
 	} else {
-		let recommendations = await client.send(new rqs.RecommendItemsToUser(7777777777777, 5, { 'scenario': 'homepage', 'cascadeCreate': true })).then( data => {
+		let recommendations = await client.send(new rqs.RecommendItemsToUser(7777777777777, 5, { 'scenario': 'homepage', 'cascadeCreate': true })).then(data => {
 			return data.recomms;
 		})
-		for(let i in recommendations){
+		for (let i in recommendations) {
 			recomms_id.push(recommendations[i].id)
 		}
 	}
@@ -50,36 +50,36 @@ router.get(["/", "/home"], async (req, res) => {
 		.then((hackingProducts) => {
 			let userLogin = null;
 			let banner_arr = [];
-			if (req.user){
+			if (req.user) {
 				userLogin = "in"
 			}
-			
+
 			Banner.findAll({
 				attributes: ["imageFile"],
 				where: {
 					status: 'Active'
 				}
 			})
-			.then((banner) => {
-				for (var i = 1; i < banner.length; i++) {
-					banner_arr.push(banner[i]);
-				}
-				return banner
-			})
-			.then((banners) => {
-				HackingProduct.findAll({where:{id:recomms_id}})
-				.then(recomm_products =>{
-					res.render("home", {
-						style: { text: "userInterface/home.css", banners: "userInterface/banner_modal.css" },
-						title: "Home",
-						first: banners[0],
-						banner: banners,
-						hackingProducts,
-						recomm_products,
-						userLogin
-					});
+				.then((banner) => {
+					for (var i = 1; i < banner.length; i++) {
+						banner_arr.push(banner[i]);
+					}
+					return banner
 				})
-			})
+				.then((banners) => {
+					HackingProduct.findAll({ where: { id: recomms_id } })
+						.then(recomm_products => {
+							res.render("home", {
+								style: { text: "userInterface/home.css", banners: "userInterface/banner_modal.css" },
+								title: "Home",
+								first: banners[0],
+								banner: banners,
+								hackingProducts,
+								recomm_products,
+								userLogin
+							});
+						})
+				})
 		})
 		.catch((err) => console.log(err));
 });
@@ -120,10 +120,11 @@ router.get("/product/:id", (req, res) => {
 				],
 			}).then(rating => {
 				console.log(rating.dataValues[monthNames[d.getMonth()]]);
+				let currentRating = rating.dataValues[monthNames[d.getMonth()]].toFixed(1);
 				res.render("product", {
 					title: "Product",
 					style: { text: "userInterface/home.css" },
-					hackingProduct, comments, rating: rating.dataValues[monthNames[d.getMonth()]].toFixed(1), images
+					hackingProduct, comments, rating: (currentRating <= 0) ? "N/A" : `${currentRating}/5`, images
 				});
 			});
 		})
@@ -273,7 +274,7 @@ router.get("/account", ensureAuthenticated, async (req, res) => {
 		return order
 	});
 
-	let wishlists = await WishList.findAll({where: {userId: req.user.id}, include: [{model: HackingProduct}]})
+	let wishlists = await WishList.findAll({ where: { userId: req.user.id }, include: [{ model: HackingProduct }] })
 		.then(wishlists => { return wishlists })
 
 	res.render("user/account", {
@@ -309,7 +310,7 @@ router.get("/cart", ensureAuthenticated, (req, res) => {
 		.catch((err) => console.log(err));
 });
 
-function recombee_init(){
+function recombee_init() {
 	//Add item property to recombee items db if not exist
 	client.send(new rqs.Batch([
 		new rqs.AddItemProperty('title', 'string'),
@@ -318,21 +319,21 @@ function recombee_init(){
 		new rqs.AddItemProperty('price', 'double'),
 		new rqs.AddItemProperty('category', 'string')
 	]))
-	.then(_ => {
-		//Add all items to recombee items db if not exist 
-		HackingProduct.findAll().then(hackingProducts => {
-			for(var i in hackingProducts){
-				let a = JSON.parse(hackingProducts[i].imageFile)
-				client.send(new rqs.SetItemValues(hackingProducts[i].id, {
-					title: hackingProducts[i].title,
-					// description: hackingProducts[i].description,
-					imagelink: a[0],
-					price: hackingProducts[i].price,
-					category: hackingProducts[i].category,
-				}, { cascadeCreate: true }))
-			}
+		.then(_ => {
+			//Add all items to recombee items db if not exist 
+			HackingProduct.findAll().then(hackingProducts => {
+				for (var i in hackingProducts) {
+					let a = JSON.parse(hackingProducts[i].imageFile)
+					client.send(new rqs.SetItemValues(hackingProducts[i].id, {
+						title: hackingProducts[i].title,
+						// description: hackingProducts[i].description,
+						imagelink: a[0],
+						price: hackingProducts[i].price,
+						category: hackingProducts[i].category,
+					}, { cascadeCreate: true }))
+				}
+			})
 		})
-	})
 	//End
 }
 
