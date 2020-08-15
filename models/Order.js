@@ -29,6 +29,9 @@ const Order = db.define("order", {
     },
     orderDate: {
         type: Sequelize.DATEONLY,
+    },
+    discount: {
+        type: Sequelize.FLOAT
     }
 })
 
