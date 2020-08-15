@@ -350,6 +350,17 @@
 	.sideNav #first {
 		margin-top: 0px;
 	}
+
+	.navMain {
+		z-index: 1 !important;
+	}
+	.logo {
+		z-index: 10;
+	}
+	.logoPosition {
+		z-index: 10;
+	}
+	
 	/*Nav*/
 
 	body {

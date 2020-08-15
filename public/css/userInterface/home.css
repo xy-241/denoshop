@@ -498,6 +498,15 @@ button {
 	.item2 {
 		margin-left: 5px;
 	}
+	.navMain {
+		z-index: 1 !important;
+	  }
+	.logo {
+		z-index: 10;
+	}
+	.logoPosition {
+		z-index: 10;
+	}
 }
 
 @media only screen and (min-width: 600px) {
@@ -561,6 +570,16 @@ button {
 		font-size: 1.4em;
 	}
 	/*Modal*/
+
+	.navMain {
+		z-index: 1 !important;
+	  }
+	.logo {
+		z-index: 10;
+	}
+	.logoPosition {
+		z-index: 10;
+	}
 }
 
 @keyframes modalOpen {
