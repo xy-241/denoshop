@@ -31,7 +31,8 @@ const Order = db.define("order", {
         type: Sequelize.DATEONLY,
     },
     discount: {
-        type: Sequelize.FLOAT
+        type: Sequelize.FLOAT,
+        defaultValue: 0,
     }
 })
 
