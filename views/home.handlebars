@@ -65,12 +65,9 @@
 					<div class="addToCart">
 						<span id="priceTag" class="pt-2">S$
 							{{this.price}}</span>
-						{{#if (noEqual userLogin)}}
+						
 						<button type="button" class="btn btn-outline-primary addToCartN">Add to Cart</button>
-						{{else}}
-						<button type="button" class="btn btn-outline-primary" onclick="askLogin()">Add to
-							Cart</button>
-						{{/if}}
+						
 					</div>
 				</div>
 			</div>
@@ -118,12 +115,8 @@
 					<div class="addToCart">
 						<span id="priceTag" class="pt-2">S$
 							{{this.price}}</span>
-						{{#if (noEqual userLogin)}}
-						<h1>{{userLogin}}</h1>
 						<button type="button" class="btn btn-outline-primary addToCartN">Add to Cart</button>
-						{{else}}
-						<button type="button" class="btn btn-outline-primary" onclick="askLogin()">Add to Cart</button>
-						{{/if}}
+					
 					</div>
 				</div>
 			</div>
