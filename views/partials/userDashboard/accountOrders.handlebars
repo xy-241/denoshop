@@ -1,5 +1,5 @@
 <div class="border-bottom userDashboardHeader">
-    <i class="fa fa-archive" aria-hidden="true"></i> My Orders
+	<i class="fa fa-archive" aria-hidden="true"></i> My Orders
 </div>
 
 <!-- List Orders -->
@@ -108,6 +108,9 @@
 		let elems = document.getElementsByClassName("orderStatus");
 		for (let i = 0; i < elems.length; i++) {
 			let statusId = parseInt(elems[i].attributes["data-orderStatus"]["value"])
+			if (statusId == 4) {
+				statusId = 3;
+			}
 			for (let id = 1; id < (statusId+1); id++) {
 				document.getElementById(`${i}orderStatus${id}`).classList.add("active");
 			}

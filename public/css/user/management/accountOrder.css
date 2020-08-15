@@ -1,5 +1,5 @@
 .outer-row {
-   display: inline-block;
+   /* display: inline-block; */
    flex-wrap: wrap;
    float: right;
  
@@ -224,8 +224,14 @@ p {
    color: grey;
   font-size: 0.8em;
 }
+
+.dropdown {
+   float: right;
+}
+
+
 /* Responsive */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
    .track {
       position: relative;
       background-color: transparent;
