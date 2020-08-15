@@ -585,3 +585,18 @@ button {
 	transition: background 1s steps(26);
 	transform: translate(40%, -40%);
 }
+
+.opac {
+	opacity:0.5;
+}
+
+.opac:hover {
+    opacity:1;
+}
+
+.opacity-off {
+    opacity:1;
+}
+
+.opacity-off,.hover-opacity-off:hover{opacity:1}
+.opacity,.hover-opacity:hover{opacity:0.60}

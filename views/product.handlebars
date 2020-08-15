@@ -4,9 +4,21 @@
             style="background-color: rgba(230, 231, 232, 0.24);">
             <div class="row">
                 <div class="col-xl-5 col-md-12">
-                    <img class="border rounded shadow-sm mx-auto d-block" src="{{imageUrl hackingProduct.imageFile 0}}"
+                    {{#each images}}
+                    {{#if (equal @index 0)}}
+                    <img class="border rounded shadow-sm imgSlides" src="{{this}}"
                         alt="{{hackingProduct.title}}" />
+                    {{/if}}
+                    <img class="border rounded shadow-sm imgSlides" style="display:none;" src="{{this}}"
+                        alt="{{hackingProduct.title}}" />
+                    {{/each}}
                     {{!-- <span>image carousel here if any</span> --}}
+                    <div class="images_container m-2">
+                        {{#each images}}
+                        <img class="demo opacity hover-opacity-off" src="{{this}}"
+                        style="width:100px;height:auto;cursor:pointer;margin-right:10px" onclick="currentImg({{@index}} + 2)">
+                        {{/each}}
+                    </div>
                 </div>
                 <div class="col-xl-7 col-md-12">
                     <div class="row pl-3">
@@ -168,4 +180,27 @@
     quill.getModule('toolbar').addHandler('video', () => {
         selectLocalFile('video');
     });
+
+
+    //Multiple Images
+    function currentImg(n) {
+        showImg(slideIndex = n);
+    }
+
+    function showImg(n) {
+        var i;
+        var x = document.getElementsByClassName("imgSlides");
+        var dots = document.getElementsByClassName("demo");
+        if (n > x.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = x.length}
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace("opacity-off", "");
+        }
+        x[slideIndex-1].style.display = "block";
+        dots[slideIndex-2].className += "opacity-off";
+    }
+    //End
 </script>
