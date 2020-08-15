@@ -41,7 +41,7 @@ function getResult() {
 		.then((data) => {
 			let searchBox = document.getElementsByClassName("searchItems")[0];
 			searchBox.innerHTML = "";
-			console.log("Time taken to retrieve: ", data.took, "ms");
+			console.log("Time taken to retrieve: 🚀", data.took, "ms 🚀");
 			let resultArray = data.hits.hits;
 			//console.table(resultArray.length);
 			if (resultArray.length != 0) {

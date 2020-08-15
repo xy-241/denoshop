@@ -10,6 +10,13 @@ const Code = db.define("promocode",{
     },
     discount:{
         type: Sequelize.FLOAT
+    },
+    limit:{
+        type: Sequelize.INTEGER
+    },
+    use:{
+        type: Sequelize.INTEGER,
+        defaultValue: 0
     }
 })
 

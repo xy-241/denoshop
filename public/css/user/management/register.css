@@ -2,6 +2,7 @@ a:hover{
   text-decoration: none;
   color:black;
 }
+
 .workContent{
   padding-top: 90px;
   padding-left: 10px;
@@ -47,8 +48,26 @@ a:hover{
 .content-section{
   position: relative;
   margin:auto;
-  width:380px;
+  width:310px;
 
 }
 
+}
+
+@media only screen and (min-width: 1000px) {
+	.logo {
+		/*left:49%;*/
+		left: 0%;
+		top: 0.25%;
+		z-index: 1000;
+  }
+}
+
+@media only screen and (min-width: 501px) {
+  .content-section{
+  position: relative;
+  margin:auto;
+  width:380px;
+
+}
 }

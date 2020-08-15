@@ -52,7 +52,7 @@
 /*Modal*/
 
 .removeButton {
-	font-family: shopFont2;
+	font-family: text;
 }
 
 .cartItemName,
@@ -369,31 +369,7 @@ label.star:before {
 
 	font-size: 1.2em;
 }
-/* .addToCart,
-.addToCartN {
-	font-family: shopFont2;
-	background-color: rgba(230, 231, 232, 0.24);
-	border: none;
-	border: 1px solid black;
-	margin-right: 5px;
-	margin-top: 5px;
-	padding-left: 3px;
-	padding-right: 3px;
-	padding-top: 3px;
 
-	font-size: 1.2em;
-
-	box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 0.5);
-
-	color: black;
-	text-decoration: none !important;
-}
-.addToCart:hover,
-.addToCartN:hover {
-	background-color: black;
-	color: rgba(230, 231, 232, 1) !important;
-	transition: all 0.4s ease-in-out;
-} */
 
 .shopItemDetails {
 	display: flex;
@@ -498,6 +474,15 @@ button {
 	.item2 {
 		margin-left: 5px;
 	}
+	.navMain {
+		z-index: 1 !important;
+	  }
+	.logo {
+		z-index: 10;
+	}
+	.logoPosition {
+		z-index: 10;
+	}
 }
 
 @media only screen and (min-width: 600px) {
@@ -561,6 +546,16 @@ button {
 		font-size: 1.4em;
 	}
 	/*Modal*/
+
+	.navMain {
+		z-index: 1 !important;
+	  }
+	.logo {
+		z-index: 1000;
+	}
+	.logoPosition {
+		z-index: 10;
+	}
 }
 
 @keyframes modalOpen {
