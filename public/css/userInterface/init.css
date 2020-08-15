@@ -78,3 +78,41 @@ a {
 .userDashboardHeader {
 	font-size: 1.5rem;
 }
+
+/* homeContent */
+.banner {
+	position: relative;
+	overflow: hidden;
+	z-index: -1000;
+}
+
+.banner img {
+	display: block;
+	width: 100%;
+	height: 400px;
+}
+
+.background {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0%;
+	left: 0%;
+	padding-top: 0px;
+	background-color: #262729;
+	opacity: 0.8;
+}
+
+.banner h2 {
+	text-align: center;
+	font-family: shopFont2;
+	font-weight: 500;
+	font-size: 3.9em;
+	color: white;
+
+	position: absolute;
+	left: 0%;
+	top: 40%;
+	width: 100%;
+}
+/* homeContent */
