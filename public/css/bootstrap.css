@@ -2692,14 +2692,14 @@ fieldset:disabled a.btn {
 }
 
 .btn-outline-primary {
-  color: #007bff;
-  border-color: #007bff;
+  color: #212529;
+  border-color: #212529;
 }
 
 .btn-outline-primary:hover {
   color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #212529;
+  border-color: #212529;
 }
 
 .btn-outline-primary:focus, .btn-outline-primary.focus {

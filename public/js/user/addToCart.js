@@ -12,6 +12,8 @@ function ready() {
 }
 
 function addCart(event) {
+	event.target.disabled = true;
+	setTimeout(function(){event.target.disabled = false;},100);
 	let checkIfLogin = document.getElementsByClassName("shopLogoNav")[0];
 
 	if (checkIfLogin == undefined) {
@@ -47,6 +49,7 @@ function addCart(event) {
 }
 
 $(".addToCartN").on("click", function () {
+	
 	let cart = $(".shopLogoNav");
 	let checkIfLogin = document.getElementsByClassName("shopLogoNav")[0];
 
