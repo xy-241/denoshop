@@ -45,7 +45,6 @@ require("dotenv").config();
 const mainRoute = require("./routes/main");
 const userRoute = require("./routes/user");
 const paymentRoute = require("./routes/payment");
-const deliveryRoute = require("./routes/delivery");
 const authRoute = require("./routes/auth")
 const deliveryInfoRoute = require('./routes/userAccount/deliveryInfo');
 const orderInfoRoute = require('./routes/userAccount/orderInfo');
@@ -177,7 +176,6 @@ app.use(function (req, res, next) {
 app.use("/", mainRoute); // mainRoute is declared to point to routes/main.js
 app.use("/user", userRoute);
 app.use("/payment", paymentRoute);
-app.use("/delivery", deliveryRoute);
 app.use("/auth", authRoute);
 app.use('/deliveryInfo', deliveryInfoRoute);
 app.use("/orderInfo", orderInfoRoute);
