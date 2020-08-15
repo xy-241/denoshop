@@ -32,6 +32,7 @@ const ProductStats = require('../models/ProductStats');
 
 // Note by Yong Yudh; my helper function to update ProductStats, im lazy to write the same code twice
 function updateProductStat(productId, itemNum) {
+    const monthNames = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
     let updateObject = new Object();
     const d = new Date();
 
