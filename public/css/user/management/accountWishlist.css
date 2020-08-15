@@ -17,25 +17,34 @@
 	font-size: 1.15rem;
 }
 
-.addToCart,
-.addToCartN {
-	font-family: shopFont2;
-	background-color: rgba(230, 231, 232, 0.24);
-	border: none;
-	border: 1px solid black;
-	margin-right: 5px;
-    margin-top: 5px;
-	padding-left: 3px;
-	padding-right: 3px;
-	padding-top: 3px;
-	box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 0.5);
-
-	color: black;
-	text-decoration: none !important;
+.addToCart {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
 }
-.addToCart:hover,
-.addToCartN:hover {
+
+.btn-outline-primary {
+	border: 1px solid #262729;
+	color: black;
+}
+
+.btn-outline-primary:hover {
+	border: 1px solid #262729;
 	background-color: black;
-	color: rgba(230, 231, 232, 1) !important;
-	transition: all 0.4s ease-in-out;
+}
+
+.card {
+	box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 0.2);
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 10px;
+	background-color: rgba(230, 231, 232, 0.24);
+	width: 100%;
+}
+
+.card-body{
+	padding: 1rem;
+	font-family: text;
 }
