@@ -28,6 +28,69 @@ const moment = require("moment");
 
 const paypal = require('paypal-rest-sdk');
 
+const ProductStats = require('../models/ProductStats');
+
+// Note by Yong Yudh; my helper function to update ProductStats, im lazy to write the same code twice
+function updateProductStat(productId, itemNum) {
+    let updateObject = new Object();
+    const d = new Date();
+
+    ProductStats.findOne({
+        where: {
+            hackingProductId: productId,
+            year: d.getFullYear(),
+        },
+        attributes: [
+            monthNames[d.getMonth()]
+        ],
+    }).then(monthStat => {
+        switch (d.getMonth()) {
+            case 0:
+                updateObject.jan = monthStat.dataValues[monthNames[d.getMonth()]] + itemNum;
+                break;
+            case 1:
+                updateObject.feb = monthStat.dataValues[monthNames[d.getMonth()]] + itemNum;
+                break;
+            case 2:
+                updateObject.mar = monthStat.dataValues[monthNames[d.getMonth()]] + itemNum;
+                break;
+            case 3:
+                updateObject.apr = monthStat.dataValues[monthNames[d.getMonth()]] + itemNum;
+                break;
+            case 4:
+                updateObject.may = monthStat.dataValues[monthNames[d.getMonth()]] + itemNum;
+                break;
+            case 5:
+                updateObject.jun = monthStat.dataValues[monthNames[d.getMonth()]] + itemNum;
+                break;
+            case 6:
+                updateObject.jul = monthStat.dataValues[monthNames[d.getMonth()]] + itemNum;
+                break;
+            case 7:
+                updateObject.aug = monthStat.dataValues[monthNames[d.getMonth()]] + itemNum;
+                break;
+            case 8:
+                updateObject.sep = monthStat.dataValues[monthNames[d.getMonth()]] + itemNum;
+                break;
+            case 9:
+                updateObject.oct = monthStat.dataValues[monthNames[d.getMonth()]] + itemNum;
+                break;
+            case 10:
+                updateObject.nov = monthStat.dataValues[monthNames[d.getMonth()]] + itemNum;
+                break;
+            case 11:
+                updateObject.dec = monthStat.dataValues[monthNames[d.getMonth()]] + itemNum;
+                break;
+        }
+        ProductStats.update(updateObject, {
+            where: {
+                hackingProductId: productId,
+                year: d.getFullYear(),
+            }
+        })
+    })
+}
+
 paypal.configure({
     'mode': 'sandbox',
     'client_id': paypalClientId,
@@ -236,7 +299,7 @@ router.post("/charge", ensureAuthenticated, async (req, res) => {
                         })
     
     let orderId = order.id
-    // mark
+
     Array.prototype.forEach.call(cartItems, item => {
         var itemNum = item.itemNum
         var title = item.title
@@ -258,6 +321,8 @@ router.post("/charge", ensureAuthenticated, async (req, res) => {
                     title: title
                 }}
             )
+            // Updates Product Stat on purchase
+            updateProductStat(product.id, itemNum)
         })
     })
 
@@ -369,7 +434,6 @@ router.post("/paypal/:paypalId", ensureAuthenticated, async (req, res) => {
                             userId,
                             deliveryInfoId
                         }).then(orderObj => {
-                            // mark
                             let orderId = orderObj.id
                             Array.prototype.forEach.call(cartItems, item => {
                                 var itemNum = item.itemNum
@@ -393,6 +457,8 @@ router.post("/paypal/:paypalId", ensureAuthenticated, async (req, res) => {
                                             title: title
                                         }}
                                     )
+                                    // Updates Product Stat on purchase
+                                    updateProductStat(product.id, itemNum)
                                 })
                             })
                             return {orderId: orderId}
