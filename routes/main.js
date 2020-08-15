@@ -85,11 +85,13 @@ router.get(["/", "/home"], async (req, res) => {
 });
 
 router.get("/product/:id", (req, res) => {
+	let images;
 	HackingProduct.findOne({
 		where: {
 			id: req.params.id,
 		}
 	}).then(hackingProduct => {
+		images = JSON.parse(hackingProduct.imageFile)
 		UserRating.findAll({
 			where: {
 				hackingProductId: req.params.id,
@@ -121,7 +123,7 @@ router.get("/product/:id", (req, res) => {
 				res.render("product", {
 					title: "Product",
 					style: { text: "userInterface/home.css" },
-					hackingProduct, comments, rating: rating.dataValues[monthNames[d.getMonth()]].toFixed(1),
+					hackingProduct, comments, rating: rating.dataValues[monthNames[d.getMonth()]].toFixed(1), images
 				});
 			});
 		})
