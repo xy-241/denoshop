@@ -49,7 +49,6 @@ router.get(["/", "/home"], async (req, res) => {
 	HackingProduct.findAll()
 		.then((hackingProducts) => {
 			let userLogin = null;
-			let banner_arr = [];
 			if (req.user) {
 				userLogin = "in"
 			}
@@ -60,19 +59,12 @@ router.get(["/", "/home"], async (req, res) => {
 					status: 'Active'
 				}
 			})
-				.then((banner) => {
-					for (var i = 1; i < banner.length; i++) {
-						banner_arr.push(banner[i]);
-					}
-					return banner
-				})
 				.then((banners) => {
 					HackingProduct.findAll({ where: { id: recomms_id } })
 						.then(recomm_products => {
 							res.render("home", {
 								style: { text: "userInterface/home.css", banners: "userInterface/banner_modal.css" },
 								title: "Home",
-								first: banners[0],
 								banner: banners,
 								hackingProducts,
 								recomm_products,

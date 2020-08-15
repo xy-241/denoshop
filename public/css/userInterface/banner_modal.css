@@ -52,12 +52,35 @@
 	margin-top:0;
 }
 
-#option{
+/* #option{
 	color: black;
 	font-weight: bold;
-}
+} */
 
 .banner_modal .active{
 	transform: translate(0%, 0%);
+}
+
+.option {
+	height: 40px;
+	padding: 9px 20px;
+	border: 1px solid #212529;
+	background: #212529;
+	color: #fff;
+	border-radius: 5px;
+	font-family: text;
+	font-weight: 500;
+	cursor:pointer;
+}
+
+.option:hover {
+	text-decoration: none;
+	background: #fff;
+	color: #212529 !important;
+	transition: all .2s ease-in-out;
+	-webkit-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	-webkit-transition: all 0.2s ease-in-out;
 }
 

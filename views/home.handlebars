@@ -51,12 +51,8 @@
 						<h5 class="card-title" >
 							{{this.title}}
 						</h5>
-						{{#if (noEqual userLogin)}}
 						<div class="wishlist_btn"></div>
 						<span class="itemID" hidden>{{this.id}}</span>
-						{{else}}
-						<a href="/login"><div class="wishlist_btn"></div></a>
-						{{/if}}
 					</div>
 
 					<p class="card-text">
@@ -100,12 +96,8 @@
 							<h5 class="card-title" >
 								{{this.title}}
 							</h5>
-							{{#if (noEqual userLogin)}}
 							<div class="wishlist_btn"></div>
 							<span class="itemID" hidden>{{this.id}}</span>
-							{{else}}
-							<a href="/login"><div class="wishlist_btn"></div></a>
-							{{/if}}
 						</div>
 
 
@@ -153,12 +145,8 @@
 						<h5 class="card-title" >
 							{{this.title}}
 						</h5>
-						{{#if (noEqual userLogin)}}
 						<div class="wishlist_btn"></div>
 						<span class="itemID" hidden>{{this.id}}</span>
-						{{else}}
-						<a onclick="askLogin()"></a><div class="wishlist_btn"></div></a>
-						{{/if}}
 					</div>
 
 					<p class="card-text">
@@ -203,6 +191,7 @@
 <!-- Modal -->
 
 <!-- Banner Modal -->
+{{#if banner}}
 <section class="banner_modal" id="banner_modal">
 	<div class="banner_modalContent">
 		<div class="modalHeader">
@@ -212,16 +201,19 @@
 		</div>
 		<div class="modalBody">
 			<p class="modalBodyHeader">
-				<div id="carouselControls" class="carousel slide" data-ride="carousel" style="">
-                    {{#if first}}
+				<div id="carouselControls" class="carousel slide carousel-fade" data-ride="carousel" style="">
+                    
                     <div class="carousel-inner">
+						{{#each banner}}
+						{{#if (equal @index 0)}}
                         <div class="carousel-item active">
-                            <img class="d-block banner_img" src="{{first.imageFile}}" alt="">
+                            <img class="d-block banner_img" src="{{imageFile}}" alt="">
                         </div>
-                        {{#each banner}}
+						{{else}}
                         <div class="carousel-item">
                             <img class="d-block banner_img" src="{{imageFile}}" alt="">
                         </div>
+						{{/if}}
                         {{/each}}
                     </div>
                     <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
@@ -233,16 +225,18 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
-                {{else}}
-                <p style="text-align: center;">No banners found</p>
-                {{/if}}
+                {{!-- {{else}}
+                <p style="text-align: center;">No banners found</p> --}}
+                
 			</p>
 			<p class="modalBodyMessage">
-				<a onclick="begone()" href="" id="option">Never show this again</a>
+				<a onclick="begone()" role='button' class="option" id="option">Disable banners</a>
 			</p>
 		</div>
 	</div>
 </section>
+{{else}}
+{{/if}}
 <!-- Banner Modal -->
 
 
