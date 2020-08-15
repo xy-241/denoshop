@@ -27,6 +27,9 @@ const User = db.define("chat", {
 	RequestUrgent: {
 		type: Sequelize.BOOLEAN,
 	},
+	StaffID : {
+		type: Sequelize.INTEGER,
+	},
 	StaffName: {
 		type: Sequelize.STRING,
 	},

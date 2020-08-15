@@ -1,3 +1,45 @@
 <div class="border-bottom userDashboardHeader">
     <i class="fa fa-heart" aria-hidden="true"></i> Shopping Wishlist
 </div>
+{{#if wishlists}}
+{{#each wishlists}}
+<div class="shopItems">
+    <div class="shopItem">
+        <img src="{{imageUrl hackingProduct.imageFile 0}}" style="width:150px;height:150px;">
+        <div class="shopItemDetails">
+            <p class="itemName">{{hackingProduct.title}}</p>
+            <p>${{hackingProduct.price}}</p>
+            <button type="button" class="addToCartN">Add To Cart</button>
+            <a data-toggle="modal" href="#exampleModal{{id}}"><i class="fas fa-trash-alt" data-toggle="tooltip"
+                    title="Remove from wishlist"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="exampleModal{{id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{id}}"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel{{id}}">Confirm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Remove from wishlist?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a href="/wishlist/delete/{{hackingProductId}}"><button type="button"
+                        class="btn btn-danger">Remove</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}
+{{else}}
+<p id="no_wishlist">No wishlist found</p>
+{{/if}}
+
+<script src="/js/user/addToCart.js"></script>

@@ -51,6 +51,7 @@ const deliveryInfoRoute = require('./routes/userAccount/deliveryInfo');
 const orderInfoRoute = require('./routes/userAccount/orderInfo');
 const cartRoute = require('./routes/cart/cartItem');
 const chatRoute = require("./routes/chat");
+const wishlistRoute = require('./routes/wishlist/wishlist');
 // const videoRoute = require("./routes/video");
 
 // const { formatDate, radioCheck, checkboxFormatter } = require("./helpers/hbs");
@@ -78,7 +79,7 @@ const app = express();
  * */
 
 const { multiply } = require("./helpers/hbs");
-const { equal, noEqual } = require("./helpers/hbs");
+const { equal, noEqual, imageUrl } = require("./helpers/hbs");
 app.engine(
 	"handlebars",
 	exphbs({
@@ -86,6 +87,7 @@ app.engine(
 			equal,
 			noEqual,
 			multiply,
+			imageUrl,
 			// formatDate,
 			// radioCheck,
 			// checkboxFormatter,
@@ -154,6 +156,11 @@ app.use((req, res, next) => {
 	res.locals.error_msg = req.flash("error_msg");
 	res.locals.error = req.flash("error");
 	res.locals.user = req.user || null; // After authenticated, the user object is set into req.user, referring to /config/passport.js
+	if(res.locals.user != null) {
+		res.locals.userid = req.user.id || null; // After authenticated, the user object is set into req.user, referring to /config/passport.js
+	} else {
+		res.locals.userid = null;
+	}
 	next();
 });
 
@@ -176,6 +183,7 @@ app.use('/deliveryInfo', deliveryInfoRoute);
 app.use("/orderInfo", orderInfoRoute);
 app.use('/cart', cartRoute);
 app.use("/chat",chatRoute);
+app.use("/wishlist", wishlistRoute);
 // app.use("/video", videoRoute);
 // This route maps the root URL to any path defined in main.js
 

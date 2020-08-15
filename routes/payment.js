@@ -33,6 +33,7 @@ paypal.configure({
     'client_id': paypalClientId,
     'client_secret': paypalClientSecret
 });
+const {rqs, client} = require("../config/recombee");
 
 router.get("/checkout", ensureAuthenticated, (req, res) => {
 
@@ -258,6 +259,15 @@ router.post("/charge", ensureAuthenticated, async (req, res) => {
             )
         })
     })
+
+    Array.prototype.forEach.call(cartItems, item => {
+        HackingProduct.findOne({where: {title: item.title}}).then(product => {
+            client.send(new rqs.AddPurchase(req.user.id, product.id))
+            .then(response => { console.log('OMEGALUL', response); return response; })
+            .catch(err => console.log('err', err))
+        })
+    })
+    
     CartItem.destroy({
         where: {
             userId: req.user.id,

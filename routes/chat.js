@@ -5,15 +5,14 @@ const alertMessage = require("../helpers/messenger");
 const Chat = require("../models/Chat");
 const e = require("express");
 
+const ensureAuthenticated = require("../helpers/auth");
 
 // const rooms = []
 // var request = {}
 
-router.get("/", (req, res) => {
-    if (!(req.user)){
-        return res.redirect('/')
-    }
-	res.render("chat/chat.handlebars", {
+router.get("/chatForm", ensureAuthenticated, (req, res) => {
+	res.render("chat/chatForm.handlebars", {
+        title: `Chat Support Form`,
         style: { text: "chat/requestChat.css" },
         userID : req.user.id,
         username : req.user.username,
@@ -21,10 +20,18 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/room/:room", (req, res) => {
-    if (!(req.user)){
-        return res.redirect('/chat')
-    }
+router.get("/videoForm", ensureAuthenticated , (req, res) => {
+	res.render("chat/videoForm.handlebars", {
+        title: `Video Support Form`,
+        style: { text: "chat/requestChat.css" },
+        userID : req.user.id,
+        username : req.user.username,
+        email : req.user.email
+    });
+});
+
+
+router.get("/room/:room", ensureAuthenticated , (req, res) => {
     var msgList = []
     Chat.findOne({
         where: {
@@ -35,7 +42,7 @@ router.get("/room/:room", (req, res) => {
         attributes: ['Messages'],
     }) .then(function(room){
         if (!(room)) {
-            return res.redirect('/chat')
+            return res.redirect('/chat/chatForm')
         } else {
             if (room.Messages != null) {
                 let messages = room.Messages.split('-')
@@ -44,6 +51,7 @@ router.get("/room/:room", (req, res) => {
                 }
             }
             res.render("chat/room.handlebars", {
+                title: `Chat Support`,
                 style: { text: "chat/room.css" },
                 roomName: req.params.room,
                 username : req.user.username,
@@ -64,7 +72,7 @@ router.get("/room/:room", (req, res) => {
     // request = {}
 });
 
-router.get("/oneroom/:roomid" , (req, res) => {
+router.get("/oneroom/:roomid" , ensureAuthenticated , (req, res) => {
     var alert = res.flashMessenger.danger('Only one live support chat can be active at any time');
         //Make the alert box dismissable
         alert.isDismissible = true;
@@ -72,10 +80,10 @@ router.get("/oneroom/:roomid" , (req, res) => {
         //set an font awesome icon
         alert.addMessage({chatid: req.params.roomid ,type:'return'});
         alert.addMessage({chatid: req.params.roomid ,type: 'delete'});
-        res.redirect("/chat");
+        res.redirect("/chat/chatForm");
 })
 
-router.get("/redirect/:message" , (req, res) => {
+router.get("/redirect/:message" , ensureAuthenticated , (req, res) => {
     if (req.params.message == 'roomend'){
         alertMessage(
             res,
@@ -93,7 +101,45 @@ router.get("/redirect/:message" , (req, res) => {
             true
         );
     }
-    res.redirect("/chat");
+    res.redirect("/chat/chatForm");
 })
+
+// router.get("/test" , (req , res) => {
+//     res.render("chat/videoChat.handlebars", {
+//         style: { text: "chat/styles.css" },
+//     })
+// })
+
+router.get("/videoRoom/:room", ensureAuthenticated , (req , res) => {
+    if (req.user.id != req.params.room){
+        return res.redirect('/chat/videoForm')
+    }
+    console.log(req.user,req.user.id,req.params.room)
+    res.render("chat/videoChat.handlebars", {
+        title: `Video Support`,
+        style: { text: "chat/video.css" },
+        roomName: req.params.room,
+        username : req.user.username,
+    });
+});
+
+router.get("/ended" , ensureAuthenticated , (req, res) => {
+    var alert = res.flashMessenger.danger('Live video chat has ended');
+        //Make the alert box dismissable
+        alert.isDismissible = true;
+        alert.titleIcon = "fas fa-exclamation-triangle";
+        //set an font awesome icon
+        res.redirect("/chat/videoForm");
+})
+
+router.get("/error" , ensureAuthenticated , (req, res) => {
+    var alert = res.flashMessenger.danger('Room does not exist');
+        //Make the alert box dismissable
+        alert.isDismissible = true;
+        alert.titleIcon = "fas fa-exclamation-triangle";
+        //set an font awesome icon
+        res.redirect("/chat/videoForm");
+})
+
 
 module.exports = router;

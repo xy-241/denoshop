@@ -56,6 +56,7 @@ const setUpDB = (drop) => {
 
 			//Wishlist relation
 			hackingProduct.hasMany(wishlist);
+			wishlist.belongsTo(hackingProduct)
 			user.hasMany(wishlist);
 
 			// Product-Stats Relation

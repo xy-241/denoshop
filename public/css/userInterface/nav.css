@@ -50,18 +50,22 @@
 .logo {
 	display: block;
 	position: fixed;
-	top: 0%;
-	left: calc(50% - 23px);
+	top: -1%;
+	left: calc(50% - 45px);
 	cursor: pointer;
-	background: url("../../img/logo.png") no-repeat;
+	background: url("../../img/logo.svg") no-repeat;
+	transform: scale(0.53, 0.53);
 
-	height: 38px;
-	width: 46px;
+	height: 100px;
+	width: 100px;
 	z-index: 10;
+	filter: invert(1);
 }
 .logo:hover {
-	background: url("../../img/logo2.png") no-repeat;
+	background: url("../../img/logo.svg") no-repeat;
 	transition: all 0.5s ease-in-out;
+	filter: invert(0.5);
+	
 }
 .logo a {
 	display: block;
@@ -293,8 +297,8 @@
 	/*Click menu*/
 	.logo {
 		/*left:49%;*/
-		left: 2%;
-		top: 0.5%;
+		left: 0%;
+		top: -1%;
 		z-index: 1000;
 	}
 	.resize {
