@@ -23,6 +23,7 @@ const CartItem = require("../models/CartItem");
 const PurchaseRecord = require("../models/PurchaseRecord");
 const Order = require("../models/Order");
 const HackingProduct = require("../models/HackingProduct");
+const PromoCode = require("../models/PromoCode");
 
 const moment = require("moment");
 
@@ -121,7 +122,7 @@ router.get("/checkout", ensureAuthenticated, (req, res) => {
                 let total = quantity * price;
                 sum += total;
             });    
-    
+
             res.render("user/checkout", {
                 style: { text: "user/shopping/checkoutdelivery.css"},
                 title: "Checkout",
@@ -201,11 +202,13 @@ router.post("/charge", ensureAuthenticated, async (req, res) => {
         postcode,
         orderDescription,
         deliveryTime,
+        discounts,
+        promo_code
     } = req.body;
     let userId = req.user.id;
 
     const deliveryDate = moment(req.body.DeliveryDate).format("YYYY-MM-DD")
-    
+
     const customer = await stripe.customers.update(
                                 req.user.stripeId,
                                 {source: req.body.stripeToken}
@@ -291,6 +294,7 @@ router.post("/charge", ensureAuthenticated, async (req, res) => {
                             orderStatus,
                             orderSum: sum,
                             orderDate: dateAdded,
+                            discount:discounts,
                             userId,
                             deliveryInfoId
                         }).then(orderObj => {
@@ -342,6 +346,17 @@ router.post("/charge", ensureAuthenticated, async (req, res) => {
     }).catch(err => {
         console.log(err)
     })
+
+    if(promo_code){
+        const codes = await PromoCode.findOne({ where: { code: promo_code }})
+        .then(uses => {
+            if (uses) {
+                count = uses.use + 1
+            PromoCode.update({ use: count }, { where: { code: promo_code } })
+            }
+        })
+    }
+    
     res.redirect("/payment/orderplaced/" + orderId)
 })
 
@@ -358,6 +373,8 @@ router.post("/paypal/:paypalId", ensureAuthenticated, async (req, res) => {
         postcode,
         orderdescription,
         deliverytime,
+        discount,
+        code,
     } = req.headers;
     let userId = req.user.id;
 
@@ -422,7 +439,6 @@ router.post("/paypal/:paypalId", ensureAuthenticated, async (req, res) => {
 
     var orderuuid = uuid.v4()
     var dateAdded = moment().format("YYYY-MM-DD")
-
     const order = await Order.create({
                             id: orderuuid,
                             paypalId,
@@ -432,6 +448,7 @@ router.post("/paypal/:paypalId", ensureAuthenticated, async (req, res) => {
                             orderStatus,
                             orderSum: sum,
                             orderDate: dateAdded,
+                            discount,
                             userId,
                             deliveryInfoId
                         }).then(orderObj => {
@@ -464,6 +481,13 @@ router.post("/paypal/:paypalId", ensureAuthenticated, async (req, res) => {
                             })
                             return {orderId: orderId}
                         }).then((orderId) => {
+                            Array.prototype.forEach.call(cartItems, item => {
+                                HackingProduct.findOne({where: {title: item.title}}).then(product => {
+                                    client.send(new rqs.AddPurchase(req.user.id, product.id))
+                                    .then(response => { console.log('OMEGALUL', response); return response; })
+                                    .catch(err => console.log('err', err))
+                                })
+                            })
                             CartItem.destroy({
                                 where: {
                                     userId: req.user.id,
@@ -478,6 +502,16 @@ router.post("/paypal/:paypalId", ensureAuthenticated, async (req, res) => {
                         }).catch(err => {
                             console.log(err)
                         })
+    
+    if (code){
+        const codes = await PromoCode.findOne({ where: { code: code }})
+        .then(uses => {
+            if (uses) {
+                count = uses.use + 1
+                PromoCode.update({ use: count }, { where: { code: code } })
+            }
+        })
+    }
 })
 
 router.get("/invoice/:id", ensureAuthenticated, (req, res) => {
@@ -524,6 +558,15 @@ router.get("/invoice/:id", ensureAuthenticated, (req, res) => {
             deliveryInfo,
         })
 	})
+})
+
+
+router.get('/verify_code/:code', (req, res) => {
+    PromoCode.findOne({
+        where: { code: req.params.code, status: 'Active' }
+    }).then(response => {
+        res.json(response)
+    })
 })
 
 module.exports = router;

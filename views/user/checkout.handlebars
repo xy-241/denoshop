@@ -32,7 +32,8 @@
                     </div>
                     <hr>
                     <div class="cartTotal">
-                        <p>Total Amount <span class="price" style="color: black"><b>S${{ sum }}</b></span></p>
+                        <p>Discount <span class="discount" style="color: black"><b>S$</b><b id="discount" name="discount">0</b></span></p>
+                        <p>Total Amount <span class="price" style="color: black"><b id="price">S${{ sum }}</b></span></p>
                     </div>
                 </div>
             </div>
@@ -221,7 +222,69 @@
                                 <label class="form-control-label">Order Description</label>
                                 <input class="form-control" id="orderDescription" name="orderDescription" required>
                             </div>
+                            <a class="next-btn collapsed" role="button" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseFour21" aria-expanded="false">Next</a>
+                        </div>
+                    </div>
+                    {{!-- End of Card Body --}}
+                </div>
+                {{!-- End of Card Accordion --}}
+
+                {{!-- Accordion Card --}}
+                <div class="containers card">
+
+                    {{!-- Card Header --}}
+                    <div class="card-header" role="tab" id="headingFour2">
+                        <button type="button" class="btn-accordion collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseFour21" aria-expanded="false" aria-controls="collapseTwo21">
+                            <h4 class="mb-0">Promo Code <i class="fas fa-angle-down rotate-icon"></i></h4>
+                        </button>
+                    </div>
+
+                    {{!-- Card Body --}}
+                    <div id="collapseFour21" class="collapse" role="tabpanel" aria-labelledby="headingFour21" data-parent="#accordionEx1">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="form-control-label">Code (leave it blank if you don't have code)</label>
+                                <input type="text" class="form-control" id="promo_code" name="promo_code" style="margin-bottom:0.3cm;" value="">
+                                <a id='code_verify' role='button' onclick="yo()" class="verify-btn collapsed">Verify</a>
+                                <p id="code_msg" style="font-family:text; font-size:1.2rem; margin-top:0.3cm;" hidden></p>
+                                <input type="text" id='discounts' name='discounts' value="0" hidden>
+                            </div>
                             <a class="next-btn collapsed" role="button" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseThree31" aria-expanded="false">Next</a>
+                            <script>
+                                async function yo(){
+                                    let button = document.getElementById('code_verify');
+                                    let code = document.getElementById('promo_code');
+                                    let code_msg = document.getElementById('code_msg');
+                                    let price = document.getElementById('price');
+                                    let formatted_price = price.innerHTML.replace('S$','');
+                                    let discount = document.getElementById('discount');
+                                    let discounts = document.getElementById('discounts');
+
+                                    if (code.value.length === 0){
+                                        code_msg.hidden = true;
+                                    } else {
+                                        let f = await fetch(`/payment/verify_code/${code.value}`).then( res => { return res.json() })
+                                        if (f == null) {
+                                            code_msg.hidden = false;
+                                            code_msg.innerHTML = "Code is invalid";
+                                            code_msg.style.color = "red";
+                                        } else if(f.use <= f.limit){
+                                            code_msg.hidden = false;
+                                            code_msg.innerHTML = "Code is valid!";
+                                            code_msg.style.color = "green"; 
+                                            button.onclick = "";
+                                            code.readOnly = true;
+                                            discount.innerHTML = (formatted_price * (f.discount / 100)).toFixed(2);
+                                            price.innerHTML = 'S$'+(formatted_price - discount.innerHTML).toFixed(2);
+                                            discounts.value = discount.innerHTML;
+                                        } else if (f.use > f.limit) {
+                                            code_msg.hidden = false;
+                                            code_msg.innerHTML = "Code limit reached!";
+                                            code_msg.style.color = "red";
+                                        }    
+                                    }
+                                }
+                            </script>
                         </div>
                     </div>
                     {{!-- End of Card Body --}}
@@ -261,13 +324,14 @@
                                         let blockNo = document.getElementById("street_number").value
                                         let street = document.getElementById("route").value
                                         let postcode = document.getElementById("postal_code").value
+                                        let price = document.getElementById("price").innerHTML.replace('S$','');
 
                                         let address = blockNo + " " + street
                                         return actions.order.create({
                                             purchase_units: [
                                             {
                                                 amount: {
-                                                    value: {{sum}}
+                                                    value: price
                                                 },
                                                 shipping: {
                                                     address: {
@@ -296,7 +360,8 @@
                                             let postcode = document.getElementById("postal_code").value
                                             let orderDescription = document.getElementById("orderDescription").value
                                             let deliveryTimeArray = document.getElementsByName("deliveryTime")
-
+                                            let discount = document.getElementById("discount").innerText;
+                                            let code = document.getElementById("promo_code").value;
                                             let deliveryTime = ""
                                             for (var i = 0, l = deliveryTimeArray.length; i < l; i++){
                                                 if (deliveryTimeArray[i].checked){
@@ -316,7 +381,9 @@
                                                                             unitNo,
                                                                             postcode,
                                                                             orderDescription,
-                                                                            deliveryTime
+                                                                            deliveryTime,
+                                                                            discount,
+                                                                            code
                                                                         }
                                                                     }).then(req => {
                                                                         return req.json()

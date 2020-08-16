@@ -18,6 +18,9 @@ const logicalOperation = {
 	imageUrl: function (string, ind) {
         return JSON.parse(string)[ind];
 	},
+	currency: (arg1) => {
+		return arg1.toFixed(2)
+	},
 	formatDate: function(date, targetFormat){
         return moment(date).format(targetFormat);
 	},
