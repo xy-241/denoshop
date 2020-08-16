@@ -1,4 +1,7 @@
 const logicalOperation = {
+	inside: (arg1, arg2) => {
+		return JSON.parse(arg2).includes(arg1);
+	},
 	equal: (arg1, arg2) => {
 		return arg1 === arg2;
 	},
