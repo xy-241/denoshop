@@ -1,22 +1,21 @@
 (function($) {
     $(document).ready(function() {
         var $chatbox = $('.chatbox'),
-            $chatboxTitle = $('.chatbox__title'),
             $chatboxTitleClose = $('.chatbox__title__close'),
-            $chatboxCredentials = $('.chatbox__credentials');
-        $chatboxTitle.on('click', function() {
-            $chatbox.toggleClass('chatbox--tray');
-        });
+            $chatbotToggle = $('#chatbotToggle')
         $chatboxTitleClose.on('click', function(e) {
             e.stopPropagation();
+            $chatbox.removeClass('chatbox--open');
             $chatbox.addClass('chatbox--closed');
+            $chatbotToggle.removeClass('toggle--open');
+            $chatbotToggle.addClass('toggle--closed');
         });
-        $chatbox.on('transitionend', function() {
-            if ($chatbox.hasClass('chatbox--closed')) $chatbox.remove();
-        });
-        $chatboxCredentials.on('submit', function(e) {
-            e.preventDefault();
-            $chatbox.removeClass('chatbox--empty');
+        $chatbotToggle.on('click', function(e) {
+            e.stopPropagation();
+            $chatbox.removeClass('chatbox--closed');
+            $chatbox.addClass('chatbox--open');
+            $chatbotToggle.addClass('toggle--open');
+            $chatbotToggle.removeClass('toggle--closed');
         });
     });
 })(jQuery);

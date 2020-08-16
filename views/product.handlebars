@@ -15,7 +15,7 @@
                     {{!-- <span>image carousel here if any</span> --}}
                     <div class="images_container m-2">
                         {{#each images}}
-                        <img class="demo opacity hover-opacity-off" src="{{this}}"
+                        <img class="demo opacity hover-opacity-" src="{{this}}"
                         style="width:100px;height:auto;cursor:pointer;margin-right:10px" onclick="currentImg({{@index}} + 2)">
                         {{/each}}
                     </div>
@@ -43,7 +43,7 @@
         <div class="col-xl-3 col-md-12 border rounded shadow-sm p-3"
             style="background-color: rgba(230, 231, 232, 0.24);">
             <span class="itemName">S${{hackingProduct.price}}</span>
-            <button type="button" class="btn btn-outline-primary addToCartN">Add To Cart</button>
+            <button type="button" class="btn btn-outline-primary btn-block addToCartN">Add To Cart</button>
         </div>
     </div>
     <div class="row mt-2">
@@ -98,7 +98,7 @@
                             data-error="Please rate this product" />
                         <label class="star star-1" for="star-1"></label>
                         <div id="editor"></div>
-                        <button class="btn btn-outline-primary addToCartN">Submit</button>
+                        <button class="btn btn-outline-primary">Submit</button>
                     </form>
                 </div>
             </div>
@@ -109,7 +109,7 @@
     let quill = new Quill('#editor', {
         modules: {
             toolbar: [[{ 'color': ['black', 'red', 'blue', 'green'] }, 'bold', 'italic', 'underline', 'strike'],
-            ['link', 'image', 'video']]
+            ['link', 'image']]
         },
         placeholder: 'Write a review here...',
         theme: 'snow',
@@ -197,10 +197,10 @@
             x[i].style.display = "none";
         }
         for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace("opacity-off", "");
+            dots[i].className = dots[i].className.replace("off", "");
         }
         x[slideIndex-1].style.display = "block";
-        dots[slideIndex-2].className += "opacity-off";
+        dots[slideIndex-2].className += "off";
     }
     //End
 </script>

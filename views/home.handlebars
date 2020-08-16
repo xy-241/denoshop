@@ -135,8 +135,8 @@
 					<div class="content-overlay"></div>
 					<img class="card-img-top content-image" src="{{imageUrl this.imageFile 0}}" alt="{{this.title}}" />
 
-					<div class="content-details fadeIn-bottom">
-						<a href="/product/{{this.id}}" class="btn btn-light content-title">View More</a>
+					<div class="content-details fadeIn-bottom" onclick="toggleLoading()">
+						<a href="/product/{{this.id}}" class="btn btn-light content-title" >View More</a>
 					</div>
 				</div>
 				<div class="card-body">
@@ -167,6 +167,7 @@
 		</div>
 	</div>
 	</div>
+	
 	<!-- End of recommended product page -->
 </section>
 <!-- Modal -->
@@ -230,7 +231,7 @@
                 
 			</p>
 			<p class="modalBodyMessage">
-				<a onclick="begone()" role='button' class="option" id="option">Disable banners</a>
+				<a onclick="begone()" href="" class="option" id="option">Disable banners</a>
 			</p>
 		</div>
 	</div>

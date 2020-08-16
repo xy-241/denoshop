@@ -1,0 +1,399 @@
+.chatbox {
+    z-index: 100;
+    position: fixed;
+    float: right;
+    bottom: 40px;
+    right: 25px;
+    width: 400px;
+    max-width: 400px;
+    height: 55vh;
+    background-color: #fff;
+    font-family: 'Lato', sans-serif;
+
+    -webkit-transition: opacity 0.5s;
+    transition: opacity 0.5s;
+
+    display: -webkit-flex;
+    display: flex;
+
+    visibility: hidden;
+    opacity: 0;
+
+    -webkit-flex-direction: column;
+    flex-direction: column;
+
+}
+
+.chatbox--tray {
+    border: none;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    box-shadow: 0 0 5px #888888;
+}
+
+.chatbox--open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.chatbox--closed {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.toggle--open {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.toggle--closed {
+    opacity: 1;
+    visibility: visible;
+}
+
+.chatbox .form-control:focus {
+    border-color: #262729;
+}
+
+.chatbox__title,
+.chatbox__body {
+    border-bottom: none;
+}
+
+.chatbox__title {
+    min-height: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #262729;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.chatbox__title h5 {
+    font-family: shopFont2;
+    font-size: 150%;
+    text-align: center;
+    color: #fff;
+    height: 50px;
+    margin: 0 0 0 20px;
+    line-height: 50px;
+    position: relative;
+
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+}
+
+
+.chatbox__title__close {
+    width: 24px;
+    height: 24px;
+    outline: 0;
+    border: none;
+    background-color: transparent;
+    opacity: 0.5;
+
+    -webkit-transition: opacity 200ms;
+    transition: opacity 200ms;
+}
+
+.chatbox__title__close:hover {
+    opacity: 1;
+}
+.chatbox__title__tray span {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    border-bottom: 2px solid #fff
+}
+
+.chatbox__title__close svg {
+    vertical-align: middle;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.2px;
+}
+
+.chatbox__body {
+    padding: 15px;
+    border-top: 0;
+    background-color: #f5f5f5;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+}
+
+
+.chatbox__body {
+    font-size: 14px;
+    overflow-y: auto;
+}
+
+#message-container {
+    display: flex;
+    flex: content;
+    flex-direction: column;
+}
+
+#chatbotToggle {
+    position: fixed;
+    z-index: 50;
+    bottom: 40px;
+    right: 25px;
+    border-radius: 50%;
+    background-color: white;
+    border: none;
+    padding: 15px;
+    box-shadow: 0 0 5px #888888;
+}
+
+.botMsg > div > p{
+    max-width: 250px;
+    word-wrap: break-word;
+}
+
+@media (max-width: 600px) {
+    .chatbox {
+        visibility: hidden;
+    }
+    #chatbotToggle {
+        visibility: hidden;
+    }
+}
+
+.workContent {
+    margin-bottom: 36px;
+  }
+  
+  .card {
+    border-radius: 15px;
+    width: 270px !important;
+    -webkit-box-shadow: 0 8px 15px -12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 15px -12px rgba(0, 0, 0, 0.2);
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .card:hover {
+    -webkit-box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.2);
+    -webkit-transform: scale(1.02);
+            transform: scale(1.02);
+  }
+  
+  .card-img-top {
+    border-radius: 50%;
+    height: 260px;
+    width: 260px;
+  }
+  
+  .card-title {
+    display: inline-block;
+  }
+  
+  .aLink {
+    color: black;
+    display: inline-block;
+    text-decoration: none;
+    /* margin-bottom: 5px; */
+  }
+  
+  .card-text {
+    color: grey;
+    font-size: 80%;
+    text-decoration: none;
+  }
+  
+  .addToCartbot {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  
+  .productPic {
+    text-align: center;
+  }
+  
+  .btn-outline-primary {
+    border: 1px solid #262729;
+    color: black;
+  }
+  
+  .btn-outline-primary:hover {
+    border: 1px solid #262729;
+    background-color: black;
+  }
+  
+  .card-title {
+    font-weight: bold;
+  }
+  
+  .productContainer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  
+  #priceTag {
+    font-weight: bold;
+    font-size: 90%;
+  }
+  
+  @media only screen and (min-width: 400px) {
+    .card {
+      width: 280 !important;
+    }
+    .card-img-top {
+      height: 270;
+      width: 270;
+    }
+    .productContainer {
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: row;
+              flex-direction: row;
+    }
+  }
+  
+  @media only screen and (min-width: 450px) {
+    .card {
+      width: 350 !important;
+    }
+    .card-img-top {
+      height: 340;
+      width: 340;
+    }
+    .productContainer {
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: row;
+              flex-direction: row;
+    }
+  }
+  
+  @media only screen and (min-width: 500px) {
+    .card {
+      width: 210 !important;
+    }
+    .card-img-top {
+      height: 200;
+      width: 200;
+    }
+    .productContainer {
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: row;
+              flex-direction: row;
+    }
+    .card {
+      border-radius: 0px;
+    }
+    .card-img-top {
+      border-radius: 0%;
+    }
+  }
+  
+  .content {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    overflow: hidden;
+  }
+  
+  .content .content-overlay {
+    background: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    height: 99%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 0;
+    -webkit-transition: all 0.4s ease-in-out 0s;
+    transition: all 0.4s ease-in-out 0s;
+  }
+  
+  .content:hover .content-overlay {
+    opacity: 1;
+  }
+  
+  .content-image {
+    width: 100%;
+  }
+  
+  .content-details {
+    position: absolute;
+    text-align: center;
+    padding-left: 1em;
+    padding-right: 1em;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+  }
+  
+  .content:hover .content-details {
+    top: 50%;
+    left: 50%;
+    opacity: 1;
+  }
+  
+  .content-details h3 {
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5em;
+    text-transform: uppercase;
+  }
+  
+  .content-details p {
+    color: #fff;
+    font-size: 0.8em;
+  }
+  
+  .fadeIn-bottom {
+    top: 80%;
+  }
+
+  .wishlist_btnx {
+	width: 60px;
+	height: 50px;
+	background: url("https://res.cloudinary.com/xenonic/image/upload/c_scale,w_1780/v1596214801/heart_muequh.png") no-repeat;
+	cursor: pointer; 
+	transform: translate(35%, -40%);
+    }
+
+    .activex {
+        background-position: -1600px 0;
+        transition: background 1s steps(26);
+        transform: translate(40%, -40%);
+    }
+  /*# sourceMappingURL=homeProduct.css.map */

@@ -82,6 +82,7 @@ app.engine(
 	"handlebars",
 	exphbs({
 		helpers: {
+			inside,
 			equal,
 			noEqual,
 			multiply,
