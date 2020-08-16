@@ -446,3 +446,49 @@ table{
 td {
   padding: 10px;
 }
+
+.verify-btn {
+  height: 40px;
+  padding: 9px 20px;
+  border: 1px solid #212529;
+  background: #212529;
+  color: #fff;
+  border-radius: 5px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.verify-btn:hover {
+  text-decoration: none;
+  background: #fff;
+  color: #212529 !important;
+  transition: all .2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+}
+
+#collapseFour21 a:not([href]):not([tabindex]) {
+  color:white;
+}
+
+.discount{
+  float:right;
+}
+
+#discounts:focus{
+  outline:none
+}
+
+#discounts{
+  border: none;
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  padding: none;
+  padding: 0;
+  margin: 0;
+  width: 0.5cm;
+}
