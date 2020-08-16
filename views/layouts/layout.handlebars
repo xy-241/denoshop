@@ -75,6 +75,7 @@
 
 <body>
 	{{> loadingScreen}}
+	<script src="/js/useInterface/loadingScreen.js"></script>
 	{{!-- Checking - omitting nav and footer--}}
 	{{#if (equal title "Register" )}}
 	{{else if (equal title "Login")}}
@@ -128,7 +129,7 @@
 	{{!-- Elasticsearch--}}
 	<script src="/js/user/elasticSearch.js"></script>
 
-	<script src="/js/useInterface/loadingScreen.js"></script>
+	
 </body>
 
 </html>
