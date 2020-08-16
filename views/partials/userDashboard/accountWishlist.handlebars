@@ -3,9 +3,9 @@
 </div>
 {{#if wishlists}}
 {{#each wishlists}}
-<div class="card m-2">
+<div class="cardo m-2">
     <div class="card-body">
-        <a href="/product/{{hackingProduct.id}}" style="display:flex"> 
+        <a href="/product/{{hackingProduct.id}}" style="display:flex">
             <img src="{{imageUrl hackingProduct.imageFile 0}}" style="width:150px;height:150px;">
             <div style="margin-left:0.5cm;font-size:1.1rem;">
                 <p class="card-title">{{hackingProduct.title}}</p>
@@ -14,8 +14,8 @@
         </a>
         <div class="addToCart" style="float:right">
             <button type="button" class="btn btn-outline-primary addToCartN">Add to Cart</button>
-            <a data-toggle="modal" href="#exampleModal{{id}}"><i class="far fa-trash-alt fa-md ml-3 mt-2" data-toggle="tooltip"
-                    title="Remove from wishlist"></i></a>
+            <a data-toggle="modal" href="#exampleModal{{id}}"><i class="far fa-trash-alt fa-md ml-3 mt-2"
+                    data-toggle="tooltip" title="Remove from wishlist"></i></a>
         </div>
     </div>
 </div>
@@ -46,4 +46,4 @@
 <p id="no_wishlist">No wishlist found</p>
 {{/if}}
 
-<script src="/js/user/addToCart.js"></script>
+<script src="/js/user/addToCartWishlist.js"></script>

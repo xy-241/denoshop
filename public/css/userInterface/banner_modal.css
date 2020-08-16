@@ -78,7 +78,8 @@
 	border-radius: 5px;
 	font-family: text;
 	font-weight: 500;
-	cursor:pointer;
+	cursor: pointer;
+	font-size: 1.1rem;
 }
 
 .option:hover {

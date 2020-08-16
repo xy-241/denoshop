@@ -15,7 +15,7 @@
                     {{!-- <span>image carousel here if any</span> --}}
                     <div class="images_container m-2">
                         {{#each images}}
-                        <img class="demo opacity hover-opacity-off" src="{{this}}"
+                        <img class="demo opacity hover-opacity-" src="{{this}}"
                         style="width:100px;height:auto;cursor:pointer;margin-right:10px" onclick="currentImg({{@index}} + 2)">
                         {{/each}}
                     </div>
@@ -197,10 +197,10 @@
             x[i].style.display = "none";
         }
         for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace("opacity-off", "");
+            dots[i].className = dots[i].className.replace("off", "");
         }
         x[slideIndex-1].style.display = "block";
-        dots[slideIndex-2].className += "opacity-off";
+        dots[slideIndex-2].className += "off";
     }
     //End
 </script>
