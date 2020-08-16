@@ -1,0 +1,111 @@
+<div class="workContent">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a class="breadcrumb-link" href="/account/#v-pills-profile">My Account</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Order Details</li>
+        </ol>
+    </nav>
+
+    <h3 class="shopFontTitle" style="text-align: center; font-size:2.5em;">Order Details</h3>
+
+    <div class="cartItems accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+        <div class="cartItem card">
+            <!-- Card header -->
+            <div class="card-header" role="tab" id="headingOne1">
+            <a class="collapsed" id="ordDropBtn" data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
+                aria-controls="collapseOne1">
+                <h5 class="mb-0">
+                Order <i class="fas fa-angle-left rotate-icon"></i><span id="deliverDate" class="deliverDate">Delivered by {{formatDate order.deliveryDate 'DD MMM'}} <span id="deliverTime">{{order.deliveryTime}}</span></span>
+                </h5>
+            </a>
+            </div>
+
+            <!-- Card body -->
+            <div id="collapseOne1" class="collapse" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordionEx">
+                <div class="card-body" style="background-color: rgba(0, 0, 0, 0.03); border-bottom: 1px solid rgba(0, 0, 0, 0.125);">
+                    <div class="row">
+						<div class="col-12">
+							<div class="track" id="track" data-orderStatus={{order.orderStatus}}>
+								<div class="step" id="orderStatus1"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
+								<div class="step" id="orderStatus2"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
+								<div class="step" id="orderStatus3"> <span class="icon"> <i class="fas fa-box"></i> </span> <span class="text">Ready for pickup</span> </div>
+                                <div class="step" id="orderStatus4"> <span class="icon"> <i class="fas fa-box-open"></i> </span> <span class="text">Delivered by <span style="display: block;">{{formatDate order.deliveryDate "DD MMM"}}</span><span style="display: block;">{{order.deliveryTime}}</span></span> </div>
+							</div>
+						</div>
+					</div>
+                </div>
+            </div>
+            <div class="collapse show" role="tabpanel">
+                <div class="card-body">
+                    <ul class="row orderContent">
+                        {{#each order.purchaseRecords}}
+                            <a class="aLink" href="/product/{{this.id}}">
+                                <figure class="itemside mb-3">
+                                    <div class="aside col-3">
+                                        <img src="{{this.imageFile}}" class="img-sm border">
+                                    </div>
+                                    <figcaption class="col-6 info align-self-center">
+                                        <p class="title">{{this.title}}
+                                    </figcaption>
+                                    <figcaption class="col-3 itemQty">
+                                        Qty: {{this.itemNum}}</p> <span class="text-muted">${{this.price}} </span>
+                                    </figcaption>
+                                </figure>
+                            </a>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+            <div class="collapse show" role="tabpanel">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <h5>Delivery Address</h5>
+                            <p id="deliveryInfoAddr">{{order.deliveryInfo.street}} Block {{order.deliveryInfo.blockNo}} {{order.deliveryInfo.unitNo}}, {{order.deliveryInfo.country}} {{order.deliveryInfo.state}}, {{order.deliveryInfo.country}} {{order.deliveryInfo.postcode}}</p>                    </div>
+                        <div class="col-6">
+                            <h5>Payment Method</h5>
+                            <p>{{#if order.chargeId}}Stripe Credit/Debit Card{{else}}Paypal{{/if}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cartItems accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+        <div class="cartItem card">
+            <!-- Card header -->
+            <div class="card-header" role="tab" id="headingOne1" style="background-color: white;">
+            <a class="collapsed">
+                <h5 class="mb-0">
+                Invoice
+                <button id="invoiceBtn" onclick="location.href='/payment/invoice/{{order.id}}'">View Full Invoice</button>
+                </h5>
+            </a>
+            </div>
+
+            <div class="collapse show" role="tabpanel">
+                <div class="card-body" style="padding-bottom:0">
+                    <h5>Order Placed:</h5>
+                    <p>{{formatDate order.orderDate "DD MMM YYYY"}}<br>Order #{{order.id}}</p>
+                </div>
+                <div class="card-body" style="padding-top:0">
+                    <h5>Subtotal: <span class="price">${{order.orderSum}}</span></h5>
+                    <h5>Discount: <span class="price">${{order.discount}}</span></h5>
+                    <h5>Total: <span class="price">${{subtract order.orderSum order.discount}}</span></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.onload = (event) => {
+		let elems = document.getElementById("track");
+        let statusId = parseInt(elems.attributes["data-orderStatus"]["value"])
+
+        for (let id = 1; id < (statusId+1); id++) {
+            document.getElementById(`orderStatus${id}`).classList.add("active");
+        }
+	}
+</script>
