@@ -115,7 +115,10 @@ router.get("/product/:id", (req, res) => {
 				let currentRating = rating.dataValues[monthNames[d.getMonth()]].toFixed(1);
 				res.render("product", {
 					title: "Product",
-					style: { text: "userInterface/home.css" },
+					style: {
+						home: "userInterface/home.css",
+						product: "userInterface/product.css"
+					},
 					hackingProduct, comments, rating: (currentRating <= 0) ? "N/A" : `${currentRating}/5`, images
 				});
 			});

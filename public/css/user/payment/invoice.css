@@ -1,11 +1,6 @@
 .workContent {
-    background-color: white;
     padding-top: 25px;
     padding-bottom: 40px;
-}
-
-.navMain {
-    z-index: 999;
 }
 
 .outer-row {
@@ -89,10 +84,6 @@
     color: grey;
     text-decoration: none;
     transition: all 0.2s ease-in-out;
-}
-
-body {
-    background-color: #000
 }
 
 .padding {
