@@ -21,7 +21,7 @@
                         {{#if cartItems}}
                             {{#each cartItems}}
                             <div class="cartItem" data-item-id="{{id}}" date-item-price="{{price}}">
-                                <p class="cartItemName"><span class="cartItem-quantity">{{itemNum}}</span> x {{title}} <span class="price" style="float:right;">S${{ multiply price itemNum }}</span></p>
+                                <p class="cartItemName"><span class="cartItem-quantity">{{itemNum}} x {{title}}</span><span class="price" style="float:right;"> S${{ multiply price itemNum }}</span></p>
                             </div>
                             {{/each}}
                         {{else}}
@@ -32,8 +32,8 @@
                     </div>
                     <hr>
                     <div class="cartTotal">
-                        <p>Discount <span class="discount" style="color: black"><b>S$</b><b id="discount" name="discount">0</b></span></p>
-                        <p>Total Amount <span class="price" style="color: black"><b id="price">S${{ sum }}</b></span></p>
+                        <p class="cartItemName"><span class="cartItem-quantity">Discount</span> <span class="discount price" style="color: black"><b>S$</b><b id="discount" name="discount">0</b></span></p>
+                        <p class="cartItemName"><span class="cartItem-quantity">Total Amount</span> <span class="price" style="color: black"><b id="price">S${{ sum }}</b></span></p>
                     </div>
                 </div>
             </div>
