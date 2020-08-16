@@ -31,6 +31,7 @@
 	{{!-- <link rel="shortcut icon" href="../../public/img/logoT.png" /> --}}
 	<link rel="stylesheet" href="/css/userInterface/init.css" />
 	<link rel="stylesheet" href="/css/userInterface/nav.css" />
+
 	<script src="/js/useInterface/nav.js"></script>
 
 	{{!--Google fonts Icon--}}
@@ -47,7 +48,6 @@
 	{{/if}}
 
 
-	{{!-- {% block cssJs %}{% endblock %} --}}
 
 	{{!-- PWA --}}
 	<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
@@ -74,6 +74,7 @@
 </head>
 
 <body>
+	{{> loadingScreen}}
 	{{!-- Checking - omitting nav and footer--}}
 	{{#if (equal title "Register" )}}
 	{{else if (equal title "Login")}}
@@ -126,6 +127,8 @@
 	<script src="/js/app.js"></script>
 	{{!-- Elasticsearch--}}
 	<script src="/js/user/elasticSearch.js"></script>
+
+	<script src="/js/useInterface/loadingScreen.js"></script>
 </body>
 
 </html>
