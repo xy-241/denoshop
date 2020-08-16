@@ -1,7 +1,8 @@
 <div class="workContent">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a class="breadcrumb-link" href="/account/">My Account</a></li>
+            <li class="breadcrumb-item"><a class="breadcrumb-link" href="/account/#v-pills-profile">My Orders</a></li>
+            <li class="breadcrumb-item"><a class="breadcrumb-link" href="/orderInfo/view/{{order.id}}">Order Details</a></li>
             <li class="breadcrumb-item active" aria-current="page">Invoice #{{order.id}}</li>
         </ol>
     </nav>
@@ -88,7 +89,7 @@
                                     <td class="left">
                                         <strong class="text-dark">Total</strong> </td>
                                     <td class="right">
-                                        <strong class="text-dark">${{order.orderSum}}</strong>
+                                        <strong class="text-dark">${{subtract order.orderSum order.discount}}</strong>
                                     </td>
                                 </tr>
                             </tbody>

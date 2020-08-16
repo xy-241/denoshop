@@ -208,7 +208,7 @@
 }
 
 .onNavPage {
-	color: grey;
+	color: grey !important;
 	pointer-events: none;
 }
 

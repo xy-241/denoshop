@@ -7,7 +7,8 @@ const ensureAuthenticated = require("../helpers/auth");
 const DeliveryInfo = require("../models/DeliveryInfo");
 const HackingProduct = require("../models/HackingProduct");
 const CartItem = require("../models/CartItem");
-const Order = require("../models/Order")
+const Order = require("../models/Order");
+const PurchaseRecord = require("../models/PurchaseRecord");
 
 const User = require("../models/User");
 const UserRating = require("../models/UserRating");
@@ -263,8 +264,29 @@ router.get("/account", ensureAuthenticated, async (req, res) => {
 		where: {
 			userId: req.user.id
 		},
-		include: [DeliveryInfo]
-	}).then((order) => {
+		include: [DeliveryInfo, PurchaseRecord]
+	}).then(async (order) => {
+		var purchaseRecordArr = order[0].purchaseRecords
+
+		var titleArr = []
+		for (let i = 0; i < purchaseRecordArr.length; i++) {
+			titleArr.push(purchaseRecordArr[i].title)
+		}
+
+		var prodDetails = await HackingProduct.findAll({
+			where: {
+				title: titleArr,
+			}
+		}).then((data) => {return data})
+
+		for (let i = 0; i < purchaseRecordArr.length; i++) {
+			var record = purchaseRecordArr[i]
+			var recordTitle = purchaseRecordArr[i].title
+			var recordFound = prodDetails.filter(function(item) { return item.title === recordTitle})
+			record["imageFile"] = recordFound[0].imageFile
+			record["price"] = recordFound[0].price
+			record["id"] = recordFound[0].id
+		}
 		return order
 	});
 

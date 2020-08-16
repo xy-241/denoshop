@@ -4,117 +4,62 @@
 
 <!-- List Orders -->
 {{#if orders}}
-	{{#each orders}}
 	<div class="cartItems">
-		<div class="cartItem container pt-3">
+	{{#each orders}}
+		<div class="cartItem container pt-3" id="cartItem">
 			<div class="row">
 				<div class="col-2 " align="center">
-
 					<i class="fas fa-box deliveryInfoLogo mt-1"></i>
 				</div>
 				<div class="col-10">
 					<div class="row">
-						<p id="deliveryInfoName">
-							{{this.orderDescription}}
-							
-							<span id="deliveryInfoCell" class="ml-3 pt-0">{{this.deliveryDate}}, {{this.deliveryTime}}</span>
-						</p>
-
-					</div>
-					<div class="row">
-						<p id="deliveryInfoAddr">{{this.deliveryInfo.street}} Block {{this.deliveryInfo.blockNo}} {{this.deliveryInfo.unitNo}}, {{this.deliveryInfo.country}}
-							{{this.deliveryInfo.state}}, {{this.deliveryInfo.country}} {{this.deliveryInfo.postcode}}</p>
+						<div class="col-6">
+							<p class="orderDetail">
+								Order Placed:
+								<span class="orderDetail" id="orderDate"> {{formatDate this.orderDate 'DD MMM YYYY'}}</span>
+							</p>
+						</div>
+						<div class="col-6">
+							<p class="orderDetail orderSum">Total: S${{this.orderSum}}</p>
+						</div>
 					</div>
 				</div>
 			</div>
-
-			<hr>
-			{{!-- Order Status --}}
-			<div class="row">								
-				<div class="col-12">
-					<p style="font-size: 1.2em;" class = "orderStatus" id = "orderStatus" data-orderStatus={{this.orderStatus}}>
-						Order Status: 
-						{{#if (equal this.orderStatus 1)}}
-							Order Placed
-						{{else if (equal this.orderStatus 2)}}
-							Order on the way
-						{{else if (equal this.orderStatus 3)}}
-							Order has arrived
-						{{else}}
-							Order completed
-						{{/if}}
-						</p>
-					<div class="row">
-						<div class="col-12">
-							<div class="track" id="track">
-								<div class="step" id="{{@index}}orderStatus1"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
-								<div class="step" id="{{@index}}orderStatus2"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
-								<div class="step" id="{{@index}}orderStatus3"> <span class="icon"> <i class="fas fa-box"></i> </span> <span class="text">Ready for pickup</span> </div>
+			<div class="row card-header" role="tab" id="headingOne{{@index}}">
+				<a class="collapsed" data-toggle="collapse" data-parent="#cartItem" href="#collapseOne{{@index}}" aria-expanded="true" aria-controls="collapseOne{{@index}}" style="width:100%">
+					<h5 class="orderDetail">
+					Ordered <i class="fas fa-angle-left"></i><span class="deliverDate">Delivered by {{formatDate this.deliveryDate 'DD MMM'}} {{this.deliveryTime}}</span>
+					</h5>
+				</a>
+			</div>
+			<div class="row collapse" id="collapseOne{{@index}}" role="tabpanel" aria-labelledby="headingOne{{@index}}" data-parent="#cartItems">
+				<ul class="row orderContent">
+					{{#each this.purchaseRecords}}
+					<a class="aLink" href="/product/{{this.id}}">
+						<figure class="itemside mb-3">
+							<div class="aside col-3">
+								<img src="{{this.imageFile}}" class="img-sm border">
 							</div>
-						</div>
-					</div>
-					<hr>
-					<div class="row">
-						<div class="col-8">
-							<p>Payment Method: {{#if this.chargeId}}Stripe Credit/Debit Card{{else}}Paypal{{/if}}</p>
-							<p style="font-size: 1.2em;">Total Sum: ${{this.orderSum}}</p>
-						</div>
-						<div class="col-4">
-							<div class="outer-row">
-								<button type="button" class="viewItems" onclick="viewOrder('{{this.id}}')"><i class="fa fa-list-alt"></i> View Items</button>
-							</div>
-							<div class="outer-row">
-								<button type="button" class="viewItems" onclick="location.href='/payment/invoice/{{this.id}}'">View Invoice</button>
-							</div>
-						</div>
-					</div>
-				</div>
+							<figcaption class="col-6 info align-self-center">
+								<p class="title">{{this.title}}
+							</figcaption>
+							<figcaption class="col-3 itemQty">
+								Qty: {{this.itemNum}}</p> <span class="text-muted">${{this.price}} </span>
+							</figcaption>
+						</figure>
+					</a>
+					{{/each}}
+				</ul>
+			</div>
+			<div class="row">
+				<a href="/orderInfo/view/{{this.id}}" class="orderDetail viewOrder">View Order</a>
 			</div>
 		</div>
-
-	</div>
 	{{/each}}
+	</div>
 {{else}}
 <p id="no-order">No Orders Placed</p>
 {{/if}}
 <!-- List Orders -->
 
-{{!-- Single Order --}}
-<div id="overlayOrder">
-	<a href="javascript:void(0)" class="closebtn" id="closeOrder">&times;</a>
-	<div id="overlay-content" class="cartItem containerOrder pt-3">
-		<div class="row">
-			<div class="col-2" align="center">
-				<i class="fas fa-box deliveryInfoLogo mt-1"></i>
-			</div>
-			<div class="col-10">
-				<p id="deliveryInfoName">
-					<span id="orderName"></span>
-					<span id="orderDateTime" class="ml-3 pt-0"></span>
-				</p>
-			</div>
-		</div>
-		<ul class="row" id="orderList">
-		</ul>
-	</div>
-</div>
-{{!-- Single Order --}}
-
 <script src="/js/user/orderInfo.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
-
-<script>
-	$("#v-pills-profile-tab").on("click", function(){
-		let elems = document.getElementsByClassName("orderStatus");
-		for (let i = 0; i < elems.length; i++) {
-			let statusId = parseInt(elems[i].attributes["data-orderStatus"]["value"])
-			if (statusId == 4) {
-				statusId = 3;
-			}
-			for (let id = 1; id < (statusId+1); id++) {
-				document.getElementById(`${i}orderStatus${id}`).classList.add("active");
-			}
-		}
-
-	})
-</script>
