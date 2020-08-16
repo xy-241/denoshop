@@ -8,10 +8,11 @@ const ensureAuthenticated = require("../../helpers/auth");
 const Order = require("../../models/Order");
 const PurchaseRecord = require("../../models/PurchaseRecord");
 const HackingProduct = require("../../models/HackingProduct");
+const DeliveryInfo = require("../../models/DeliveryInfo");
 // DB Table
 
 // Retrieve Order Items
-router.get("/retrieve/:id", ensureAuthenticated, (req, res) => {
+router.get("/view/:id", ensureAuthenticated, (req, res) => {
 	let orderId = req.params.id
 	let userId = req.user.id
 
@@ -20,7 +21,7 @@ router.get("/retrieve/:id", ensureAuthenticated, (req, res) => {
 			id: orderId,
 			userId: userId
 		},
-		include: [PurchaseRecord]
+		include: [PurchaseRecord, DeliveryInfo]
 	}).then(async (order) => {
 		var purchaseRecordArr = order.purchaseRecords
 
@@ -39,11 +40,16 @@ router.get("/retrieve/:id", ensureAuthenticated, (req, res) => {
 			var record = purchaseRecordArr[i]
 			var recordTitle = purchaseRecordArr[i].title
 			var recordFound = prodDetails.filter(function(item) { return item.title === recordTitle})
-			record["dataValues"]["imageFile"] = recordFound[0].imageFile
-			record["dataValues"]["price"] = recordFound[0].price
-			record["dataValues"]["id"] = recordFound[0].id
+			record["imageFile"] = recordFound[0].imageFile
+			record["price"] = recordFound[0].price
+			record["id"] = recordFound[0].id
 		}
-		return res.json({order: order})
+		return res.render("user/orderDetails", {
+			order: order,
+			style: {
+				text: "user/management/orderDetails.css",
+			}
+		})
 	})
 });
 

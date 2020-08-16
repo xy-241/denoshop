@@ -5,7 +5,7 @@ if (document.readyState == 'loading') {
 }
 
 function ready() {
-    document.getElementById('closeOrder').addEventListener('click', offOrder);
+    // document.getElementById('closeOrder').addEventListener('click', offOrder);
 }
 
 function viewOrder(addrId){
@@ -15,13 +15,16 @@ function viewOrder(addrId){
     ).then(data => {
         return data.json()
     }).then(data => {
-        const orderName = document.getElementById("orderName");
-        const orderDateTime = document.getElementById("orderDateTime");
-        const orderList = document.getElementById("orderList");
+        // const orderName = document.getElementById("orderName");
+        // const orderDateTime = document.getElementById("orderDateTime");
+        var elem = "orderList"
+        const orderList = document.getElementById(elem);
 
-        orderName.innerText = data.order.orderDescription
-        orderDateTime.innerText = data.order.deliveryDate + ", " + data.order.deliveryTime
+        // orderName.innerText = data.order.orderDescription
+        // orderDateTime.innerText = data.order.deliveryDate + ", " + data.order.deliveryTime
 
+        console.log(orderList)
+        console.log(elem)
         var purchaseRecords = data.order.purchaseRecords
         Array.prototype.forEach.call(purchaseRecords, record => {
             var li = document.createElement("li");
@@ -40,10 +43,4 @@ function viewOrder(addrId){
 
         document.getElementById("overlayOrder").style.display = "block";
     })
-}
-
-function offOrder(){
-    document.getElementById("overlayOrder").style.display = "none";
-    var orderList = document.getElementById("orderList");
-    orderList.innerHTML = "";
 }
