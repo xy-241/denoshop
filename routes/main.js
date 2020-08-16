@@ -124,7 +124,6 @@ router.get("/product/:id", (req, res) => {
 });
 
 router.post('/submit_review/:id', (req, res) => {
-	// todo: with each review submission recalulate average rating in product rating table
 	try {
 		// console.log("User ID: ", req.user.id);
 		// console.log("type: ", typeof req.body.star);
@@ -153,10 +152,10 @@ router.post('/submit_review/:id', (req, res) => {
 						hackingProductId: req.params.id,
 					}
 				}).then(ratings => {
+
 					let monthlyRatings = [ratings.jan, ratings.feb, ratings.mar, ratings.apr, ratings.may, ratings.jun,
 					ratings.jul, ratings.aug, ratings.sep, ratings.oct, ratings.nov, ratings.dec];
-					console.log("Query Found = ", ratings.id, ratings);
-					console.log("Monthly ratings = ", monthlyRatings);
+					console.log(monthlyRatings);
 
 					UserRating.findAll({
 						where: {
@@ -184,7 +183,7 @@ router.post('/submit_review/:id', (req, res) => {
 							}
 						});
 						monthlyRatings[currentDate.getMonth()] = (5 * starCount[4] + 4 * starCount[3] + 3 * starCount[2] + 2 * starCount[1] + 1 * starCount[0])
-							/ (starCount[4] + starCount[4] + starCount[3] + starCount[2] + starCount[1] + starCount[0]);
+							/ (starCount[4] + starCount[3] + starCount[2] + starCount[1] + starCount[0]);
 
 						console.log("-------------> Star Count = ", starCount);
 						console.log("-------------> Rating = ", monthlyRatings[currentDate.getMonth()]);
