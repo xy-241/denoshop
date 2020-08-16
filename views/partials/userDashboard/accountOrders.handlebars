@@ -23,6 +23,18 @@
 							<p class="orderDetail orderSum">Total: S${{this.orderSum}}</p>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-12">
+							<p class="orderDetail">
+								Order Description:
+								{{#if this.orderDescription}}
+									<span class="orderDetail" id="orderDate"> {{this.orderDescription}}</span>
+								{{else}}
+									<span class="orderDetail" id="orderDate"> No Description</span>
+								{{/if}}
+							</p>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="row card-header" role="tab" id="headingOne{{@index}}">
@@ -38,7 +50,7 @@
 					<a class="aLink" href="/product/{{this.id}}">
 						<figure class="itemside mb-3">
 							<div class="aside col-3">
-								<img src="{{this.imageFile}}" class="img-sm border">
+								<img src="{{imageUrl this.imageFile}}" class="img-sm border">
 							</div>
 							<figcaption class="col-6 info align-self-center">
 								<p class="title">{{this.title}}
