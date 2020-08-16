@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 const logicalOperation = {
 	equal: (arg1, arg2) => {
 		return arg1 === arg2;
@@ -13,6 +15,9 @@ const logicalOperation = {
 	imageUrl: function (string, ind) {
         return JSON.parse(string)[ind];
 	},
+	formatDate: function(date, targetFormat){
+        return moment(date).format(targetFormat);
+    },
 };
 
 module.exports = logicalOperation;
