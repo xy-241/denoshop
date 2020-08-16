@@ -266,27 +266,30 @@ router.get("/account", ensureAuthenticated, async (req, res) => {
 		},
 		include: [DeliveryInfo, PurchaseRecord]
 	}).then(async (order) => {
-		var purchaseRecordArr = order[0].purchaseRecords
+		for (let i = 0; i < order.length; i++) {
+			var purchaseRecordArr = order[i].purchaseRecords
 
-		var titleArr = []
-		for (let i = 0; i < purchaseRecordArr.length; i++) {
-			titleArr.push(purchaseRecordArr[i].title)
-		}
-
-		var prodDetails = await HackingProduct.findAll({
-			where: {
-				title: titleArr,
+			var titleArr = []
+			for (let i = 0; i < purchaseRecordArr.length; i++) {
+				titleArr.push(purchaseRecordArr[i].title)
 			}
-		}).then((data) => {return data})
-
-		for (let i = 0; i < purchaseRecordArr.length; i++) {
-			var record = purchaseRecordArr[i]
-			var recordTitle = purchaseRecordArr[i].title
-			var recordFound = prodDetails.filter(function(item) { return item.title === recordTitle})
-			record["imageFile"] = recordFound[0].imageFile
-			record["price"] = recordFound[0].price
-			record["id"] = recordFound[0].id
+	
+			var prodDetails = await HackingProduct.findAll({
+				where: {
+					title: titleArr,
+				}
+			}).then((data) => {return data})
+	
+			for (let i = 0; i < purchaseRecordArr.length; i++) {
+				var record = purchaseRecordArr[i]
+				var recordTitle = purchaseRecordArr[i].title
+				var recordFound = prodDetails.filter(function(item) { return item.title === recordTitle})
+				record["imageFile"] = recordFound[0].imageFile
+				record["price"] = recordFound[0].price
+				record["id"] = recordFound[0].id
+			}
 		}
+		
 		return order
 	});
 
