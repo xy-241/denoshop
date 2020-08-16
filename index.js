@@ -3,7 +3,7 @@
 // analytics: true,
 // profiling: true
 // })
-require('newrelic');
+require("newrelic");
 /*
  * 'require' is similar to import used in Java and Python. It brings in the libraries required to be used
  * in this JS file.
@@ -46,12 +46,12 @@ const mainRoute = require("./routes/main");
 const userRoute = require("./routes/user");
 const paymentRoute = require("./routes/payment");
 const deliveryRoute = require("./routes/delivery");
-const authRoute = require("./routes/auth")
-const deliveryInfoRoute = require('./routes/userAccount/deliveryInfo');
-const orderInfoRoute = require('./routes/userAccount/orderInfo');
-const cartRoute = require('./routes/cart/cartItem');
+const authRoute = require("./routes/auth");
+const deliveryInfoRoute = require("./routes/userAccount/deliveryInfo");
+const orderInfoRoute = require("./routes/userAccount/orderInfo");
+const cartRoute = require("./routes/cart/cartItem");
 const chatRoute = require("./routes/chat");
-const wishlistRoute = require('./routes/wishlist/wishlist');
+const wishlistRoute = require("./routes/wishlist/wishlist");
 // const videoRoute = require("./routes/video");
 
 // const { formatDate, radioCheck, checkboxFormatter } = require("./helpers/hbs");
@@ -145,7 +145,6 @@ app.use(sessionIns);
 app.use(passport.initialize());
 app.use(passport.session()); // Express session is needed
 
-
 // // Flash Messages
 app.use(flash());
 app.use(FlashMessenger.middleware); // Initialize flash-messenger
@@ -156,7 +155,7 @@ app.use((req, res, next) => {
 	res.locals.error_msg = req.flash("error_msg");
 	res.locals.error = req.flash("error");
 	res.locals.user = req.user || null; // After authenticated, the user object is set into req.user, referring to /config/passport.js
-	if(res.locals.user != null) {
+	if (res.locals.user != null) {
 		res.locals.userid = req.user.id || null; // After authenticated, the user object is set into req.user, referring to /config/passport.js
 	} else {
 		res.locals.userid = null;
@@ -179,11 +178,29 @@ app.use("/user", userRoute);
 app.use("/payment", paymentRoute);
 app.use("/delivery", deliveryRoute);
 app.use("/auth", authRoute);
-app.use('/deliveryInfo', deliveryInfoRoute);
+app.use("/deliveryInfo", deliveryInfoRoute);
 app.use("/orderInfo", orderInfoRoute);
-app.use('/cart', cartRoute);
-app.use("/chat",chatRoute);
+app.use("/cart", cartRoute);
+app.use("/chat", chatRoute);
 app.use("/wishlist", wishlistRoute);
+app.use(function (req, res, next) {
+	res.status(404);
+
+	// respond with html page
+	if (req.accepts("html")) {
+		res.render("404", { url: req.url,layout: false });
+		return;
+	}
+
+	// respond with json
+	if (req.accepts("json")) {
+		res.send({ error: "Not found" });
+		return;
+	}
+
+	// default to plain-text. send()
+	res.type("txt").send("Not found");
+});
 // app.use("/video", videoRoute);
 // This route maps the root URL to any path defined in main.js
 
@@ -196,7 +213,6 @@ const port = process.env.PORT || 5000;
 // Starts the server and listen to port 5000
 
 app.listen(port, () => {
-	
 	console.log(`Server running in ${process.env.NODE_ENV} on port ${port}`);
 });
 
