@@ -77,7 +77,7 @@ const app = express();
  *
  * */
 
-const { multiply, equal, noEqual, imageUrl, formatDate, subtract } = require("./helpers/hbs");
+const { inside, multiply, equal, noEqual, imageUrl, formatDate, subtract } = require("./helpers/hbs");
 app.engine(
 	"handlebars",
 	exphbs({

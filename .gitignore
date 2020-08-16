@@ -118,3 +118,7 @@ DBInfo.txt
 public/css/userInterface/oldCart.css
 
 public/css/userInterface/oldHome.css
+
+public/css/user/management/oldAccountOrders.css
+
+views/partials/userDashboard/oldAccountOrders.handlebars
