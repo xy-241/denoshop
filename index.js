@@ -78,11 +78,12 @@ const app = express();
  * */
 
 const { multiply } = require("./helpers/hbs");
-const { equal, noEqual, imageUrl } = require("./helpers/hbs");
+const { inside, equal, noEqual, imageUrl } = require("./helpers/hbs");
 app.engine(
 	"handlebars",
 	exphbs({
 		helpers: {
+			inside,
 			equal,
 			noEqual,
 			multiply,

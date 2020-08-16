@@ -45,7 +45,7 @@
 
 	height: 50px;
 	width: 100px;
-	z-index: 102;
+	z-index: 1000;
 	filter: invert(1);
 }
 

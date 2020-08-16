@@ -10,7 +10,7 @@ function ready() {
 			return res.json();
 		})
 		.then((data) => {
-			if( parseInt(data) > 100){
+			if( parseInt(data) >= 100){
         $(".cartNumCount").text("99+");
       } else {
         $(".cartNumCount").text(data);
