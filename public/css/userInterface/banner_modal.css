@@ -1,3 +1,15 @@
+.closeBtn {
+	cursor: pointer;
+	margin-right: 10px;
+	font-size: 2em;
+	transition: all 0.4s ease-in-out;
+	margin: 0;
+}
+
+.closeBtn:hover {
+	color: grey;
+}
+
 .carousel-control-prev-icon {
 	background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
 	height: 30px !important;
@@ -33,19 +45,15 @@
     background-color:transparent
 }
 
-@media only screen and (max-width: 600px) {
-    /* .banner_modalContent{
-        margin:50% auto;
-    } */
+@media only screen and (mix-width: 600px) {
+	.closeBtn {
+		font-size: 3em;
+	}
 }
 
 .banner_img {
 	width: 100%;
 	height: auto;
-}
-
-.closeBtn {
-	margin: 0;
 }
 
 .banner_modal .modalBody {
