@@ -83,7 +83,7 @@ a {
 .banner {
 	position: relative;
 	overflow: hidden;
-	z-index: -1000;
+	z-index: 101;
 }
 
 .banner img {

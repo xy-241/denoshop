@@ -162,9 +162,6 @@
 		display: block !important;
 		padding-top: 0px;
 	}
-	.banner {
-		z-index: 0;
-	}
 
 	.banner h2 {
 		font-size: 6em;

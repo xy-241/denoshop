@@ -49,10 +49,6 @@
    float: right;
 }
 
-.navMain {
-   z-index: 999;
-}
-
 .track {
    position: relative;
    background-color: #ddd;
