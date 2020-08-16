@@ -4,81 +4,81 @@ if (document.readyState == "loading") {
 	ready();
 }
 
-// function ready() {
-// 	fetch(`${window.origin}/cart/cartNum`)
-// 		.then((res) => {
-// 			return res.json();
-// 		})
-// 		.then((data) => {
-// 			if( parseInt(data) >= 100){
-//         $(".cartNumCount").text("99+");
-//       } else {
-//         $(".cartNumCount").text(data);
-//       }
+function ready() {
+	fetch(`${window.origin}/cart/cartNum`)
+		.then((res) => {
+			return res.json();
+		})
+		.then((data) => {
+			if( parseInt(data) >= 100){
+        $(".cartNumCount").text("99+");
+      } else {
+        $(".cartNumCount").text(data);
+      }
 			
-// 		})
-// 		.catch((err) => {
-// 			console.log(err);
-// 		});
-// }
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+}
 
-// //menu
-// function menuFunction(x){
-//   x.classList.toggle("change");
-// }
-
-
-// var toggleNavStatus = false;
-
-// var toggleNav = function(){
-//   var getSideNav = document.querySelector(".sideNav");
-//   var getSideNavUl = document.querySelector(".sideNav ul");
-//   var getSideNavA = document.querySelectorAll(".sideNav a");
-
-//   var getSection = document.querySelector("article");
-//   var getFooter = document.querySelector('footer');
-//   var getMainNav = document.querySelector(".navMain"); //navMain
-
-//   var getBody = document.querySelector("body"); //body
-
-//   let getSearchBtn = document.querySelector(".searchButtonTGT")
-
-//   if(toggleNavStatus == false){
-//     getSideNavUl.style.visibility = "visible";
-
-//     getSideNav.style.display ="block"; //Nav
+//menu
+function menuFunction(x){
+  x.classList.toggle("change");
+}
 
 
-//     getMainNav.style.backgroundColor = "black";
-//     getMainNav.style.borderBottom = "1.49px grey solid";
+var toggleNavStatus = false;
 
-//     //getMainNav.style.height = "calc(100vh)"; //Testing
-//     getMainNav.style.backgroundColor = "black";
-//     getBody.style.backgroundColor ="black"; //Testing
+var toggleNav = function(){
+  var getSideNav = document.querySelector(".sideNav");
+  var getSideNavUl = document.querySelector(".sideNav ul");
+  var getSideNavA = document.querySelectorAll(".sideNav a");
 
-//     getSection.style.display ="none"; //Content
-//     getFooter.style.display = "none";
-//     getSearchBtn.style.display = "none";
+  var getSection = document.querySelector("article");
+  var getFooter = document.querySelector('footer');
+  var getMainNav = document.querySelector(".navMain"); //navMain
 
-//     toggleNavStatus = true;
-//   }
-//   else if (toggleNavStatus == true){
-//     getSideNavUl.style.visibility = "hidden";
+  var getBody = document.querySelector("body"); //body
 
-//     getSideNav.style.display ="none"; //Nav
+  let getSearchBtn = document.querySelector(".searchButtonTGT")
 
+  if(toggleNavStatus == false){
+    getSideNavUl.style.visibility = "visible";
 
-//     getMainNav.style.backgroundColor = "#262729";
-//     //getMainNav.style.height = "50px"; //testing
-
-//     getMainNav.style.borderBottom = "1px black solid";
+    getSideNav.style.display ="block"; //Nav
 
 
-//     getSection.style.display ="block"; //Content
-//     getFooter.style.display = "block";
-//     getBody.style.backgroundColor = "white"; //testing
+    getMainNav.style.backgroundColor = "black";
+    getMainNav.style.borderBottom = "1.49px grey solid";
 
-//     getSearchBtn.style.display = "block";
-//     toggleNavStatus = false;
-//   }
-// }
+    //getMainNav.style.height = "calc(100vh)"; //Testing
+    getMainNav.style.backgroundColor = "black";
+    getBody.style.backgroundColor ="black"; //Testing
+
+    getSection.style.display ="none"; //Content
+    getFooter.style.display = "none";
+    getSearchBtn.style.display = "none";
+
+    toggleNavStatus = true;
+  }
+  else if (toggleNavStatus == true){
+    getSideNavUl.style.visibility = "hidden";
+
+    getSideNav.style.display ="none"; //Nav
+
+
+    getMainNav.style.backgroundColor = "#262729";
+    //getMainNav.style.height = "50px"; //testing
+
+    getMainNav.style.borderBottom = "1px black solid";
+
+
+    getSection.style.display ="block"; //Content
+    getFooter.style.display = "block";
+    getBody.style.backgroundColor = "white"; //testing
+
+    getSearchBtn.style.display = "block";
+    toggleNavStatus = false;
+  }
+}
