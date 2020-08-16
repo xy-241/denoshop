@@ -1,4 +1,4 @@
-const socket = io.connect("http://localhost:8000",
+const socket = io.connect("https://denoshopchatserver.herokuapp.com/",
 	{reconnect: true}
 );
 
@@ -79,18 +79,18 @@ socket.on('user-disconnected', data=> {
 })
 
 socket.on('redirectRoom', roomID=> {
-    window.location.href = `http://www.localhost:3000/chat/room/${roomID}`;
+    window.location.href = `${window.origin}/chat/room/${roomID}`;
 })
 
 socket.on('oneroom' , roomid => {
-    window.location.href = `http://www.localhost:3000/chat/oneroom/${roomid}`;
+    window.location.href = `${window.origin}/chat/oneroom/${roomid}`;
 })
 
 socket.on('redirect', message => {
     if (message == 'roomend'){
-        window.location.href = "http://www.localhost:3000/chat/redirect/roomend";
+        window.location.href = `${window.origin}/chat/redirect/roomend`;
     } else if (message == 'error'){
-        window.location.href = "http://www.localhost:3000/chat/redirect/error";
+        window.location.href = `${window.origin}/chat/redirect/error`;
     }
 })
 

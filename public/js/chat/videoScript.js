@@ -1,4 +1,4 @@
-const socket = io.connect("http://localhost:5500",
+const socket = io.connect("https://denoshopvideoserver.herokuapp.com/",
 	{reconnect: true}
 );
 
