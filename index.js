@@ -77,7 +77,7 @@ const app = express();
  *
  * */
 
-const { multiply, equal, noEqual, imageUrl, formatDate } = require("./helpers/hbs");
+const { multiply, equal, noEqual, imageUrl, formatDate, subtract } = require("./helpers/hbs");
 app.engine(
 	"handlebars",
 	exphbs({
@@ -87,6 +87,7 @@ app.engine(
 			multiply,
 			imageUrl,
 			formatDate,
+			subtract,
 			// radioCheck,
 			// checkboxFormatter,
 		},

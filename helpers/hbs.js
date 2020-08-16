@@ -17,7 +17,10 @@ const logicalOperation = {
 	},
 	formatDate: function(date, targetFormat){
         return moment(date).format(targetFormat);
-    },
+	},
+	subtract: (arg1, arg2) => {
+		return arg1 - arg2;
+	},
 };
 
 module.exports = logicalOperation;
