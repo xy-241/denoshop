@@ -1,0 +1,27 @@
+.loader {
+    
+  background-color: black;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  display: flex;
+  /* display:none; */
+  
+  align-items: center;
+  z-index: 2000;
+}
+.svgWrapper{
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+/*
+  Set the color of the icon
+*/
+svg path,
+svg rect {
+  fill: white;
+}
