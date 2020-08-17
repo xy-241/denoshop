@@ -5,7 +5,6 @@
     bottom: 40px;
     right: 25px;
     width: 400px;
-    max-width: 400px;
     height: 55vh;
     background-color: #fff;
     font-family: 'Lato', sans-serif;
@@ -81,7 +80,7 @@
     text-align: center;
     color: #fff;
     height: 50px;
-    margin: 0 0 0 20px;
+    margin: 0 0 0 10px;
     line-height: 50px;
     position: relative;
 
@@ -119,6 +118,30 @@
     stroke-width: 1.2px;
 }
 
+.chatbox__title__closex {
+  visibility: hidden;
+  width: 24px;
+  height: 24px;
+  outline: 0;
+  border: none;
+  background-color: transparent;
+  opacity: 0.5;
+
+  -webkit-transition: opacity 200ms;
+  transition: opacity 200ms;
+}
+
+.chatbox__title__closex:hover {
+  opacity: 1;
+}
+
+.chatbox__title__closex svg {
+  vertical-align: middle;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.2px;
+}
+
 .chatbox__body {
     padding: 15px;
     border-top: 0;
@@ -144,7 +167,7 @@
 
 #chatbotToggle {
     position: fixed;
-    z-index: 50;
+    z-index: 100;
     bottom: 40px;
     right: 25px;
     border-radius: 50%;
@@ -154,17 +177,59 @@
     box-shadow: 0 0 5px #888888;
 }
 
+#chatbotTogglex {
+  visibility: hidden;
+  position: fixed;
+  z-index: 100;
+  bottom: 40px;
+  right: 25px;
+  border-radius: 50%;
+  background-color: white;
+  border: none;
+  padding: 15px;
+  box-shadow: 0 0 5px #888888;
+}
+
 .botMsg > div > p{
     max-width: 250px;
     word-wrap: break-word;
 }
 
-@media (max-width: 600px) {
+/* @media (max-width: 1000px) {
+  #chatbotToggle {
+    visibility: hidden;
+  }
+  #chatbotTogglex {
+    visibility: visible;
+  }
+  .chatbox__title__close {
+    visibility: hidden;
+  }
+  #chatbox__title__closex {
+    visibility: visible;
+  }
+} */
+@media (max-width: 1000px) {
     .chatbox {
-        visibility: hidden;
+        z-index: 1000;
+        min-height: 100vh;
+        box-sizing: border-box;
+        width: 100vw;
+        bottom: 0;
+        right: 0;
+        left: 0;
     }
     #chatbotToggle {
-        visibility: hidden;
+      visibility: hidden;
+    }
+    #chatbotTogglex {
+      visibility: visible;
+    }
+    .chatbox__title__close {
+      visibility: hidden;
+    }
+    .chatbox__title__closex {
+      visibility: visible;
     }
 }
 

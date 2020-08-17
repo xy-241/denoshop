@@ -42,6 +42,8 @@ var toggleNav = function(){
   var getBody = document.querySelector("body"); //body
 
   let getSearchBtn = document.querySelector(".searchButtonTGT")
+  let getChatbotBtn = document.querySelector('#chatbotTogglex')
+
 
   if(toggleNavStatus == false){
     getSideNavUl.style.visibility = "visible";
@@ -59,6 +61,7 @@ var toggleNav = function(){
     getSection.style.display ="none"; //Content
     getFooter.style.display = "none";
     getSearchBtn.style.display = "none";
+    getChatbotBtn.style.display = "none";
 
     toggleNavStatus = true;
   }
@@ -79,6 +82,33 @@ var toggleNav = function(){
     getBody.style.backgroundColor = "white"; //testing
 
     getSearchBtn.style.display = "block";
+    getChatbotBtn.style.display = "block";
     toggleNavStatus = false;
+  }
+}
+
+var toggleNavStatusx = false;
+
+var toggleNavScuffed = function(){
+
+  var getSection = document.querySelector("article");
+  var getFooter = document.querySelector('footer');
+
+  let getSearchBtn = document.querySelector(".searchButtonTGT")
+
+  if(toggleNavStatusx == false){
+    getSection.style.display ="none"; //Content
+    getFooter.style.display = "none";
+    getSearchBtn.style.display = "none";
+
+    toggleNavStatusx = true;
+  }
+  else if (toggleNavStatusx == true){
+
+    getSection.style.display ="block"; //Content
+    getFooter.style.display = "block";
+
+    getSearchBtn.style.display = "block";
+    toggleNavStatusx = false;
   }
 }
