@@ -37,7 +37,7 @@ if (chatForm) {
     
     // socket.emit('send-chat-message', roomName ,message)
     socket.on('redirectRoom', roomID=> {
-      window.location.href = `http://www.localhost:3000/chat/videoRoom/${roomID}`;
+      window.location.href = `${window.origin}/chat/videoRoom/${roomID}`;
     })
   })
 } else {
@@ -210,12 +210,12 @@ if (chatForm) {
   );
 
   socket.on('Error', function() {
-    window.location.href = `http://www.localhost:3000/chat/error`;
+    window.location.href = `${window.origin}/chat/error`;
   });
 
   socket.on('ended' , function(){
-    window.location.href = 'http://www.localhost:3000/chat/ended'
-  })
+    window.location.href = `${window.origin}/chat/ended`;
+  });
 
   socket.on('staffName', name => {
     const message = document.getElementById('messageo')
