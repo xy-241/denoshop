@@ -20,6 +20,7 @@ span.price {
   text-align: right;
   float: right;
   color: grey;
+  width: 50%;
 }
 
 .font {
@@ -389,6 +390,18 @@ label {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
 }
 
+.cartItem {
+  width: 100%;
+}
+
+.cartItemName {
+  display: flex;
+}
+
+.cartItem-quantity {
+  width: 50%;
+}
+
 /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
 @media (max-width: 800px) {
   .row {
@@ -398,9 +411,10 @@ label {
     margin-bottom: 20px;
   }
   .outer-row{
-    flex-wrap: wrap;
+    flex-wrap: wrap !important;
     margin: auto;
     margin-bottom: 10%;
+    display: flow-root;
   }
   #openStripe{
     height: 35px;
