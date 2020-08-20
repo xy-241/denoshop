@@ -12,13 +12,27 @@ const assets = [
 	// CSS
 	"/css/userInterface/init.css",
 	"/css/userInterface/nav.css",
+	"/css/userInterface/home.css",
+	"/css/userInterface/banner_modal.css",
+	"/css/userInterface/homeProduct.css",
 	"/css/user/shopping/elasticSearch.css",
 	"/css/bootstrap.css",
+	"/css/loadingScreen.css",
 	// JS
 	"/js/useInterface/nav.js",
 	"/js/useInterface/loadingScreen.js",
+	"/js/useInterface/home.js",
 	"/js/user/elasticSearch.js",
+	"/js/user/addToCart.js",
+	"/js/user/wishlist.js",
 	"/js/app.js",
+	// Image & logo & font
+	"/img/hacking2.jpg",
+	"/img/logo.svg",
+	"/img/shop/elasticSearch.svg",
+	"/fonts/CooperHewitt-Light.otf",
+	"/fonts/CRACKWALL-Regular.ttf",
+	
 
 	// CDN
 	"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css",
