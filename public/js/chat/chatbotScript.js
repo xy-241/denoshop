@@ -10,6 +10,7 @@ var pw = false
 var message = ''
 
 if (botmessageForm != null) {
+    appendBotMessage("You could ask me ... <br><br>To recommend some products <br>Recommend you specific products ( eg. recommend some hats )<br>Add all recommendations to cart<br>Add products to wishlist <br>Add products to cart <br>Change your password <br>Change your username<br>Check a promo code<br>Create a request for live chat support")
     
     botmessageForm.addEventListener('submit',e => {
         e.preventDefault()
