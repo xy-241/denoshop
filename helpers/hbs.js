@@ -16,7 +16,9 @@ const logicalOperation = {
 		}
 	},
 	imageUrl: function (string, ind) {
-        return JSON.parse(string)[ind];
+		if(string){
+			return JSON.parse(string)[ind];
+		}
 	},
 	currency: (arg1) => {
 		return arg1.toFixed(2)
