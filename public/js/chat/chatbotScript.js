@@ -68,8 +68,40 @@ botsocket.on('addCart', item => {
             console.log(data);
         });
     });
-
 })
+
+botsocket.on('alltocart', itemlist => {
+    console.log(itemlist)
+    const list = itemlist.split(',');
+    var i;
+    for (i = 0; i < list.length; i++) {
+        console.log(list[i])
+        let entry = {
+            id: list[i],
+        };
+        fetch(`${window.origin}/cart/addid`, {
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify(entry),
+            cache: "no-cache",
+            headers: new Headers({
+                "content-type": "application/json",
+                Accept: "application/json",
+            }),
+        }).then(function (response) {
+            if (response.status !== 200) {
+                console.log(`Response status was not 200: ${response.status}`);
+                appendBotMessage('ERROR')
+                return;
+            }
+            response.json().then(function (data) {
+                console.log(data);
+            });
+        });
+    }
+    appendBotMessage('Items have been successfully added !')
+})
+
 
 botsocket.on('failCart', function(){
     appendBotMessage('Item does not exist')

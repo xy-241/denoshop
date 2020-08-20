@@ -71,6 +71,52 @@ router.post("/add", ensureAuthenticated, (req, res) => {
 		.catch((err) => console.log(err));
 });
 
+// Add product to cart
+router.post("/addid", ensureAuthenticated, (req, res) => {
+	let { id } = req.body;
+
+	HackingProduct.findOne({ where: { id } })
+		.then((hackingProduct) => {
+			// Find if the product is in the db
+			CartItem.findOne({ where: { id, userId: req.user.id } })
+				.then((cartItem) => {
+					let rawDate = new Date();
+					let dateAdded = moment(rawDate, "DD/MM/YYYY");
+
+					// If item already added before, then add 1 to the item number
+					if (cartItem) {
+						updateCartEntry = {
+							dateAdded,
+							itemNum: cartItem.itemNum + 1,
+						};
+						CartItem.update(updateCartEntry, {
+							where: { id: cartItem.id },
+						}).then((result) => {
+							res.json("Updated!");
+						});
+					} else {
+						// If never added before, then add new entry in the CartItem table
+						let cartEntry = {
+							price: hackingProduct.price,
+							imageFile: hackingProduct.imageFile,
+							dateAdded,
+							title: hackingProduct.title,
+							itemNum: 1,
+							userId: req.user.id,
+						};
+						CartItem.create(cartEntry)
+							.then((result) => {
+								console.log("Item Added!");
+							})
+							.catch((err) => console.log(err));
+					}
+				})
+				.catch((err) => console.log(err));
+		})
+		.catch((err) => console.log(err));
+});
+
+
 // Delete product from cart
 router.post("/removeItem", ensureAuthenticated, (req, res) => {
 	let { title } = req.body;
