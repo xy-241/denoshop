@@ -45,7 +45,7 @@ function getResult() {
 			let resultArray = data.hits.hits;
 			//console.table(resultArray.length);
 			if (resultArray.length != 0) {
-				for (let i = 0; i < resultArray.length; i++) {
+				for (let i = 0; i < 5; i++) {
 					//console.log(resultArray[i]._source.title);
 
 					let itemId = resultArray[i]._id;
