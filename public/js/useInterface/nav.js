@@ -61,7 +61,12 @@ var toggleNav = function(){
     getSection.style.display ="none"; //Content
     getFooter.style.display = "none";
     getSearchBtn.style.display = "none";
-    getChatbotBtn.style.display = "none";
+    if(getChatbotBtn == null){
+
+    } else {
+      getChatbotBtn.style.display = "none";
+    }
+    
 
     toggleNavStatus = true;
   }
@@ -82,7 +87,12 @@ var toggleNav = function(){
     getBody.style.backgroundColor = "white"; //testing
 
     getSearchBtn.style.display = "block";
-    getChatbotBtn.style.display = "block";
+    if(getChatbotBtn === null){
+
+    } else {
+      getChatbotBtn.style.display = "block";
+    }
+    
     toggleNavStatus = false;
   }
 }
