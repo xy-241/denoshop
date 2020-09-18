@@ -1,6 +1,6 @@
 # Work done by [XinYang](https://www.linkedin.com/in/xinyang-yu/)
 
-## [Live site](denoshop.azurewebsites.net)
+## [Live site](https://denoshop.azurewebsites.net)
 
 ## The Architecture
 ![Architecture Design](https://res.cloudinary.com/dchpyunul/image/upload/v1600430588/portfolioImage/denoshopDesign_zs7atn.png)
