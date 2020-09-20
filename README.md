@@ -1,4 +1,4 @@
-# Work done by [XinYang](https://www.linkedin.com/in/xinyang-yu/)
+# Part done by [XinYang](https://www.linkedin.com/in/xinyang-yu/)
 
 ## [Live site](https://denoshop.azurewebsites.net)
 
