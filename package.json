@@ -38,7 +38,7 @@
 		"flash-messenger": "^1.1.1",
 		"jsonwebtoken": "^8.5.1",
 		"method-override": "^3.0.0",
-		"moment": "^2.24.0",
+		"moment": "^2.29.4",
 		"multer": "^1.4.2",
 		"multer-s3": "^2.9.0",
 		"mysql2": "^2.1.0",
